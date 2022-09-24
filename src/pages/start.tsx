@@ -2,19 +2,10 @@ import React from "react";
 import Button from "@/components/button";
 import logo from "@/assets/logo.svg";
 import styles from "@/styles/pages/Start.module.scss";
-import { useNavigate } from "react-router-dom";
+import { usePage } from "@/hooks/usePage";
 
 const Start = () => {
-  const navigate = useNavigate();
-
-  const toLogin = () => {
-    navigate("/login");
-  };
-
-  const toRegist = () => {
-    navigate("/regist");
-  };
-
+  const { toLogin, toRegist } = usePage();
   return (
     <div className={styles.container}>
       <img src={logo} alt="logo" width="600px" />
@@ -23,7 +14,7 @@ const Start = () => {
         color="primary"
         variant="contained"
         rounded
-        onClick={toLogin}
+        onClick={toRegist}
       >
         Get Started
       </Button>
@@ -31,7 +22,7 @@ const Start = () => {
         type="button"
         color="transparent"
         variant="filled"
-        onClick={toRegist}
+        onClick={toLogin}
       >
         Sign In &gt;
       </Button>

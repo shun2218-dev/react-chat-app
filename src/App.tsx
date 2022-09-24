@@ -4,16 +4,19 @@ import "./App.scss";
 import { BrowserRouter } from "react-router-dom";
 import Router from "@/routes/router";
 import ThemeContext from "./themes/ThemeContext";
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (
-    <Suspense fallback={<div>...loading</div>}>
-      <ThemeContext>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </ThemeContext>
-    </Suspense>
+    <RecoilRoot>
+      <Suspense fallback={<div>...loading</div>}>
+        <ThemeContext>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </ThemeContext>
+      </Suspense>
+    </RecoilRoot>
   );
 }
 
