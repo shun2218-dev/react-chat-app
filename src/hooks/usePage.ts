@@ -19,10 +19,15 @@ export const usePage = () => {
     navigate("/reset");
   };
 
+  const toHome = (uid: String) => {
+    navigate(`/${uid}/home`);
+  };
+
   return {
     toStart,
     toLogin,
     toRegist,
     toReset,
+    toHome,
   };
 };
