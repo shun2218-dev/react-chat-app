@@ -7,4 +7,5 @@
 - Database: firestore
 - Storage: firebase storage
 - Form Validation: react-hook-form
-- Icon: material Icon
+- Icon: Material UI Icon
+- State Management: Recoil
