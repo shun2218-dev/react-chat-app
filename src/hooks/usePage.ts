@@ -23,11 +23,21 @@ export const usePage = () => {
     navigate(`/${uid}/home`);
   };
 
+  const toPrivate = (uid: String) => {
+    navigate(`/${uid}/private`);
+  };
+
+  const toGroup = (uid: String) => {
+    navigate(`/${uid}/group`);
+  };
+
   return {
     toStart,
     toLogin,
     toRegist,
     toReset,
     toHome,
+    toPrivate,
+    toGroup,
   };
 };

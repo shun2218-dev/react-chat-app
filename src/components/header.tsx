@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const Header = () => {
-  const { toStart } = usePage();
+  const { toStart, toHome } = usePage();
   const authUser = useAuthUser();
   const { signOut, loading, error } = useSignOut();
   const { pathname } = useLocation();
@@ -31,16 +31,24 @@ const Header = () => {
       }`}
     >
       {/* after log in switch toHome */}
-      <img src={logo} alt="logo" width="200px" onClick={toStart} />
+      <img
+        src={logo}
+        alt="logo"
+        width="200px"
+        onClick={() => (authUser ? toHome(authUser.uid!) : toStart())}
+      />
       {authUser && isAuth && (
-        <Button
-          type="button"
-          variant="outlined"
-          color="primary"
-          onClick={signOut}
-        >
-          Sign Out
-        </Button>
+        <div className={styles.profile}>
+          <p>{authUser.displayName}</p>
+          <Button
+            type="button"
+            variant="outlined"
+            color="primary"
+            onClick={signOut}
+          >
+            Sign Out
+          </Button>
+        </div>
       )}
     </header>
   );

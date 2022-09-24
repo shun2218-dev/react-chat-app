@@ -19,13 +19,7 @@ const Login = () => {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
     if (email && password) {
-      signIn(email, password)
-        .then(() => {
-          toHome(authUser?.uid!);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      signIn(email, password);
     }
   };
   return (
