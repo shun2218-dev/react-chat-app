@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  padding: 2%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  &.notLogin {
+    justify-content: flex-start;
+  }
+  &.login {
+    justify-content: space-between;
+  }
+}

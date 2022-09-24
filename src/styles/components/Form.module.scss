@@ -1,0 +1,15 @@
+@use "../config//variables" as var;
+
+.form {
+  background-color: var.$navy;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.title {
+  max-width: 55%;
+  line-height: 150%;
+}

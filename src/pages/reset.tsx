@@ -1,12 +1,11 @@
-import React, { FormEvent } from "react";
 import Button from "@/components/button";
 import Form from "@/components/form";
 import Header from "@/components/header";
 import Input from "@/components/input";
-import styles from "@/styles/pages/Regist.module.scss";
 import { usePage } from "@/hooks/usePage";
+import React, { FormEvent } from "react";
 
-const Regist = () => {
+const Reset = () => {
   const { toLogin } = usePage();
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,15 +13,11 @@ const Regist = () => {
   return (
     <>
       <Header />
-      <Form title="Sign Up" onSubmit={onSubmit}>
-        <Input label="Name" placeholder="Your Name" />
+      <Form
+        title="Enter your Email address to reset your password"
+        onSubmit={onSubmit}
+      >
         <Input label="Email" type="email" placeholder="Your Email" />
-        <Input label="Password" type="password" placeholder="Password" />
-        <Input
-          label="Password Confirmation"
-          type="password"
-          placeholder="Password Confirmation"
-        />
         <Button
           type="submit"
           color="primary"
@@ -31,16 +26,14 @@ const Regist = () => {
           height="52px"
           margin="30px 0 0"
         >
-          Sign Up
+          Reset Password
         </Button>
-        <div className={styles.buttonGroup}>
-          <Button type="button" color="transparent" onClick={toLogin}>
-            Sign In
-          </Button>
-        </div>
+        <Button type="button" color="transparent" onClick={toLogin}>
+          Cancel
+        </Button>
       </Form>
     </>
   );
 };
 
-export default Regist;
+export default Reset;
