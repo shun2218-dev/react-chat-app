@@ -61,7 +61,6 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
       <Form title="Setting Profile" onSubmit={onSubmit}>
         {authUser?.photoURL ? (
           <Avatar

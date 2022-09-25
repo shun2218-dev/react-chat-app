@@ -25,6 +25,7 @@ const Header = () => {
         src={logo}
         alt="logo"
         width="200px"
+        height="67px"
         onClick={() => (authUser ? toHome(authUser.uid!) : toStart())}
         style={{ cursor: "pointer" }}
       />
@@ -37,6 +38,7 @@ const Header = () => {
             variant="outlined"
             color="primary"
             onClick={signOut}
+            margin="0 0 0 20px"
           >
             Sign Out
           </Button>

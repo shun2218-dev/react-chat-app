@@ -31,6 +31,10 @@ export const usePage = () => {
     navigate(`/${uid}/private`);
   };
 
+  const toPrivateRoom = (uid: String, partnerid: string) => {
+    navigate(`/${uid}/private/${partnerid}`);
+  };
+
   const toGroup = (uid: String) => {
     navigate(`/${uid}/group`);
   };
@@ -43,6 +47,7 @@ export const usePage = () => {
     toProfile,
     toHome,
     toPrivate,
+    toPrivateRoom,
     toGroup,
   };
 };

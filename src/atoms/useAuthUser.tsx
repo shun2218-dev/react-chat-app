@@ -1,13 +1,7 @@
 import { auth } from "@/firebase";
+import { AuthUser } from "@/types/AuthUser";
 import { onAuthStateChanged } from "firebase/auth";
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
-
-type AuthUser = {
-  uid: string | null;
-  email: string | null;
-  displayName: string | null;
-  photoURL: string | null;
-};
 
 const authUserState = atom<AuthUser | null>({
   key: "authUser",
