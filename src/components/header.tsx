@@ -25,6 +25,7 @@ const Header = () => {
         src={logo}
         alt="logo"
         width="200px"
+        height="67px"
         onClick={() => (authUser ? toHome(authUser.uid!) : toStart())}
         style={{ cursor: "pointer" }}
       />

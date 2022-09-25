@@ -4,7 +4,6 @@ import React from "react";
 const Private = () => {
   return (
     <>
-      <Header />
       <div>Private</div>
     </>
   );

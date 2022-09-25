@@ -67,7 +67,7 @@ const Avatar: FC<Avatar> = ({
       <label htmlFor="avatar">
         <AvatarImage />
       </label>
-      {!header && (
+      {pathname.split("/")[2] === "profile" && (
         <input
           type="file"
           accept="image/*"

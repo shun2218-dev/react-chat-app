@@ -7,13 +7,16 @@ import styles from "@/styles/pages/Home.module.scss";
 
 const Home = () => {
   const authUser = useAuthUser();
-  const { toLogin, toPrivate, toGroup } = usePage();
+  const { toLogin, toPrivate, toGroup, toProfile } = usePage();
   useEffect(() => {
-    !authUser && toLogin();
+    if (!authUser) {
+      toLogin();
+    } else if (!authUser?.photoURL || !authUser.displayName) {
+      toProfile(authUser.uid!);
+    }
   }, [authUser?.uid]);
   return (
     <>
-      <Header />
       <div className={styles.cardContainer}>
         <Card onClick={() => toGroup(authUser?.uid!)}>Group Chat</Card>
         <Card onClick={() => toPrivate(authUser?.uid!)}>Private Chat</Card>
