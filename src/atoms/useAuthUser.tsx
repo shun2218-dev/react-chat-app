@@ -1,6 +1,6 @@
 import { auth } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { atom, useRecoilValue } from "recoil";
+import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 
 type AuthUser = {
   uid: string | null;
@@ -45,4 +45,7 @@ const authUserState = atom<AuthUser | null>({
 
 export function useAuthUser() {
   return useRecoilValue(authUserState);
+}
+export function useSetAuthUser() {
+  return useSetRecoilState(authUserState);
 }

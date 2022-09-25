@@ -19,6 +19,10 @@ export const usePage = () => {
     navigate("/reset");
   };
 
+  const toProfile = (uid: String) => {
+    navigate(`/${uid}/profile`);
+  };
+
   const toHome = (uid: String) => {
     navigate(`/${uid}/home`);
   };
@@ -36,6 +40,7 @@ export const usePage = () => {
     toLogin,
     toRegist,
     toReset,
+    toProfile,
     toHome,
     toPrivate,
     toGroup,

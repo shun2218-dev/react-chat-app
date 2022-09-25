@@ -7,6 +7,7 @@ import Reset from "@/pages/reset";
 import Home from "@/pages/home";
 import Private from "@/pages/private";
 import Group from "@/pages/group";
+import Profile from "@/pages/profile";
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/regist" element={<Regist />} />
       <Route path="/reset" element={<Reset />} />
+      <Route path="/:uid/profile" element={<Profile />} />
       <Route path="/:uid/home" element={<Home />} />
       <Route path="/:uid/group" element={<Group />} />
       <Route path="/:uid/private" element={<Private />} />
