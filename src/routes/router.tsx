@@ -22,6 +22,7 @@ const Router = () => {
         <Route path="home" element={<Home />} />
         <Route path="group" element={<Group />} />
         <Route path="private" element={<Private />} />
+        <Route path="private/:partnerid" element={<Private />} />
       </Route>
     </Routes>
   );

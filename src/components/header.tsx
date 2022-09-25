@@ -38,6 +38,7 @@ const Header = () => {
             variant="outlined"
             color="primary"
             onClick={signOut}
+            margin="0 0 0 20px"
           >
             Sign Out
           </Button>

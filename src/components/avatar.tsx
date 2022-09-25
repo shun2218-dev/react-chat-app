@@ -41,24 +41,34 @@ const Avatar: FC<Avatar> = ({
 
   const AvatarImage = () => {
     return (
-      <>
+      <div>
         {state !== undefined && state !== null ? (
           <img
             src={URL.createObjectURL(state)}
             alt=""
-            style={{ width: size, height: size, borderRadius: "50%" }}
+            style={{
+              width: size,
+              height: size,
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
           />
         ) : url !== null ? (
           <img
             src={url}
             alt=""
-            style={{ width: size, height: size, borderRadius: "50%" }}
+            style={{
+              width: size,
+              height: size,
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
             onClick={() => toProfile(uid!)}
           />
         ) : (
           <AccountCircleIcon sx={{ width: size, height: size }} />
         )}
-      </>
+      </div>
     );
   };
 
@@ -67,7 +77,7 @@ const Avatar: FC<Avatar> = ({
       <label htmlFor="avatar">
         <AvatarImage />
       </label>
-      {pathname.split("/")[2] === "profile" && (
+      {!header && (
         <input
           type="file"
           accept="image/*"
