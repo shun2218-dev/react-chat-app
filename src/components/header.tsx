@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import logo from "@/assets/logo.svg";
 import styles from "@/styles/components/Header.module.scss";
 import { usePage } from "@/hooks/usePage";
@@ -6,23 +6,13 @@ import { useAuthUser } from "@/atoms/useAuthUser";
 import Button from "./button";
 import { useSignOut } from "@/hooks/useSignOut";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import Avatar from "./avatar";
 
 const Header = () => {
   const { toStart, toHome } = usePage();
   const authUser = useAuthUser();
   const { signOut, loading, error } = useSignOut();
   const { pathname } = useLocation();
-  const [isAuth, setIsAuth] = useState(false);
-
-  useEffect(() => {
-    setIsAuth(
-      pathname !== "/start" &&
-        pathname !== "/login" &&
-        pathname !== "/regist" &&
-        pathname !== "/reset"
-    );
-  }, [pathname]);
 
   return (
     <header
@@ -36,10 +26,12 @@ const Header = () => {
         alt="logo"
         width="200px"
         onClick={() => (authUser ? toHome(authUser.uid!) : toStart())}
+        style={{ cursor: "pointer" }}
       />
-      {authUser && isAuth && (
+      {authUser && (
         <div className={styles.profile}>
           <p>{authUser.displayName}</p>
+          <Avatar header />
           <Button
             type="button"
             variant="outlined"

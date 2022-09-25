@@ -7,7 +7,7 @@ import { usePage } from "./usePage";
 export function useSignUp() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error>();
-  const { toLogin } = usePage();
+  const { toProfile } = usePage();
 
   const addUserList = (uid: string, data: any) => {
     const ref = doc(db, "users", uid);
@@ -24,8 +24,9 @@ export function useSignUp() {
           user: { uid, email },
         } = res;
         addUserList(uid, { uid, email });
+        return res;
       })
-      .then(toLogin)
+      .then((res) => toProfile(res.user.uid))
       .catch((e) => {
         setError(e instanceof Error ? e : Error("unecpected error!"));
       })

@@ -8,10 +8,14 @@ type Input = {
   label?: string;
   required?: boolean;
   ref?: RefObject<HTMLInputElement>;
+  defaultValue?: string;
 };
 
 const Input = forwardRef<HTMLInputElement, Input>(
-  ({ type = "text", placeholder, label, required = true }, ref) => {
+  (
+    { type = "text", placeholder, label, required = true, defaultValue },
+    ref
+  ) => {
     return (
       <label className={styles.input}>
         {label}
@@ -20,6 +24,7 @@ const Input = forwardRef<HTMLInputElement, Input>(
           placeholder={placeholder}
           required={required}
           ref={ref}
+          defaultValue={defaultValue}
         />
       </label>
     );
