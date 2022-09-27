@@ -1,0 +1,23 @@
+@use "../config//variables" as var;
+.header {
+  display: flex;
+  padding: 20px 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var.$black;
+  &.notLogin {
+    justify-content: flex-start;
+  }
+  &.login {
+    justify-content: space-between;
+  }
+}
+
+.profile {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
