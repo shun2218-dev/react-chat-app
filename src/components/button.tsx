@@ -1,5 +1,5 @@
 import { borderRadius } from "@mui/system";
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import styles from "@/styles/components/Button.module.scss";
 
 type ButtonProps = {
@@ -13,6 +13,8 @@ type ButtonProps = {
   variant?: "filled" | "outlined" | "contained";
   rounded?: boolean;
   fullWidth?: boolean;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
 };
 
 const Button: FC<ButtonProps> = ({
@@ -26,6 +28,8 @@ const Button: FC<ButtonProps> = ({
   variant = "filled",
   rounded = false,
   fullWidth = false,
+  startIcon,
+  endIcon,
 }) => {
   const switchStyles = (variant: string) => {
     switch (variant) {
@@ -71,9 +75,11 @@ const Button: FC<ButtonProps> = ({
       }}
       className={`${switchStyles(variant)} ${switchBgColor(
         color
-      )} ${switchWidth(fullWidth)}`}
+      )} ${switchWidth(fullWidth)} ${styles.button}`}
     >
+      {startIcon}
       {children}
+      {endIcon}
     </button>
   );
 };

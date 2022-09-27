@@ -10,6 +10,8 @@
 }
 
 .title {
-  max-width: 55%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
   line-height: 150%;
 }

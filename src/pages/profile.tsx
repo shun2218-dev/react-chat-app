@@ -11,6 +11,8 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useParams } from "react-router-dom";
 import { useAuthUser, useSetAuthUser } from "@/atoms/useAuthUser";
 import { doc, updateDoc } from "firebase/firestore";
+import ChatIcon from "@mui/icons-material/QuestionAnswer";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const Profile = () => {
   const { toHome } = usePage();
@@ -50,7 +52,13 @@ const Profile = () => {
           })
           .then(async () => await updateUserProfile(uid, name, url))
           .then(() => console.log("Updated profile"))
-          .then(() => toHome(uid));
+          .then(() =>
+            toHome(uid, {
+              title: "Success",
+              status: "success",
+              text: "Setting profile succeeded.",
+            })
+          );
       });
     } else {
       alert(
@@ -61,21 +69,15 @@ const Profile = () => {
 
   return (
     <>
-      <Form title="Setting Profile" onSubmit={onSubmit}>
+      <Form
+        title="Setting Profile"
+        onSubmit={onSubmit}
+        startIcon={<SettingsIcon fontSize="large" />}
+      >
         {authUser?.photoURL ? (
-          <Avatar
-            size="80px"
-            state={image}
-            setState={setImage}
-            header={false}
-          />
+          <Avatar size={80} state={image} setState={setImage} header={false} />
         ) : (
-          <Avatar
-            size="80px"
-            state={image}
-            setState={setImage}
-            header={false}
-          />
+          <Avatar size={80} state={image} setState={setImage} header={false} />
         )}
         {authUser?.displayName ? (
           <Input
@@ -95,6 +97,7 @@ const Profile = () => {
           fullWidth
           height="52px"
           margin="30px 0 0"
+          startIcon={<ChatIcon />}
         >
           Start Chat
         </Button>

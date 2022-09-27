@@ -7,6 +7,7 @@ import Button from "./button";
 import { useSignOut } from "@/hooks/useSignOut";
 import { useLocation } from "react-router-dom";
 import Avatar from "./avatar";
+import SignOutIcon from "@mui/icons-material/Logout";
 
 const Header = () => {
   const { toStart, toHome } = usePage();
@@ -39,6 +40,7 @@ const Header = () => {
             color="primary"
             onClick={signOut}
             margin="0 0 0 20px"
+            startIcon={<SignOutIcon />}
           >
             Sign Out
           </Button>

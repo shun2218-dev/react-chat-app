@@ -11,18 +11,27 @@ import { db } from "@/firebase";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { usePage } from "@/hooks/usePage";
 import { useParams } from "react-router-dom";
+import { memo } from "react";
 
-const UserList = () => {
+type Rooms = {
+  uid: string;
+  roomid: string;
+  length?: number;
+};
+const UserList = memo(() => {
   const authUser = useAuthUser();
   const { toPrivateRoom } = usePage();
   const [users, setUsers] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
+  const [activeRoom, setActiveRoom] = useState<string>("");
   const { partnerid } = useParams();
+
   useEffect(() => {
     const usersRef = collection(db, "users");
     getDocs(usersRef).then((snapshot) => {
       setUsers([...snapshot.docs.filter((doc) => doc.id !== authUser?.uid!)]);
     });
   }, []);
+
   return (
     <div className={styles.container}>
       <ul className={styles.userList}>
@@ -33,7 +42,10 @@ const UserList = () => {
               className={`${styles.user} ${
                 partnerid === user.id ? styles.active : styles.passive
               }`}
-              onClick={() => toPrivateRoom(authUser?.uid!, user.id)}
+              onClick={() => {
+                toPrivateRoom(authUser?.uid!, user.id);
+                setActiveRoom(user.id);
+              }}
             >
               <img src={user.data().photoURL} alt="" className={styles.image} />
               <p>{user.data().displayName}</p>
@@ -45,6 +57,6 @@ const UserList = () => {
       </ul>
     </div>
   );
-};
+});
 
 export default UserList;

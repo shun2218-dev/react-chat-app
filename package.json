@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.36.1",
     "react-router-dom": "^6.4.1",
+    "react-use": "^17.4.0",
     "recoil": "^0.7.5",
     "sass": "^1.55.0"
   },

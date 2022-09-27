@@ -1,25 +1,29 @@
 import React, { FC, ChangeEvent, Dispatch, SetStateAction } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { usePage } from "@/hooks/usePage";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Skeleton } from "@mui/material";
 
 type Avatar = {
-  size?: string;
+  size?: number;
   state?: File | null;
   setState?: Dispatch<SetStateAction<File | null>>;
   header?: boolean;
+  chat?: boolean;
+  storageRef?: string;
 };
 
 const Avatar: FC<Avatar> = ({
-  size = "60px",
+  size = 60,
   state,
   setState,
   header = false,
+  chat = false,
+  storageRef,
 }) => {
-  const { pathname } = useLocation();
   const { uid } = useParams();
   const { toProfile } = usePage();
   const authUser = useAuthUser();
@@ -34,6 +38,12 @@ const Avatar: FC<Avatar> = ({
   };
 
   useEffect(() => {
+    if (storageRef) {
+      setUrl(storageRef);
+    }
+  }, []);
+
+  useEffect(() => {
     if (authUser?.photoURL) {
       setUrl(authUser.photoURL);
     }
@@ -42,7 +52,22 @@ const Avatar: FC<Avatar> = ({
   const AvatarImage = () => {
     return (
       <div>
-        {state !== undefined && state !== null ? (
+        {chat ? (
+          storageRef ? (
+            <img
+              src={storageRef}
+              alt=""
+              style={{
+                width: size,
+                height: size,
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <Skeleton variant="circular" width={size} height={size} />
+          )
+        ) : state !== undefined && state !== null ? (
           <img
             src={URL.createObjectURL(state)}
             alt=""
@@ -63,7 +88,7 @@ const Avatar: FC<Avatar> = ({
               borderRadius: "50%",
               objectFit: "cover",
             }}
-            onClick={() => toProfile(uid!)}
+            onClick={() => header && toProfile(uid!)}
           />
         ) : (
           <AccountCircleIcon sx={{ width: size, height: size }} />
@@ -77,7 +102,7 @@ const Avatar: FC<Avatar> = ({
       <label htmlFor="avatar">
         <AvatarImage />
       </label>
-      {!header && (
+      {!header && !chat && (
         <input
           type="file"
           accept="image/*"
