@@ -1,3 +1,4 @@
+import { NavigationState } from "@/types/NavigationState";
 import { useNavigate } from "react-router-dom";
 
 export const usePage = () => {
@@ -19,12 +20,20 @@ export const usePage = () => {
     navigate("/reset");
   };
 
+  const toComplete = (state: NavigationState) => {
+    navigate("/reset/complete", { state });
+  };
+
   const toProfile = (uid: String) => {
     navigate(`/${uid}/profile`);
   };
 
-  const toHome = (uid: String) => {
-    navigate(`/${uid}/home`);
+  const toHome = (uid: String, state?: NavigationState) => {
+    if (state) {
+      navigate(`/${uid}/home`, { state });
+    } else {
+      navigate(`/${uid}/home`);
+    }
   };
 
   const toPrivate = (uid: String) => {
@@ -39,15 +48,21 @@ export const usePage = () => {
     navigate(`/${uid}/group`);
   };
 
+  const toRedirect = (state: NavigationState) => {
+    navigate(".", { replace: true, state });
+  };
+
   return {
     toStart,
     toLogin,
     toRegist,
     toReset,
+    toComplete,
     toProfile,
     toHome,
     toPrivate,
     toPrivateRoom,
     toGroup,
+    toRedirect,
   };
 };

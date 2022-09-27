@@ -15,6 +15,8 @@ const Start = () => {
         variant="contained"
         rounded
         onClick={toRegist}
+        height="50px"
+        width="150px"
       >
         Get Started
       </Button>
@@ -23,6 +25,8 @@ const Start = () => {
         color="transparent"
         variant="filled"
         onClick={toLogin}
+        height="30px"
+        width="150px"
       >
         Sign In &gt;
       </Button>

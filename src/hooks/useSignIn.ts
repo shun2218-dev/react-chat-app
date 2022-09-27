@@ -1,27 +1,45 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  browserSessionPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "@/firebase";
 import { usePage } from "./usePage";
 
 export function useSignIn() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error>();
-  const { toHome } = usePage();
+  const { toHome, toRedirect } = usePage();
 
   // eslint-disable-next-line max-len
   const signIn = async (email: string, password: string) => {
     setLoading(true);
-    return await signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        console.log("signed in!");
-        toHome(res.user.uid);
-      })
-      .catch((e) => {
-        setError(e instanceof Error ? e : Error("unecpected error!"));
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    return await setPersistence(auth, browserSessionPersistence).then(
+      async () => {
+        return await signInWithEmailAndPassword(auth, email, password)
+          .then((res) => {
+            console.log("signed in!");
+            toHome(res.user.uid, {
+              title: "Success",
+              status: "success",
+              text: "Login succeeded.",
+            });
+          })
+          .catch((e) => {
+            setError(e instanceof Error ? e : Error("unecpected error!"));
+            toRedirect({
+              title: "Error",
+              status: "error",
+              text: "Login failed.",
+              strong: error?.message,
+            });
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
+    );
   };
 
   return {
