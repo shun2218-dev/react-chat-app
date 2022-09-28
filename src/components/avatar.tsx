@@ -1,4 +1,10 @@
-import React, { FC, ChangeEvent, Dispatch, SetStateAction } from "react";
+import React, {
+  FC,
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  CSSProperties,
+} from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useParams } from "react-router-dom";
 import { usePage } from "@/hooks/usePage";
@@ -49,45 +55,29 @@ const Avatar: FC<Avatar> = ({
     }
   }, [authUser]);
 
+  const imageStyle = {
+    width: size,
+    height: size,
+    borderRadius: "50%",
+    objectFit: "cover",
+  } as CSSProperties;
+
   const AvatarImage = () => {
     return (
       <div>
         {chat ? (
           storageRef ? (
-            <img
-              src={storageRef}
-              alt=""
-              style={{
-                width: size,
-                height: size,
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
-            />
+            <img src={storageRef} alt="" style={imageStyle} />
           ) : (
             <Skeleton variant="circular" width={size} height={size} />
           )
         ) : state !== undefined && state !== null ? (
-          <img
-            src={URL.createObjectURL(state)}
-            alt=""
-            style={{
-              width: size,
-              height: size,
-              borderRadius: "50%",
-              objectFit: "cover",
-            }}
-          />
+          <img src={URL.createObjectURL(state)} alt="" style={imageStyle} />
         ) : url !== null ? (
           <img
             src={url}
             alt=""
-            style={{
-              width: size,
-              height: size,
-              borderRadius: "50%",
-              objectFit: "cover",
-            }}
+            style={imageStyle}
             onClick={() => header && toProfile(uid!)}
           />
         ) : (
