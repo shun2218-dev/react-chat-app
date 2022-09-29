@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useFlashMessage } from "@/hooks/useFlashMessage";
 import { useCreateGroup } from "@/hooks/useCreateGroup";
 import FlashMessage from "@/components/flashMessage";
+import { usePage } from "@/hooks/usePage";
 
 const Create = () => {
   const [desc, setDesc] = useState("");
@@ -14,6 +15,7 @@ const Create = () => {
   const { uid } = useParams();
   const createGroup = useCreateGroup();
   const { messageState, flashState, reset } = useFlashMessage(3000);
+  const { toHome } = usePage();
 
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDesc(e.target.value);
@@ -53,7 +55,12 @@ const Create = () => {
         >
           Next
         </Button>
-        <Button type="button" color="transparent" variant="filled">
+        <Button
+          type="button"
+          color="transparent"
+          variant="filled"
+          onClick={() => toHome(uid!)}
+        >
           Cancel
         </Button>
       </Form>

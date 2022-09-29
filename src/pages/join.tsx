@@ -29,7 +29,6 @@ const Join = () => {
         })
       );
       setLoading(false);
-      console.log(groups);
     });
     return () => {
       unSub();
@@ -38,7 +37,7 @@ const Join = () => {
 
   return (
     <Form title="Group List">
-      <ul>
+      <ul className={styles.groupList}>
         {groups.length ? (
           groups.map(({ id, groupName, photoURL }) => (
             <li

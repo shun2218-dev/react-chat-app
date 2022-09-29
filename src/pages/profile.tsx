@@ -59,6 +59,29 @@ const Profile = () => {
             })
           );
       });
+    } else if (!image && name && uid && email && authUser?.photoURL!) {
+      await updateProfile(auth.currentUser!, {
+        displayName: name,
+      })
+        .then(() => {
+          setAuthUser({
+            displayName: name,
+            photoURL: authUser.photoURL,
+            email,
+            uid,
+          });
+        })
+        .then(
+          async () => await updateUserProfile(uid, name, authUser.photoURL!)
+        )
+        .then(() => console.log("Updated profile"))
+        .then(() =>
+          toHome(uid, {
+            title: "Success",
+            status: "success",
+            text: "Setting profile succeeded.",
+          })
+        );
     } else {
       alert(
         "User name and Profile image is a required contents to start chatting"

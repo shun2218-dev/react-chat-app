@@ -1,3 +1,13 @@
+@use "../config/variables" as var;
+
+.groupList {
+  height: 400px;
+  overflow-y: auto;
+  width: 600px;
+}
+
 .group {
   cursor: pointer;
+  padding: 20px 80px;
+  box-shadow: inset -3px -3px 3px var.$black, inset 1px 1px 3px var.$black;
 }
