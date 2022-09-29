@@ -45,8 +45,12 @@
     }
   }
   &.transparent {
-    color: var.$black;
-    border: 3px solid var.$black;
+    color: var.$white;
+    border: 3px solid var.$white;
+    &:hover {
+      color: darken(var.$white, 40);
+      border: 3px solid darken(var.$white, 40);
+    }
   }
   &.error {
     color: var.$error;

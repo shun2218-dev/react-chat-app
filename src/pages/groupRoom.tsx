@@ -1,6 +1,6 @@
+import React, { FormEvent, useState } from "react";
 import MessageInput from "@/components/messageInput";
 import UserList from "@/components/userList";
-import React, { FormEvent, useState } from "react";
 
 const GroupRoom = () => {
   const [loading, setLoading] = useState(false);

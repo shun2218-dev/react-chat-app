@@ -1,0 +1,20 @@
+@use "../config/variables" as var;
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(var.$gray, 0.4);
+  z-index: 9000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalBody {
+  background-color: var.$navy;
+  padding: 40px 120px;
+  z-index: 9999;
+}
