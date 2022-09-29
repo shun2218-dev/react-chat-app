@@ -1,0 +1,10 @@
+.chatRoom {
+  position: absolute;
+  top: 107px;
+  right: 0;
+  box-sizing: border-box;
+  width: 75%;
+  padding: 25px;
+  max-height: calc(100% - (107px + 83px));
+  overflow-y: auto;
+}

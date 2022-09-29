@@ -9,7 +9,7 @@ import Avatar from "./avatar";
 import styles from "@/styles/components/ChatMessage.module.scss";
 
 const ChatMessage: FC<Message> = ({ from, createdAt, id, message }) => {
-  const { uid, partnerid } = useParams();
+  const { uid, partnerid, groupid } = useParams();
   const [partnerName, setPartnerName] = useState("");
   const [partnerPhoto, setPartnerPhoto] = useState("");
 
@@ -22,11 +22,27 @@ const ChatMessage: FC<Message> = ({ from, createdAt, id, message }) => {
     };
   };
 
+  const getFromInfo = async (from: string, groupid: string) => {
+    const fromRef = doc(db, "groups", groupid, "members", from);
+    const snapshot = await getDoc(fromRef);
+    return {
+      displayName: snapshot.data()!.displayName,
+      photoURL: snapshot.data()!.photoURL,
+    };
+  };
+
   useEffect(() => {
-    getPartnerInfo(partnerid!).then(({ displayName, photoURL }) => {
-      setPartnerName(displayName);
-      setPartnerPhoto(photoURL);
-    });
+    if (partnerid) {
+      getPartnerInfo(partnerid).then(({ displayName, photoURL }) => {
+        setPartnerName(displayName);
+        setPartnerPhoto(photoURL);
+      });
+    } else if (groupid) {
+      getFromInfo(from, groupid).then(({ displayName, photoURL }) => {
+        setPartnerName(displayName);
+        setPartnerPhoto(photoURL);
+      });
+    }
   }, []);
 
   return (
