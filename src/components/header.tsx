@@ -1,19 +1,17 @@
 import React from "react";
-import logo from "@/assets/logo.svg";
-import styles from "@/styles/components/Header.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useAuthUser } from "@/atoms/useAuthUser";
-import Button from "./button";
 import { useSignOut } from "@/hooks/useSignOut";
-import { useLocation } from "react-router-dom";
+import Button from "./button";
 import Avatar from "./avatar";
 import SignOutIcon from "@mui/icons-material/Logout";
+import logo from "@/assets/logo.svg";
+import styles from "@/styles/components/Header.module.scss";
 
 const Header = () => {
   const { toStart, toHome } = usePage();
   const authUser = useAuthUser();
   const { signOut, loading, error } = useSignOut();
-  const { pathname } = useLocation();
 
   return (
     <header

@@ -32,7 +32,8 @@ const Private = () => {
   const [docs, setDocs] = useState<Message[]>([]);
   const [chatRoom, setChatRoom] = useState("");
   const [loading, setLoading] = useState(false);
-  console.log(loading);
+  const [dataLoading, setDataLoading] = useState(false);
+  const [roomExist, setRoomExist] = useState(true);
 
   const onSubmit = async (
     e: FormEvent<HTMLFormElement>,
@@ -44,6 +45,7 @@ const Private = () => {
       setLoading(true);
       const { exist, roomid } = await isCreatedRoom(uid, partnerid, message);
       setChatRoom(roomid);
+      setRoomExist(exist);
       if (exist) {
         console.log("room is exist");
         const roomRef = collection(db, "rooms", `${roomid}`, "messages");
@@ -70,41 +72,41 @@ const Private = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
+    setDataLoading(true);
     const userRef = collection(db, "users", `${uid}`, "rooms");
-    getDocs(userRef)
-      .then((snapshot) => {
-        const room = snapshot.docs.filter((doc) => doc.id === partnerid);
-        if (room.length && uid) {
-          const roomDocId = room[0].id;
-          getRoomId(uid, roomDocId).then((roomid) => {
-            setChatRoom(roomid);
-            const messageRef = query(
-              collection(db, "rooms", `${roomid}`, "messages"),
-              orderBy("createdAt", "asc")
-            );
-            getDocs(messageRef).then((snapshot) => {
-              setDocs([
-                ...snapshot.docs.map((doc) => {
-                  return {
-                    id: doc.id,
-                    ...doc.data(),
-                  } as Message;
-                }),
-              ]);
-            });
+    const unSubUser = onSnapshot(userRef, (snapshot) => {
+      const room = snapshot.docs.filter((doc) => doc.id === partnerid);
+      if (room.length && uid) {
+        const roomDocId = room[0].id;
+        getRoomId(uid, roomDocId).then((roomid) => {
+          setChatRoom(roomid);
+          const messageRef = query(
+            collection(db, "rooms", `${roomid}`, "messages"),
+            orderBy("createdAt", "asc")
+          );
+          getDocs(messageRef).then((snapshot) => {
+            setDocs([
+              ...snapshot.docs.map((doc) => {
+                return {
+                  id: doc.id,
+                  ...doc.data(),
+                } as Message;
+              }),
+            ]);
           });
-        } else {
-          console.log("not exist");
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+        });
+        setDataLoading(false);
+      } else {
+        console.log("not exist");
+        setDataLoading(false);
+      }
+    });
+    return () => {
+      unSubUser();
+    };
   }, [pathname]);
 
   useEffect(() => {
-    setLoading(true);
     if (chatRoom) {
       const q = query(
         collection(db, "rooms", `${chatRoom}`, "messages"),
@@ -120,7 +122,6 @@ const Private = () => {
           }),
         ]);
       });
-      setLoading(false);
       return () => {
         unSub();
       };
@@ -135,13 +136,17 @@ const Private = () => {
     } else {
       setIsRoom(false);
     }
+
+    if (!roomExist) {
+      setChatRoom("");
+    }
   }, [pathname]);
 
   return (
     <>
       <UserList />
       <div className={styles.chatRoom}>
-        {loading ? (
+        {dataLoading ? (
           <div className={styles.load}>
             <CircularProgress />
             <p>loading...</p>
@@ -176,7 +181,8 @@ const Private = () => {
             }
           })
         ) : (
-          !chatRoom && (
+          chatRoom === "" &&
+          roomExist && (
             <div className={styles.notFound}>
               <NotFoundIcon fontSize="large" />
               <p>
@@ -200,7 +206,13 @@ const Private = () => {
           />
           {message && (
             <button className={styles.button} disabled={loading} type="submit">
-              <SendIcon sx={{ height: "25px" }} />
+              <SendIcon
+                sx={{
+                  height: "25px",
+                  color: "white",
+                  opacity: `${loading ? 0.3 : 1}`,
+                }}
+              />
             </button>
           )}
         </form>

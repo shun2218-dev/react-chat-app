@@ -1,23 +1,19 @@
 import React from "react";
+import { useLocation } from "react-use";
+import { usePage } from "@/hooks/usePage";
+import { useFlashMessage } from "@/hooks/useFlashMessage";
 import Button from "@/components/button";
 import Form from "@/components/form";
 import Header from "@/components/header";
-import { usePage } from "@/hooks/usePage";
-import { useLocation } from "react-use";
-import styles from "@/styles/pages/Complete.module.scss";
-import { useEffect } from "react";
-import { useFlashMessage } from "@/hooks/useFlashMessage";
 import FlashMessage from "@/components/flashMessage";
+import styles from "@/styles/pages/Complete.module.scss";
 
 import CompleteIcon from "@mui/icons-material/CheckCircleOutline";
 
 const Complete = () => {
   const { toLogin } = usePage();
   const location = useLocation();
-  const { messageState, flashState, reset } = useFlashMessage(5000);
-  useEffect(() => {
-    console.log(messageState, flashState);
-  }, []);
+  const { messageState, flashState } = useFlashMessage(5000);
   return (
     <>
       <Header />

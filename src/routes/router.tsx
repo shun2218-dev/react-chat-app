@@ -14,7 +14,7 @@ import Complete from "@/pages/complete";
 const Router = () => {
   return (
     <Routes>
-      <Route path="/start" element={<Start />} />
+      <Route path="/" element={<Start />} />
       <Route path="/login" element={<Login />} />
       <Route path="/regist" element={<Regist />} />
       <Route path="/reset" element={<Reset />} />

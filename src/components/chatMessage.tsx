@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
-import styles from "@/styles/components/ChatMessage.module.scss";
-import { FC } from "react";
-import { Message } from "@/types/Message";
-import { doc, getDoc } from "firebase/firestore";
+import React, { useState, useEffect, FC } from "react";
 import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase";
-import Avatar from "./avatar";
-import { useState } from "react";
 import { Skeleton } from "@mui/material";
 import { formatTime } from "@/lib/formatTime";
+import { Message } from "@/types/Message";
+import Avatar from "./avatar";
+import styles from "@/styles/components/ChatMessage.module.scss";
 
 const ChatMessage: FC<Message> = ({ from, createdAt, id, message }) => {
   const { uid, partnerid } = useParams();
