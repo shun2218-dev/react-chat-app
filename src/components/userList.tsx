@@ -211,7 +211,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
               </li>
             ))
           ) : (
-            <div>...loading</div>
+            <div className={styles.loading}>...loading</div>
           )}
 
           {group && (

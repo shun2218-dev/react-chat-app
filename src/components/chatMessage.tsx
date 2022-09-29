@@ -6,6 +6,7 @@ import { Skeleton } from "@mui/material";
 import { formatTime } from "@/lib/formatTime";
 import { Message } from "@/types/Message";
 import Avatar from "./avatar";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import styles from "@/styles/components/ChatMessage.module.scss";
 
 const ChatMessage: FC<Message> = ({ from, createdAt, id, message }) => {
@@ -25,10 +26,17 @@ const ChatMessage: FC<Message> = ({ from, createdAt, id, message }) => {
   const getFromInfo = async (from: string, groupid: string) => {
     const fromRef = doc(db, "groups", groupid, "members", from);
     const snapshot = await getDoc(fromRef);
-    return {
-      displayName: snapshot.data()!.displayName,
-      photoURL: snapshot.data()!.photoURL,
-    };
+    if (snapshot.data()) {
+      return {
+        displayName: snapshot?.data()?.displayName,
+        photoURL: snapshot?.data()?.photoURL,
+      };
+    } else {
+      return {
+        displayName: "Unknown",
+        photoURL: snapshot?.data()?.photoURL,
+      };
+    }
   };
 
   useEffect(() => {
@@ -59,11 +67,16 @@ const ChatMessage: FC<Message> = ({ from, createdAt, id, message }) => {
       ) : (
         <ul className={`${styles.message} ${styles.partner}`}>
           <li className={styles.profile}>
-            <Avatar size={40} storageRef={partnerPhoto} chat />
-            {partnerName ? (
-              <p>{partnerName}</p>
+            {partnerPhoto ? (
+              <Avatar size={40} storageRef={partnerPhoto} chat />
             ) : (
-              <Skeleton variant="text" width={100} height={24} />
+              <AccountCircleIcon sx={{ width: "40px", height: "40px" }} />
+            )}
+            {partnerName ? (
+              <p>{partnerName !== undefined ? partnerName : "Unknown"}</p>
+            ) : (
+              <p>Unknown</p>
+              // <Skeleton variant="text" width={100} height={24} />
             )}
           </li>
           <li className={styles.text}>
