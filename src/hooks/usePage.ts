@@ -48,8 +48,20 @@ export const usePage = () => {
     navigate(`/${uid}/group`);
   };
 
+  const toGroupRoom = (
+    uid: String,
+    groupid: string,
+    state?: NavigationState
+  ) => {
+    navigate(`/${uid}/group/${groupid}`, { state });
+  };
+
   const toJoin = (uid: String) => {
     navigate(`/${uid}/group/join`);
+  };
+
+  const toCreate = (uid: String) => {
+    navigate(`/${uid}/group/create`);
   };
 
   const toRedirect = (state: NavigationState) => {
@@ -67,7 +79,9 @@ export const usePage = () => {
     toPrivate,
     toPrivateRoom,
     toGroup,
+    toGroupRoom,
     toJoin,
+    toCreate,
     toRedirect,
   };
 };

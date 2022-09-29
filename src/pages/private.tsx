@@ -23,6 +23,7 @@ import isCreatedRoom from "@/lib/private/isCreatedRoom";
 import { formatDate } from "@/lib/formatDate";
 import NotFoundIcon from "@mui/icons-material/SearchOff";
 import CircularProgress from "@mui/material/CircularProgress";
+import MessageInput from "@/components/messageInput";
 
 const Private = () => {
   const [isRoom, setIsRoom] = useState(false);
@@ -35,11 +36,7 @@ const Private = () => {
   const [dataLoading, setDataLoading] = useState(false);
   const [roomExist, setRoomExist] = useState(true);
 
-  const onSubmit = async (
-    e: FormEvent<HTMLFormElement>,
-    uid: string,
-    partnerid: string
-  ) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (uid && partnerid) {
       setLoading(true);
@@ -194,28 +191,12 @@ const Private = () => {
         )}
       </div>
       {uid && partnerid && (
-        <form
-          className={styles.container}
-          onSubmit={(e) => onSubmit(e, uid, partnerid)}
-        >
-          <input
-            type="text"
-            className={styles.input}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          {message && (
-            <button className={styles.button} disabled={loading} type="submit">
-              <SendIcon
-                sx={{
-                  height: "25px",
-                  color: "white",
-                  opacity: `${loading ? 0.3 : 1}`,
-                }}
-              />
-            </button>
-          )}
-        </form>
+        <MessageInput
+          onSubmit={onSubmit}
+          loading={loading}
+          state={message}
+          setState={setMessage}
+        />
       )}
     </>
   );

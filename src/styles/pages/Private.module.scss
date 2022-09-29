@@ -1,37 +1,5 @@
 @use "../config//variables" as var;
 
-.container {
-  box-sizing: border-box;
-  width: 75%;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 30px;
-  background-color: var.$navy;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.input {
-  border: none;
-  outline: none;
-  border-bottom: 1px solid #707070;
-  background-color: transparent;
-  width: 40%;
-  height: 20px;
-  color: var.$white;
-}
-
-.button {
-  background-color: transparent;
-  height: 15px;
-  width: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .chatRoom {
   position: absolute;
   top: 107px;
