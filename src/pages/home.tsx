@@ -11,7 +11,7 @@ import GroupIcon from "@mui/icons-material/Groups";
 const Home = () => {
   const authUser = useAuthUser();
   const { toLogin, toPrivate, toGroup, toProfile } = usePage();
-  const { messageState, flashState } = useFlashMessage(3000);
+  const { messageState, flashState } = useFlashMessage(5000);
 
   useEffect(() => {
     if (!authUser) {

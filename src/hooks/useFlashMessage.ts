@@ -6,8 +6,6 @@ import { useTimeout } from "react-use";
 type FlashMessage = {
   messageState: NavigationState | undefined;
   flashState: boolean;
-  flashMessage: boolean;
-  isReady: boolean;
   reset: () => void;
 };
 
@@ -26,8 +24,6 @@ export const useFlashMessage = (timeout: number) => {
   return {
     messageState: location.state,
     flashState: flashMessage && !isReady(),
-    flashMessage,
-    isReady: !isReady(),
     reset,
   } as FlashMessage;
 };

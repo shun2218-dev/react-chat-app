@@ -15,6 +15,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow-y: auto;
 }
 
 .user {
@@ -33,6 +34,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .active {

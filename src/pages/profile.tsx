@@ -2,7 +2,6 @@ import React, { FormEvent, useRef, useState } from "react";
 import Avatar from "@/components/avatar";
 import Button from "@/components/button";
 import Form from "@/components/form";
-import Header from "@/components/header";
 import Input from "@/components/input";
 import { usePage } from "@/hooks/usePage";
 import { auth, db, storage } from "@/firebase";
