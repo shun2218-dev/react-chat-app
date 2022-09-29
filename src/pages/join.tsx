@@ -1,7 +1,10 @@
+import React, { useEffect, useState } from "react";
 import Form from "@/components/form";
 import { db } from "@/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import styles from "@/styles/pages/Join.module.scss";
+import { usePage } from "@/hooks/usePage";
+import { useParams } from "react-router-dom";
 
 type Groups = {
   id: string;
@@ -13,10 +16,12 @@ type Groups = {
 const Join = () => {
   const [groups, setGroups] = useState<Groups[]>([]);
   const [loading, setLoading] = useState<Boolean>(false);
+  const { toGroupRoom } = usePage();
+  const { uid } = useParams();
 
   useEffect(() => {
     setLoading(true);
-    const ref = collection(db, "group");
+    const ref = collection(db, "groups");
     const unSub = onSnapshot(ref, (snapshot) => {
       setGroups(
         snapshot.docs.map((doc) => {
@@ -24,6 +29,7 @@ const Join = () => {
         })
       );
       setLoading(false);
+      console.log(groups);
     });
     return () => {
       unSub();
@@ -32,13 +38,23 @@ const Join = () => {
 
   return (
     <Form title="Group List">
-      {groups.length ? (
-        groups.map((group) => <div>{group.groupName}</div>)
-      ) : loading ? (
-        <div>...loading</div>
-      ) : (
-        <div>Not Found</div>
-      )}
+      <ul>
+        {groups.length ? (
+          groups.map(({ id, groupName, photoURL }) => (
+            <li
+              className={styles.group}
+              key={id}
+              onClick={() => toGroupRoom(uid!, id)}
+            >
+              {groupName}
+            </li>
+          ))
+        ) : loading ? (
+          <li>...loading</li>
+        ) : (
+          <li>Not Found</li>
+        )}
+      </ul>
     </Form>
   );
 };

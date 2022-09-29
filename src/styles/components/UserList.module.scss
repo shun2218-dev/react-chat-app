@@ -16,6 +16,17 @@
   flex-direction: column;
   align-items: flex-start;
   overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  &.group {
+    height: calc(95% - 110px);
+  }
+}
+
+.listTitle {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 30px auto;
 }
 
 .user {
@@ -44,4 +55,18 @@
 
 .passive {
   background-color: var.$navy;
+}
+
+.buttonGroup {
+  padding: 0 5%;
+  box-sizing: border-box;
+  width: 100%;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
