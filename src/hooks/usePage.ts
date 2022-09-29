@@ -48,6 +48,10 @@ export const usePage = () => {
     navigate(`/${uid}/group`);
   };
 
+  const toJoin = (uid: String) => {
+    navigate(`/${uid}/group/join`);
+  };
+
   const toRedirect = (state: NavigationState) => {
     navigate(".", { replace: true, state });
   };
@@ -63,6 +67,7 @@ export const usePage = () => {
     toPrivate,
     toPrivateRoom,
     toGroup,
+    toJoin,
     toRedirect,
   };
 };
