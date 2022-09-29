@@ -99,7 +99,6 @@ const Avatar: FC<Avatar> = ({
           style={{ display: "none" }}
           id="avatar"
           onChange={handleChange}
-          required
         />
       )}
     </div>

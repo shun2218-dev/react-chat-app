@@ -8,7 +8,7 @@ type ButtonProps = {
   margin?: string;
   children: string;
   onClick?: () => void;
-  color: "primary" | "transparent";
+  color: "primary" | "transparent" | "error" | "success";
   variant?: "filled" | "outlined" | "contained";
   rounded?: boolean;
   fullWidth?: boolean;
@@ -49,6 +49,10 @@ const Button: FC<ButtonProps> = ({
         return styles.primary;
       case "transparent":
         return styles.transparent;
+      case "error":
+        return styles.error;
+      case "success":
+        return styles.success;
       default:
         return styles.transparent;
     }
