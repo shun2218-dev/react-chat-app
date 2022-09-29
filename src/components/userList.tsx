@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import {
   collection,
   DocumentData,
-  getDocs,
   QueryDocumentSnapshot,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useAuthUser } from "@/atoms/useAuthUser";
@@ -22,14 +22,16 @@ const UserList = memo(() => {
   const authUser = useAuthUser();
   const { toPrivateRoom } = usePage();
   const [users, setUsers] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
-  const [activeRoom, setActiveRoom] = useState<string>("");
   const { partnerid } = useParams();
 
   useEffect(() => {
     const usersRef = collection(db, "users");
-    getDocs(usersRef).then((snapshot) => {
+    const unSub = onSnapshot(usersRef, (snapshot) => {
       setUsers([...snapshot.docs.filter((doc) => doc.id !== authUser?.uid!)]);
     });
+    return () => {
+      unSub();
+    };
   }, []);
 
   return (
@@ -44,7 +46,6 @@ const UserList = memo(() => {
               }`}
               onClick={() => {
                 toPrivateRoom(authUser?.uid!, user.id);
-                setActiveRoom(user.id);
               }}
             >
               <img src={user.data().photoURL} alt="" className={styles.image} />

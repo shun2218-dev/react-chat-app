@@ -1,4 +1,4 @@
-import React, { FC, RefObject } from "react";
+import React, { RefObject } from "react";
 import styles from "@/styles/components/Input.module.scss";
 import { forwardRef } from "react";
 
