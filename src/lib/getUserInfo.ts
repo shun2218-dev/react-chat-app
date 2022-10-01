@@ -9,3 +9,12 @@ export const getUserInfo = async (uid: string) => {
     return user;
   }
 };
+
+export const getMemberInfo = async (groupid: string, from: string) => {
+  const memberRef = doc(db, "groups", groupid, "members", from);
+  const docSnap = await getDoc(memberRef);
+  if (docSnap.exists()) {
+    const member = docSnap.data();
+    return member;
+  }
+};

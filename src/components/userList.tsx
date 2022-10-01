@@ -9,6 +9,8 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  serverTimestamp,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useAuthUser } from "@/atoms/useAuthUser";
@@ -23,6 +25,10 @@ import { NavigationState } from "@/types/NavigationState";
 const UserList = memo(({ group = false }: { group?: boolean }) => {
   const authUser = useAuthUser();
   const { toPrivateRoom, toJoin, toHome } = usePage();
+  const [allUsers, setAllUsers] = useState<
+    QueryDocumentSnapshot<DocumentData>[]
+  >([]);
+  const [ids, setIds] = useState<string[]>([]);
   const [users, setUsers] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
   const [inviteUsers, setInviteUsers] = useState<
     QueryDocumentSnapshot<DocumentData>[]
@@ -32,41 +38,67 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
   const [exitOpen, setExitOpen] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
 
-  const modalToggle = (target: string) => {
-    if (target === "invite") {
-      setInviteOpen(!inviteOpen);
-    } else if (target === "exit") {
-      setExitOpen(!exitOpen);
-    } else if (target === "join") {
-      setJoinOpen(!joinOpen);
-    }
-  };
+  const modalToggle = useCallback(
+    (target: string) => {
+      if (target === "invite") {
+        setInviteOpen(!inviteOpen);
+      } else if (target === "exit") {
+        setExitOpen(!exitOpen);
+      } else if (target === "join") {
+        setJoinOpen(!joinOpen);
+      }
+    },
+    [joinOpen, exitOpen, inviteOpen]
+  );
 
   const joinGroup = async (groupid: string, uid: string) => {
     const membersRef = doc(db, "groups", groupid, "members", uid);
     await getUserInfo(uid).then(async (member) => {
-      await setDoc(membersRef, member).then(() => modalToggle("join"));
+      await setDoc(membersRef, member)
+        .then(() => modalToggle("join"))
+        .then(async () => {
+          const messageRef = collection(db, "groups", groupid!, "messages");
+          await addDoc(messageRef, {
+            from: uid,
+            createdAt: serverTimestamp(),
+            info: true,
+            status: "joined",
+            displayName: authUser?.displayName,
+          });
+        });
     });
   };
 
-  const exitGroup = async (groupid: string, uid: string) => {
+  const exitGroup = useCallback(async (groupid: string, uid: string) => {
     const flashMessage = {
       title: "Success",
       status: "success",
       text: "Exit group.",
     } as NavigationState;
-    await deleteDoc(doc(db, "groups", groupid, "members", uid)).then(() =>
-      toHome(uid!, flashMessage)
-    );
-  };
+    await deleteDoc(doc(db, "groups", groupid, "members", uid))
+      .then(() => toHome(uid!, flashMessage))
+      .then(async () => {
+        const messageRef = collection(db, "groups", groupid!, "messages");
+        await addDoc(messageRef, {
+          from: uid,
+          displayName: authUser?.displayName,
+          createdAt: serverTimestamp(),
+          info: true,
+          status: "existed",
+        });
+      });
+  }, []);
 
   const isNotMember = useCallback(
     (doc: QueryDocumentSnapshot<DocumentData>) => doc.id !== authUser?.uid,
-    []
+    [users]
   );
 
   useEffect(() => {
     const userRef = collection(db, "users");
+    const unSubUser = onSnapshot(userRef, (snapshot) => {
+      setAllUsers([...snapshot.docs.map((doc) => doc)]);
+    });
     if (group && groupid) {
       const groupRef = collection(db, "groups", groupid, "members");
       const unSub = onSnapshot(groupRef, (snapshot) => {
@@ -76,11 +108,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
           setJoinOpen(false);
         }
         setUsers([...snapshot.docs.map((doc) => doc)]);
-      });
-      const unSubUser = onSnapshot(userRef, (snapshot) => {
-        setInviteUsers([
-          ...snapshot.docs.filter((doc) => doc.id !== authUser?.uid!),
-        ]);
+        setIds([...snapshot.docs.map((doc) => doc.id)]);
       });
       return () => {
         unSub();
@@ -89,12 +117,20 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
     } else {
       const unSub = onSnapshot(userRef, (snapshot) => {
         setUsers([...snapshot.docs.filter((doc) => doc.id !== authUser?.uid!)]);
+        setIds([...snapshot.docs.map((doc) => doc.id)]);
       });
       return () => {
         unSub();
+        unSubUser();
       };
     }
   }, []);
+
+  useEffect(() => {
+    setInviteUsers([
+      ...allUsers.filter((user) => ids.includes(user.id) === false),
+    ]);
+  }, [users, allUsers]);
 
   return (
     <>
@@ -187,7 +223,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
         </div>
       </Modal>
       <div className={styles.container}>
-        <ul className={`${styles.userList} ${styles.group}`}>
+        <ul className={`${styles.userList} ${groupid && styles.group}`}>
           <li className={styles.listTitle}>
             {group ? "Members List" : "User List"}
           </li>
