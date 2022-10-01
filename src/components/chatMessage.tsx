@@ -8,54 +8,90 @@ import { Message } from "@/types/Message";
 import Avatar from "./avatar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import styles from "@/styles/components/ChatMessage.module.scss";
+import { getUserInfo } from "@/lib/getUserInfo";
 
-const ChatMessage: FC<Message> = ({ from, createdAt, id, message }) => {
+type Info = {
+  displayName: string;
+  photoURL: string | null;
+};
+
+const ChatMessage: FC<Message> = ({
+  from,
+  createdAt,
+  id,
+  message,
+  info,
+  status,
+  displayName,
+}) => {
   const { uid, partnerid, groupid } = useParams();
-  const [partnerName, setPartnerName] = useState("");
-  const [partnerPhoto, setPartnerPhoto] = useState("");
+  const [userInfo, setUserInfo] = useState<Info>({
+    displayName: "",
+    photoURL: "",
+  });
+  // const [partnerName, setPartnerName] = useState("");
+  // const [partnerPhoto, setPartnerPhoto] = useState("");
 
-  const getPartnerInfo = async (partnerid: string) => {
-    const userRef = doc(db, "users", partnerid);
-    const snapshot = await getDoc(userRef);
-    return {
-      displayName: snapshot.data()!.displayName,
-      photoURL: snapshot.data()!.photoURL,
-    };
-  };
+  // const getPartnerInfo = async (partnerid: string) => {
+  //   const userRef = doc(db, "users", partnerid);
+  //   const snapshot = await getDoc(userRef);
+  //   return {
+  //     displayName: snapshot.data()!.displayName,
+  //     photoURL: snapshot.data()!.photoURL,
+  //   };
+  // };
 
-  const getFromInfo = async (from: string, groupid: string) => {
-    const fromRef = doc(db, "groups", groupid, "members", from);
-    const snapshot = await getDoc(fromRef);
-    if (snapshot.data()) {
-      return {
-        displayName: snapshot?.data()?.displayName,
-        photoURL: snapshot?.data()?.photoURL,
-      };
-    } else {
-      return {
-        displayName: "Unknown",
-        photoURL: snapshot?.data()?.photoURL,
-      };
-    }
-  };
+  // const getFromInfo = async (from: string, groupid: string) => {
+  //   const fromRef = doc(db, "groups", groupid, "members", from);
+  //   const snapshot = await getDoc(fromRef);
+  //   if (snapshot.data()) {
+  //     return {
+  //       displayName: snapshot?.data()?.displayName,
+  //       photoURL: snapshot?.data()?.photoURL,
+  //     };
+  //   } else {
+  //     return {
+  //       displayName: "Unknown",
+  //       photoURL: snapshot?.data()?.photoURL,
+  //     };
+  //   }
+  // };
 
   useEffect(() => {
-    if (partnerid) {
-      getPartnerInfo(partnerid).then(({ displayName, photoURL }) => {
-        setPartnerName(displayName);
-        setPartnerPhoto(photoURL);
-      });
-    } else if (groupid) {
-      getFromInfo(from, groupid).then(({ displayName, photoURL }) => {
-        setPartnerName(displayName);
-        setPartnerPhoto(photoURL);
-      });
-    }
+    getUserInfo(from).then((user) => {
+      if (user) {
+        setUserInfo({
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        });
+      } else {
+        setUserInfo({
+          displayName: "Unknown",
+          photoURL: null,
+        });
+      }
+    });
+    // Set Unknown user if the user is existed.
+    // if (partnerid) {
+    //   getPartnerInfo(partnerid).then(({ displayName, photoURL }) => {
+    //     setPartnerName(displayName);
+    //     setPartnerPhoto(photoURL);
+    //   });
+    // } else if (groupid) {
+    //   getFromInfo(from, groupid).then(({ displayName, photoURL }) => {
+    //     setPartnerName(displayName);
+    //     setPartnerPhoto(photoURL);
+    //   });
+    // }
   }, []);
 
   return (
     <>
-      {from === uid ? (
+      {info ? (
+        <div className={styles.info}>
+          <p>{`${displayName} is ${status}!`}</p>
+        </div>
+      ) : from === uid ? (
         <ul className={`${styles.message} ${styles.own}`}>
           <li className={styles.text}>
             <p className={styles.bubble}>{message}</p>
@@ -67,17 +103,16 @@ const ChatMessage: FC<Message> = ({ from, createdAt, id, message }) => {
       ) : (
         <ul className={`${styles.message} ${styles.partner}`}>
           <li className={styles.profile}>
-            {partnerPhoto ? (
-              <Avatar size={40} storageRef={partnerPhoto} chat />
+            {userInfo.photoURL ? (
+              <Avatar size={40} storageRef={userInfo.photoURL} chat />
             ) : (
               <AccountCircleIcon sx={{ width: "40px", height: "40px" }} />
             )}
-            {partnerName ? (
-              <p>{partnerName !== undefined ? partnerName : "Unknown"}</p>
-            ) : (
-              <p>Unknown</p>
-              // <Skeleton variant="text" width={100} height={24} />
-            )}
+            <p>
+              {userInfo.displayName !== undefined
+                ? userInfo.displayName
+                : "Unknown"}
+            </p>
           </li>
           <li className={styles.text}>
             <p className={styles.bubble}>{message}</p>

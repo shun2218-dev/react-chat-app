@@ -9,6 +9,9 @@
   padding: 25px;
   max-height: calc(100% - (107px + 83px));
   overflow-y: auto;
+  @media screen and (max-width: 1000px) {
+    width: calc(100% - 90px);
+  }
 }
 
 .notFound {
