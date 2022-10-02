@@ -5,8 +5,8 @@ import Card from "@/components/card";
 import styles from "@/styles/pages/Home.module.scss";
 import FlashMessage from "@/components/flashMessage";
 import { useFlashMessage } from "@/hooks/useFlashMessage";
-import PrivateIcon from "@mui/icons-material/Group";
-import GroupIcon from "@mui/icons-material/Groups";
+import PrivateIcon from "@/Icons/privateIcon";
+import GroupIcon from "@/Icons/groupIcon";
 
 const Home = () => {
   const authUser = useAuthUser();
@@ -27,13 +27,13 @@ const Home = () => {
       <div className={styles.cardContainer}>
         <Card
           onClick={() => toPrivate(authUser?.uid!)}
-          startIcon={<PrivateIcon fontSize="large" />}
+          startIcon={<PrivateIcon title />}
         >
           Private Chat
         </Card>
         <Card
           onClick={() => toGroup(authUser?.uid!)}
-          startIcon={<GroupIcon fontSize="large" />}
+          startIcon={<GroupIcon title />}
         >
           Group Chat
         </Card>

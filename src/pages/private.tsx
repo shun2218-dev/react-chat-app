@@ -1,18 +1,17 @@
 import React, { FormEvent, Fragment, useState } from "react";
 import UserList from "@/components/userList";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "@/styles/pages/Private.module.scss";
-import SendIcon from "@mui/icons-material/Send";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
 import ChatMessage from "@/components/chatMessage";
 import MessageDate from "@/components/messageDate";
 import isCreatedRoom from "@/lib/private/isCreatedRoom";
 import { formatDate } from "@/lib/formatDate";
-import NotFoundIcon from "@mui/icons-material/SearchOff";
 import CircularProgress from "@mui/material/CircularProgress";
 import MessageInput from "@/components/messageInput";
 import { useChatMessage } from "@/hooks/useChatMessage";
+import NotFoundIcon from "@/Icons/notFoundIcon";
 
 const Private = () => {
   const { uid, partnerid } = useParams();
@@ -93,7 +92,7 @@ const Private = () => {
           chatRoom === "" &&
           roomExist && (
             <div className={styles.notFound}>
-              <NotFoundIcon fontSize="large" />
+              <NotFoundIcon />
               <p>
                 No history found. <br />
                 You have not started a conversation with this person yet.

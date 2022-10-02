@@ -7,17 +7,15 @@ import { usePage } from "@/hooks/usePage";
 import { auth, db, storage } from "@/firebase";
 import { updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useParams } from "react-router-dom";
 import { useAuthUser, useSetAuthUser } from "@/atoms/useAuthUser";
 import { doc, updateDoc } from "firebase/firestore";
-import ChatIcon from "@mui/icons-material/QuestionAnswer";
-import SettingsIcon from "@mui/icons-material/Settings";
+import SettingIcon from "@/Icons/settingIcon";
+import UploadIcon from "@/Icons/uploadIcon";
 
 const Profile = () => {
   const { toHome } = usePage();
   const authUser = useAuthUser();
   const setAuthUser = useSetAuthUser();
-  const { uid } = useParams();
   const [image, setImage] = useState<File | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
 
@@ -94,7 +92,7 @@ const Profile = () => {
       <Form
         title="Setting Profile"
         onSubmit={onSubmit}
-        startIcon={<SettingsIcon fontSize="large" />}
+        startIcon={<SettingIcon title />}
       >
         {authUser?.photoURL ? (
           <Avatar size={80} state={image} setState={setImage} header={false} />
@@ -119,9 +117,9 @@ const Profile = () => {
           fullWidth
           height="52px"
           margin="30px 0 0"
-          startIcon={<ChatIcon />}
+          startIcon={<UploadIcon />}
         >
-          Start Chat
+          Update profile
         </Button>
       </Form>
     </>

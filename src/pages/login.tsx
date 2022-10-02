@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useRef } from "react";
 import Header from "@/components/header";
 import Form from "@/components/form";
 import Input from "@/components/input";
@@ -6,16 +6,13 @@ import Button from "@/components/button";
 import styles from "@/styles/pages/Login.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useSignIn } from "@/hooks/useSignIn";
-import { useAuthUser } from "@/atoms/useAuthUser";
 import { useFlashMessage } from "@/hooks/useFlashMessage";
 import FlashMessage from "@/components/flashMessage";
-import SignInIcon from "@mui/icons-material/Login";
-
-import LoginIcon from "@mui/icons-material/LockOpen";
+import SignInIcon from "@/Icons/signInIcon";
+import LockIcon from "@/Icons/lockIcon";
 
 const Login = () => {
-  const { toRegist, toReset, toHome } = usePage();
-  const authUser = useAuthUser();
+  const { toRegist, toReset } = usePage();
   const { signIn, loading, error } = useSignIn();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -34,11 +31,7 @@ const Login = () => {
     <>
       {flashState && <FlashMessage {...messageState!} />}
       <Header />
-      <Form
-        title="Sign In"
-        onSubmit={onSubmit}
-        startIcon={<LoginIcon fontSize="large" />}
-      >
+      <Form title="Sign In" onSubmit={onSubmit} startIcon={<LockIcon title />}>
         <Input
           label="Email"
           type="email"
