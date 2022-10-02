@@ -32,6 +32,10 @@
       background-color: rgba($color: var.$blue, $alpha: 0.5);
     }
   }
+  @media screen and (max-width: 600px) {
+    padding: 0;
+    height: 35px !important;
+  }
 }
 
 .outlined {

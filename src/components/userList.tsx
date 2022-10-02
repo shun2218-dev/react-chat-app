@@ -69,7 +69,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
     if (group && groupid) {
       const groupRef = collection(db, "groups", groupid, "members");
       const unSub = onSnapshot(groupRef, (snapshot) => {
-        if (snapshot.docs.every(isNotMember)) {
+        if (snapshot.docs.every(isNotMember) && !joinOpen) {
           setJoinOpen(true);
         } else {
           setJoinOpen(false);
@@ -133,9 +133,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
       />
       <div className={styles.container}>
         <ul className={`${styles.userList} ${groupid && styles.group}`}>
-          <li className={styles.listTitle}>
-            {group ? "Members List" : "User List"}
-          </li>
+          <li className={styles.listTitle}>{group ? "Members" : "Users"}</li>
           {users.length ? (
             users.map((user) => (
               <li
@@ -150,7 +148,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
                 <img
                   src={user.data().photoURL}
                   alt=""
-                  className={styles.image}
+                  className={utilStyles.avatar}
                 />
                 <p>{user.data().displayName}</p>
               </li>
@@ -162,7 +160,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
           {group && (
             <>
               <ul className={styles.userList}>
-                <li className={styles.listTitle}>{"Invitation List"}</li>
+                <li className={styles.listTitle}>{"Invitation"}</li>
                 {inviteLists.length ? (
                   inviteLists.map((inviteList) => (
                     <li
@@ -182,7 +180,11 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
                     </li>
                   ))
                 ) : (
-                  <div className={utilStyles.textCenter}>Nobody invited</div>
+                  <div
+                    className={`${utilStyles.textCenter} ${utilStyles.text}`}
+                  >
+                    Nobody invited
+                  </div>
                 )}
               </ul>
               <div className={styles.buttonGroup}>
