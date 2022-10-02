@@ -3,6 +3,7 @@ import Form from "@/components/form";
 import { db } from "@/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import styles from "@/styles/pages/Join.module.scss";
+import utilStyles from "@/styles/utils/utils.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useParams } from "react-router-dom";
 
@@ -45,7 +46,12 @@ const Join = () => {
               key={id}
               onClick={() => toGroupRoom(uid!, id)}
             >
-              {groupName}
+              <img
+                src={photoURL}
+                alt={groupName}
+                className={utilStyles.avatar}
+              />
+              <p>{groupName}</p>
             </li>
           ))
         ) : loading ? (

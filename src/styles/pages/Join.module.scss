@@ -17,6 +17,13 @@
   cursor: pointer;
   padding: 20px 80px;
   box-shadow: inset -3px -3px 3px var.$black, inset 1px 1px 3px var.$black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & p {
+    flex-grow: 1;
+    margin: 0.5rem 0;
+  }
   @include mix.hoverColor(lighten(var.$white, 20)) {
     background-color: lighten(var.$black, 20);
   }

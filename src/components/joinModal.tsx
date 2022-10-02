@@ -18,6 +18,7 @@ import { getUserInfo } from "@/lib/getUserInfo";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { CustomModal } from "@/types/CustomModal";
 import { informationMessage } from "@/lib/infomationMessage";
+import utilStyles from "@/styles/utils/utils.module.scss";
 
 const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   const authUser = useAuthUser();
@@ -64,6 +65,7 @@ const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
     <Modal title="Join this group?" open={open}>
       {groupInfo && (
         <>
+          <img src={groupInfo.photoURL} alt="" className={utilStyles.avatar} />
           <div>
             <p className={styles.contentTitle}>Group name</p>
             <div className={styles.contentBox}>{groupInfo.groupName}</div>
