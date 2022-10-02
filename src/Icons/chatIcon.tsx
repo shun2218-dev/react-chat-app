@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "@/styles/icons/Icon.module.scss";
 
-const ChatIcon = () => {
+const ChatIcon = ({ title = false }: { title?: boolean }) => {
   return (
     <svg
-      className={styles.icon}
+      className={`${styles.icon} ${title && styles.title}`}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
