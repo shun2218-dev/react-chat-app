@@ -4,16 +4,14 @@
 .container {
   box-sizing: border-box;
   background-color: var.$navy;
-  height: calc(100vh - 107px);
+  height: calc(100vh - 118px);
   width: 25%;
   position: absolute;
-  top: 107px;
+  top: 118px;
   left: 0;
   border: 1px solid var.$navy;
   @media screen and (max-width: 1000px) {
     max-width: 90px;
-    height: calc(100vh - 96px);
-    top: 96px;
   }
   @media screen and (max-width: 600px) {
     max-width: 70px;
@@ -59,6 +57,7 @@
   width: 100%;
   padding: 15px;
   cursor: pointer;
+  border-radius: 6px;
   & p {
     flex-grow: 1;
   }

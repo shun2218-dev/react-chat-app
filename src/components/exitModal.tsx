@@ -8,11 +8,9 @@ import { NavigationState } from "@/types/NavigationState";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase";
 import { usePage } from "@/hooks/usePage";
-import { useAuthUser } from "@/atoms/useAuthUser";
 import { informationMessage } from "@/lib/infomationMessage";
 
 const ExitModal: FC<CustomModal> = ({ open, modalToggle }) => {
-  const authUser = useAuthUser();
   const { uid, groupid } = useParams();
   const { toHome } = usePage();
 
