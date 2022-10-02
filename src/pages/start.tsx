@@ -8,28 +8,30 @@ const Start = () => {
   const { toLogin, toRegist } = usePage();
   return (
     <div className={styles.container}>
-      <img src={logo} alt="logo" width="600px" />
-      <Button
-        type="button"
-        color="primary"
-        variant="contained"
-        rounded
-        onClick={toRegist}
-        height="50px"
-        width="150px"
-      >
-        Get Started
-      </Button>
-      <Button
-        type="button"
-        color="transparent"
-        variant="filled"
-        onClick={toLogin}
-        height="30px"
-        width="150px"
-      >
-        Sign In &gt;
-      </Button>
+      <img src={logo} alt="logo" className={styles.logo} />
+      <div className={styles.buttonGroup}>
+        <Button
+          type="button"
+          color="primary"
+          variant="contained"
+          rounded
+          onClick={toRegist}
+          height="50px"
+          width="150px"
+        >
+          Get Started
+        </Button>
+        <Button
+          type="button"
+          color="transparent"
+          variant="filled"
+          onClick={toLogin}
+          height="30px"
+          width="150px"
+        >
+          Sign In &gt;
+        </Button>
+      </div>
     </div>
   );
 };

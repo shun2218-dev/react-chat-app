@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePage } from "@/hooks/usePage";
 import Modal from "./modal";
@@ -6,23 +6,25 @@ import Button from "./button";
 import styles from "@/styles/components/Modal.module.scss";
 import { db } from "@/firebase";
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
+  DocumentData,
+  getDoc,
   getDocs,
-  serverTimestamp,
   setDoc,
 } from "firebase/firestore";
 import { getUserInfo } from "@/lib/getUserInfo";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { CustomModal } from "@/types/CustomModal";
 import { informationMessage } from "@/lib/infomationMessage";
+import utilStyles from "@/styles/utils/utils.module.scss";
 
 const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   const authUser = useAuthUser();
   const { uid, groupid } = useParams();
   const { toJoin } = usePage();
+  const [groupInfo, setGroupInfo] = useState<DocumentData>({});
 
   const invitationCheck = async (uid: string, groupid: string) => {
     const inviteRef = collection(db, "groups", groupid, "invitations");
@@ -36,19 +38,44 @@ const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   };
   const joinGroup = async (groupid: string, uid: string) => {
     const membersRef = doc(db, "groups", groupid, "members", uid);
-    await getUserInfo(uid).then(async (member) => {
-      await setDoc(membersRef, member)
-        .then(() => modalToggle("join"))
-        .then(async () => {
-          await informationMessage(uid, groupid, "joined");
-        })
-        .then(async () => {
-          await invitationCheck(uid!, groupid!);
-        });
-    });
+    await getUserInfo(uid)
+      .then(async (member) => {
+        await setDoc(membersRef, member)
+          .then(async () => {
+            await informationMessage(uid, groupid, "joined");
+          })
+          .then(async () => {
+            await invitationCheck(uid!, groupid!);
+          });
+      })
+      .finally(() => modalToggle("join"));
   };
+
+  useEffect(() => {
+    if (groupid) {
+      const groupRef = doc(db, "groups", groupid!);
+      getDoc(groupRef).then((docSnapshot) => {
+        if (docSnapshot.exists()) {
+          setGroupInfo({ ...docSnapshot.data() });
+        }
+      });
+    }
+  }, []);
   return (
     <Modal title="Join this group?" open={open}>
+      {groupInfo && (
+        <>
+          <img src={groupInfo.photoURL} alt="" className={utilStyles.avatar} />
+          <div>
+            <p className={styles.contentTitle}>Group name</p>
+            <div className={styles.contentBox}>{groupInfo.groupName}</div>
+          </div>
+          <div>
+            <p className={styles.contentTitle}>Description</p>
+            <div className={styles.contentBox}>{groupInfo.description}</div>
+          </div>
+        </>
+      )}
       <div className={`${styles.modalButton} ${styles.row}`}>
         <Button
           type="button"

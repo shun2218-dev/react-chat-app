@@ -8,6 +8,8 @@ import { useFlashMessage } from "@/hooks/useFlashMessage";
 import { useCreateGroup } from "@/hooks/useCreateGroup";
 import FlashMessage from "@/components/flashMessage";
 import { usePage } from "@/hooks/usePage";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import styles from "@/styles/pages/Create.module.scss";
 
 const Create = () => {
   const [desc, setDesc] = useState("");
@@ -16,6 +18,7 @@ const Create = () => {
   const createGroup = useCreateGroup();
   const { messageState, flashState, reset } = useFlashMessage(3000);
   const { toHome } = usePage();
+  const [image, setImage] = useState<File | null>(null);
 
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDesc(e.target.value);
@@ -24,9 +27,27 @@ const Create = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const name = nameRef.current?.value;
-    if (name && desc) {
+    if (image && name && desc) {
       const data = { groupName: name, description: desc, owner: uid };
-      await createGroup(data);
+      await createGroup(data, image);
+    }
+  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null) {
+      setImage(e.target.files[0]);
+    }
+  };
+  const AvatarImage = () => {
+    if (image) {
+      return (
+        <img
+          src={URL.createObjectURL(image)}
+          alt=""
+          className={styles.avatar}
+        />
+      );
+    } else {
+      return <AccountCircleIcon sx={{ width: "60px", height: "60px" }} />;
     }
   };
 
@@ -34,6 +55,18 @@ const Create = () => {
     <>
       {flashState && <FlashMessage {...messageState!} />}
       <Form title="Create a new group" onSubmit={async (e) => onSubmit(e)}>
+        <div>
+          <label htmlFor="avatar">
+            <AvatarImage />
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            id="avatar"
+            onChange={handleChange}
+          />
+        </div>
         <Input
           label="Group name"
           placeholder="Group name"

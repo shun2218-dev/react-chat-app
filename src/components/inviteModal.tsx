@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import Button from "./button";
 import Modal from "./modal";
 import styles from "@/styles/components/Modal.module.scss";
+import utilStyles from "@/styles/utils/utils.module.scss";
 import { getUserInfo } from "@/lib/getUserInfo";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/firebase";
@@ -91,7 +92,7 @@ const InviteModal: FC<CustomModal> = memo(
                   <img
                     src={user.data().photoURL}
                     alt=""
-                    className={styles.image}
+                    className={utilStyles.avatar}
                   />
                   <p>{user.data().displayName}</p>
                 </li>
