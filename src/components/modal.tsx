@@ -14,7 +14,7 @@ const Modal: FC<ModalProps> = ({ title, children, open, onSubmit }) => {
       {open && (
         <div id="overlay" className={styles.overlay}>
           <form id="modalBody" className={styles.modalBody} onSubmit={onSubmit}>
-            <h2>{title}</h2>
+            <h2 className={styles.title}>{title}</h2>
             {children}
           </form>
         </div>
