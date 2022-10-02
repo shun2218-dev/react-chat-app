@@ -6,6 +6,7 @@ export type Message = {
   createdAt: Timestamp;
   from: string;
   info?: boolean;
-  status?: string;
+  status?: "joined" | "existed" | "invited" | "canceled";
   displayName?: string;
+  to?: string;
 };

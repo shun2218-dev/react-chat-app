@@ -3,20 +3,8 @@ import UserList from "@/components/userList";
 import { useLocation, useParams } from "react-router-dom";
 import styles from "@/styles/pages/Private.module.scss";
 import SendIcon from "@mui/icons-material/Send";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
-} from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
-import { useEffect } from "react";
-import { Message } from "@/types/Message";
 import ChatMessage from "@/components/chatMessage";
 import MessageDate from "@/components/messageDate";
 import isCreatedRoom from "@/lib/private/isCreatedRoom";
@@ -28,7 +16,6 @@ import { useChatMessage } from "@/hooks/useChatMessage";
 
 const Private = () => {
   const { uid, partnerid } = useParams();
-  const { pathname } = useLocation();
   const [message, setMessage] = useState("");
   const {
     chatMessages,

@@ -12,6 +12,7 @@ import { useAuthUser } from "@/atoms/useAuthUser";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Skeleton } from "@mui/material";
+import styles from "@/styles/components/Avatar.module.scss";
 
 type Avatar = {
   size?: number;
@@ -64,20 +65,31 @@ const Avatar: FC<Avatar> = ({
 
   const AvatarImage = () => {
     return (
-      <div>
+      <div className={styles.container}>
         {chat ? (
           storageRef ? (
-            <img src={storageRef} alt="" style={imageStyle} />
+            <img
+              src={storageRef}
+              alt=""
+              style={imageStyle}
+              className={styles.avatar}
+            />
           ) : (
             <Skeleton variant="circular" width={size} height={size} />
           )
         ) : state !== undefined && state !== null ? (
-          <img src={URL.createObjectURL(state)} alt="" style={imageStyle} />
+          <img
+            src={URL.createObjectURL(state)}
+            alt=""
+            style={imageStyle}
+            className={styles.avatar}
+          />
         ) : url !== null ? (
           <img
             src={url}
             alt=""
             style={imageStyle}
+            className={styles.avatar}
             onClick={() => header && toProfile(uid!)}
           />
         ) : (

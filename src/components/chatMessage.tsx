@@ -9,6 +9,7 @@ import Avatar from "./avatar";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import styles from "@/styles/components/ChatMessage.module.scss";
 import { getUserInfo } from "@/lib/getUserInfo";
+import InfoMessage from "./infoMessage";
 
 type Info = {
   displayName: string;
@@ -17,6 +18,7 @@ type Info = {
 
 const ChatMessage: FC<Message> = ({
   from,
+  to,
   createdAt,
   id,
   message,
@@ -88,9 +90,7 @@ const ChatMessage: FC<Message> = ({
   return (
     <>
       {info ? (
-        <div className={styles.info}>
-          <p>{`${displayName} is ${status}!`}</p>
-        </div>
+        <InfoMessage status={status!} to={to!} from={from} />
       ) : from === uid ? (
         <ul className={`${styles.message} ${styles.own}`}>
           <li className={styles.text}>
