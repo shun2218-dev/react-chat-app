@@ -1,0 +1,16 @@
+@use "../config/variables" as var;
+
+.icon {
+  width: 28px;
+  font-weight: thin;
+  @media screen and (max-width: 1000px) {
+    min-width: 22px;
+    width: 22px;
+  }
+  &.title {
+    width: 36px;
+    @media screen and (max-width: 1000px) {
+      width: 28px;
+    }
+  }
+}

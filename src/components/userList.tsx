@@ -21,7 +21,7 @@ import CancelModal from "./cancelModal";
 
 const UserList = memo(({ group = false }: { group?: boolean }) => {
   const authUser = useAuthUser();
-  const { uid, partnerid, groupid } = useParams();
+  const { partnerid, groupid } = useParams();
   const { toPrivateRoom } = usePage();
   const [ids, setIds] = useState<string[]>([]);
   const [inviteIds, setInviteIds] = useState<string[]>([]);
@@ -174,7 +174,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
                       <img
                         src={inviteList.data().photoURL}
                         alt=""
-                        className={styles.image}
+                        className={utilStyles.avatar}
                       />
                       <p>{inviteList.data().displayName}</p>
                     </li>

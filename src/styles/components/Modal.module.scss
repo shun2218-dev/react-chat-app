@@ -85,8 +85,11 @@
   }
   @media screen and (max-width: 600px) {
     gap: 30px;
-    & p {
-      flex-grow: 0;
+  }
+  @include mix.hoverColor(lighten(var.$white, 20)) {
+    background-color: lighten(var.$black, 20);
+    & img {
+      opacity: 0.6;
     }
   }
 }
@@ -107,4 +110,5 @@
 .contentBox {
   background-color: rgba(lighten(var.$black, 20), 0.3);
   padding: 20px;
+  border-radius: 6px;
 }

@@ -1,15 +1,15 @@
+import React, { FormEvent, useRef } from "react";
 import Button from "@/components/button";
 import Form from "@/components/form";
 import Header from "@/components/header";
 import Input from "@/components/input";
 import { usePage } from "@/hooks/usePage";
 import { usePasswordReset } from "@/hooks/usePasswordReset";
-import React, { FormEvent, useRef } from "react";
-import EmailIcon from "@mui/icons-material/Email";
-import ResetIcon from "@mui/icons-material/LockReset";
+import MailIcon from "@/Icons/mailIcon";
+import ResetIcon from "@/Icons/resetIcon";
 
 const Reset = () => {
-  const { toLogin, toComplete } = usePage();
+  const { toLogin } = usePage();
   const { passwordReset } = usePasswordReset();
   const emailRef = useRef<HTMLInputElement>(null);
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -26,7 +26,7 @@ const Reset = () => {
         title="Enter your Email address"
         secondTitle="to reset your password."
         onSubmit={onSubmit}
-        startIcon={<EmailIcon fontSize="large" />}
+        startIcon={<MailIcon title />}
       >
         <Input
           label="Email"

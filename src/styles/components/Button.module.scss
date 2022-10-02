@@ -18,6 +18,7 @@
 
 .contained {
   border: none;
+  box-sizing: border-box;
   &.primary {
     color: var.$white;
     background-color: var.$blue;
@@ -33,8 +34,7 @@
     }
   }
   @media screen and (max-width: 600px) {
-    padding: 0;
-    height: 35px !important;
+    height: 32px !important;
   }
 }
 
@@ -42,21 +42,21 @@
   background-color: transparent;
   &.primary {
     color: var.$blue;
-    border: 1px solid var.$blue;
+    border: 2px solid var.$blue;
     @include mix.hoverStyle(
       darken(var.$blue, 20),
-      1px solid darken(var.$blue, 20)
+      2px solid darken(var.$blue, 20)
     );
     @include mix.disabledStyle(var.$blue) {
-      border: 1px solid rgba(var.$blue, 0.5);
+      border: 2px solid rgba(var.$blue, 0.5);
     }
   }
   &.transparent {
     color: var.$white;
-    border: 3px solid var.$white;
+    border: 2px solid var.$white;
     @include mix.hoverStyle(
       darken(var.$white, 40),
-      3px solid darken(var.$white, 40)
+      2px solid darken(var.$white, 40)
     );
     @include mix.disabledStyle(var.$white) {
       border: 1px solid rgba(var.$white, 0.5);
@@ -64,10 +64,10 @@
   }
   &.error {
     color: var.$error;
-    border: 3px solid var.$error;
+    border: 2px solid var.$error;
     @include mix.hoverStyle(
       lighten(var.$error, 20),
-      3px solid lighten(var.$error, 20)
+      2px solid lighten(var.$error, 20)
     );
     @include mix.disabledStyle(var.$error) {
       border: 1px solid rgba(var.$error, 0.5);
@@ -75,10 +75,10 @@
   }
   &.success {
     color: var.$success;
-    border: 3px solid var.$success;
+    border: 2px solid var.$success;
     @include mix.hoverStyle(
       lighten(var.$success, 20),
-      3px solid lighten(var.$success, 20)
+      2px solid lighten(var.$success, 20)
     );
     @include mix.disabledStyle(var.$success) {
       border: 1px solid rgba(var.$success, 0.5);
@@ -95,8 +95,10 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  font-size: 0.7rem;
+  font-weight: bold;
   @media screen and (max-width: 1000px) {
-    font-size: 0.7rem;
+    font-size: 0.5rem;
   }
 }
 
