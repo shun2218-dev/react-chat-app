@@ -1,14 +1,12 @@
 import React, { useCallback, useState } from "react";
 import styles from "@/styles/components/UserList.module.scss";
+import utilStyles from "@/styles/utils/utils.module.scss";
 import { useEffect } from "react";
 import {
   collection,
   DocumentData,
   QueryDocumentSnapshot,
   onSnapshot,
-  doc,
-  setDoc,
-  deleteDoc,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useAuthUser } from "@/atoms/useAuthUser";
@@ -16,57 +14,58 @@ import { usePage } from "@/hooks/usePage";
 import { useParams } from "react-router-dom";
 import { memo } from "react";
 import Button from "./button";
-import Modal from "./modal";
-import { getUserInfo } from "@/lib/getUserInfo";
-import { NavigationState } from "@/types/NavigationState";
+import JoinModal from "./joinModal";
+import ExitModal from "./exitModal";
+import InviteModal from "./inviteModal";
+import CancelModal from "./cancelModal";
 
 const UserList = memo(({ group = false }: { group?: boolean }) => {
   const authUser = useAuthUser();
-  const { toPrivateRoom, toJoin, toHome } = usePage();
+  const { uid, partnerid, groupid } = useParams();
+  const { toPrivateRoom } = usePage();
+  const [ids, setIds] = useState<string[]>([]);
+  const [inviteIds, setInviteIds] = useState<string[]>([]);
+  const [cancelId, setCancelId] = useState("");
+  const [allUsers, setAllUsers] = useState<
+    QueryDocumentSnapshot<DocumentData>[]
+  >([]);
   const [users, setUsers] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
   const [inviteUsers, setInviteUsers] = useState<
     QueryDocumentSnapshot<DocumentData>[]
   >([]);
-  const { uid, partnerid, groupid } = useParams();
+  const [inviteLists, setInviteLists] = useState<
+    QueryDocumentSnapshot<DocumentData>[]
+  >([]);
   const [inviteOpen, setInviteOpen] = useState(false);
   const [exitOpen, setExitOpen] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
+  const [cancelOpen, setCancelOpen] = useState(false);
 
-  const modalToggle = (target: string) => {
-    if (target === "invite") {
-      setInviteOpen(!inviteOpen);
-    } else if (target === "exit") {
-      setExitOpen(!exitOpen);
-    } else if (target === "join") {
-      setJoinOpen(!joinOpen);
-    }
-  };
-
-  const joinGroup = async (groupid: string, uid: string) => {
-    const membersRef = doc(db, "groups", groupid, "members", uid);
-    await getUserInfo(uid).then(async (member) => {
-      await setDoc(membersRef, member).then(() => modalToggle("join"));
-    });
-  };
-
-  const exitGroup = async (groupid: string, uid: string) => {
-    const flashMessage = {
-      title: "Success",
-      status: "success",
-      text: "Exit group.",
-    } as NavigationState;
-    await deleteDoc(doc(db, "groups", groupid, "members", uid)).then(() =>
-      toHome(uid!, flashMessage)
-    );
-  };
+  const modalToggle = useCallback(
+    (target: string) => {
+      if (target === "invite") {
+        setInviteOpen(!inviteOpen);
+      } else if (target === "exit") {
+        setExitOpen(!exitOpen);
+      } else if (target === "join") {
+        setJoinOpen(!joinOpen);
+      } else if (target === "cancel") {
+        setCancelOpen(!cancelOpen);
+      }
+    },
+    [joinOpen, exitOpen, inviteOpen, cancelOpen]
+  );
 
   const isNotMember = useCallback(
     (doc: QueryDocumentSnapshot<DocumentData>) => doc.id !== authUser?.uid,
-    []
+    [users]
   );
 
   useEffect(() => {
     const userRef = collection(db, "users");
+    const unSubUser = onSnapshot(userRef, (snapshot) => {
+      setAllUsers([...snapshot.docs.map((doc) => doc)]);
+    });
     if (group && groupid) {
       const groupRef = collection(db, "groups", groupid, "members");
       const unSub = onSnapshot(groupRef, (snapshot) => {
@@ -76,11 +75,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
           setJoinOpen(false);
         }
         setUsers([...snapshot.docs.map((doc) => doc)]);
-      });
-      const unSubUser = onSnapshot(userRef, (snapshot) => {
-        setInviteUsers([
-          ...snapshot.docs.filter((doc) => doc.id !== authUser?.uid!),
-        ]);
+        setIds([...snapshot.docs.map((doc) => doc.id)]);
       });
       return () => {
         unSub();
@@ -89,6 +84,29 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
     } else {
       const unSub = onSnapshot(userRef, (snapshot) => {
         setUsers([...snapshot.docs.filter((doc) => doc.id !== authUser?.uid!)]);
+        setIds([...snapshot.docs.map((doc) => doc.id)]);
+      });
+      return () => {
+        unSub();
+        unSubUser();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    const members = allUsers.filter((user) => ids.includes(user.id) === false);
+    const invited = members.filter(
+      (member) => inviteIds.includes(member.id) === false
+    );
+    setInviteUsers([...invited]);
+  }, [users, allUsers, inviteLists]);
+
+  useEffect(() => {
+    if (groupid) {
+      const inviteRef = collection(db, "groups", groupid!, "invitations");
+      const unSub = onSnapshot(inviteRef, (snapshot) => {
+        setInviteLists([...snapshot.docs.map((doc) => doc)]);
+        setInviteIds([...snapshot.docs.map((doc) => doc.id)]);
       });
       return () => {
         unSub();
@@ -98,96 +116,23 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
 
   return (
     <>
-      <Modal title="Join this group?" open={joinOpen}>
-        <div className={`${styles.modalButton} ${styles.row}`}>
-          <Button
-            type="button"
-            color="primary"
-            variant="contained"
-            onClick={() => joinGroup(groupid!, uid!)}
-            fullWidth
-          >
-            Yes
-          </Button>
-          <Button
-            type="button"
-            color="transparent"
-            variant="outlined"
-            onClick={() => toJoin(uid!)}
-            fullWidth
-          >
-            No
-          </Button>
-        </div>
-      </Modal>
-      <Modal title="Select the member to invite" open={inviteOpen}>
-        <ul className={`${styles.userList} ${styles.invite}`}>
-          {inviteUsers.length ? (
-            inviteUsers.map((user) => (
-              <label key={user.id} className={styles.label}>
-                <li
-                  className={`${styles.user} ${styles.passive} `}
-                  onClick={() => {}}
-                >
-                  <input type="checkbox" name="" id="" />
-                  <img
-                    src={user.data().photoURL}
-                    alt=""
-                    className={styles.image}
-                  />
-                  <p>{user.data().displayName}</p>
-                </li>
-              </label>
-            ))
-          ) : (
-            <div>...loading</div>
-          )}
-        </ul>
-        <div className={`${styles.modalButton}`}>
-          <Button
-            type="button"
-            color="primary"
-            variant="contained"
-            fullWidth
-            onClick={() => modalToggle("invite")}
-          >
-            Invite New Members
-          </Button>
-          <Button
-            type="button"
-            color="transparent"
-            variant="filled"
-            fullWidth
-            onClick={() => modalToggle("invite")}
-          >
-            Cancel
-          </Button>
-        </div>
-      </Modal>
-      <Modal title="Exit this group?" open={exitOpen}>
-        <div className={`${styles.modalButton} ${styles.row}`}>
-          <Button
-            type="button"
-            color="primary"
-            variant="contained"
-            onClick={() => exitGroup(groupid!, uid!)}
-            fullWidth
-          >
-            Yes
-          </Button>
-          <Button
-            type="button"
-            color="transparent"
-            variant="outlined"
-            onClick={() => modalToggle("exit")}
-            fullWidth
-          >
-            No
-          </Button>
-        </div>
-      </Modal>
+      <JoinModal open={joinOpen} modalToggle={modalToggle} />
+      <InviteModal
+        open={inviteOpen}
+        modalToggle={modalToggle}
+        inviteUsers={inviteUsers}
+        inviteIds={inviteIds}
+        setInviteIds={setInviteIds}
+      />
+      <ExitModal open={exitOpen} modalToggle={modalToggle} />
+      <CancelModal
+        open={cancelOpen}
+        modalToggle={modalToggle}
+        cancelId={cancelId}
+        setCancelId={setCancelId}
+      />
       <div className={styles.container}>
-        <ul className={`${styles.userList} ${styles.group}`}>
+        <ul className={`${styles.userList} ${groupid && styles.group}`}>
           <li className={styles.listTitle}>
             {group ? "Members List" : "User List"}
           </li>
@@ -218,6 +163,27 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
             <>
               <ul className={styles.userList}>
                 <li className={styles.listTitle}>{"Invitation List"}</li>
+                {inviteLists.length ? (
+                  inviteLists.map((inviteList) => (
+                    <li
+                      key={inviteList.id}
+                      className={`${styles.user}`}
+                      onClick={() => {
+                        modalToggle("cancel");
+                        setCancelId(inviteList.id);
+                      }}
+                    >
+                      <img
+                        src={inviteList.data().photoURL}
+                        alt=""
+                        className={styles.image}
+                      />
+                      <p>{inviteList.data().displayName}</p>
+                    </li>
+                  ))
+                ) : (
+                  <div className={utilStyles.textCenter}>Nobody invited</div>
+                )}
               </ul>
               <div className={styles.buttonGroup}>
                 <Button
@@ -227,7 +193,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
                   fullWidth
                   onClick={() => modalToggle("invite")}
                 >
-                  Invite New Members
+                  Invite
                 </Button>
                 <Button
                   type="button"
@@ -236,7 +202,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
                   fullWidth
                   onClick={() => modalToggle("exit")}
                 >
-                  Exit This Room
+                  Exit
                 </Button>
               </div>
             </>

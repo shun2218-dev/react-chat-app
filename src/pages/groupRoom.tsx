@@ -1,27 +1,20 @@
-import React, { FormEvent, Fragment, useEffect, useState } from "react";
+import React, { FormEvent, Fragment, useState } from "react";
 import MessageInput from "@/components/messageInput";
 import UserList from "@/components/userList";
-import { Message } from "@/types/Message";
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
-} from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
 import { useParams } from "react-router-dom";
 import ChatMessage from "@/components/chatMessage";
 import MessageDate from "@/components/messageDate";
 import { formatDate } from "@/lib/formatDate";
 import styles from "@/styles/pages/GroupRoom.module.scss";
+import { useChatMessage } from "@/hooks/useChatMessage";
 
 const GroupRoom = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [docs, setDocs] = useState<Message[]>([]);
   const { uid, groupid } = useParams();
+  const { chatMessages } = useChatMessage(true);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,28 +28,12 @@ const GroupRoom = () => {
     }
   };
 
-  useEffect(() => {
-    const q = query(
-      collection(db, "groups", groupid!, "messages"),
-      orderBy("createdAt", "asc")
-    );
-    const unSub = onSnapshot(q, (snapshot) => {
-      setDocs([
-        ...snapshot.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() } as Message;
-        }),
-      ]);
-    });
-    return () => {
-      unSub();
-    };
-  }, []);
   return (
     <>
       <UserList group />
       <div className={styles.chatRoom}>
-        {docs.length ? (
-          docs.map((doc, index) => {
+        {chatMessages.length ? (
+          chatMessages.map((doc, index) => {
             if (doc.createdAt !== null) {
               const targetDate = formatDate(doc);
               if (index === 0) {
@@ -67,7 +44,7 @@ const GroupRoom = () => {
                   </Fragment>
                 );
               } else {
-                const preDate = formatDate(docs[index - 1]);
+                const preDate = formatDate(chatMessages[index - 1]);
                 if (
                   preDate.month === targetDate.month &&
                   preDate.day === targetDate.day

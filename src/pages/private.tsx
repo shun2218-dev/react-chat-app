@@ -3,20 +3,8 @@ import UserList from "@/components/userList";
 import { useLocation, useParams } from "react-router-dom";
 import styles from "@/styles/pages/Private.module.scss";
 import SendIcon from "@mui/icons-material/Send";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
-} from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
-import { useEffect } from "react";
-import { Message } from "@/types/Message";
 import ChatMessage from "@/components/chatMessage";
 import MessageDate from "@/components/messageDate";
 import isCreatedRoom from "@/lib/private/isCreatedRoom";
@@ -24,17 +12,21 @@ import { formatDate } from "@/lib/formatDate";
 import NotFoundIcon from "@mui/icons-material/SearchOff";
 import CircularProgress from "@mui/material/CircularProgress";
 import MessageInput from "@/components/messageInput";
+import { useChatMessage } from "@/hooks/useChatMessage";
 
 const Private = () => {
-  const [isRoom, setIsRoom] = useState(false);
   const { uid, partnerid } = useParams();
-  const { pathname } = useLocation();
   const [message, setMessage] = useState("");
-  const [docs, setDocs] = useState<Message[]>([]);
-  const [chatRoom, setChatRoom] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [dataLoading, setDataLoading] = useState(false);
-  const [roomExist, setRoomExist] = useState(true);
+  const {
+    chatMessages,
+    chatRoom,
+    setChatRoom,
+    loading,
+    setLoading,
+    dataLoading,
+    setRoomExist,
+    roomExist,
+  } = useChatMessage();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,86 +51,6 @@ const Private = () => {
     }
   };
 
-  const getRoomId = async (uid: string, roomDocId: string) => {
-    let roomid: string = "";
-    const roomRef = doc(db, "users", `${uid}`, "rooms", `${roomDocId}`);
-    await getDoc(roomRef).then((res) => {
-      roomid = res.data()!.roomid;
-    });
-    return roomid;
-  };
-
-  useEffect(() => {
-    setDataLoading(true);
-    const userRef = collection(db, "users", `${uid}`, "rooms");
-    const unSubUser = onSnapshot(userRef, (snapshot) => {
-      const room = snapshot.docs.filter((doc) => doc.id === partnerid);
-      if (room.length && uid) {
-        const roomDocId = room[0].id;
-        getRoomId(uid, roomDocId).then((roomid) => {
-          setChatRoom(roomid);
-          const messageRef = query(
-            collection(db, "rooms", `${roomid}`, "messages"),
-            orderBy("createdAt", "asc")
-          );
-          getDocs(messageRef).then((snapshot) => {
-            setDocs([
-              ...snapshot.docs.map((doc) => {
-                return {
-                  id: doc.id,
-                  ...doc.data(),
-                } as Message;
-              }),
-            ]);
-          });
-        });
-        setDataLoading(false);
-      } else {
-        console.log("not exist");
-        setDataLoading(false);
-      }
-    });
-    return () => {
-      unSubUser();
-    };
-  }, [pathname]);
-
-  useEffect(() => {
-    if (chatRoom) {
-      const q = query(
-        collection(db, "rooms", `${chatRoom}`, "messages"),
-        orderBy("createdAt", "asc")
-      );
-      const unSub = onSnapshot(q, (querySnapshot) => {
-        setDocs([
-          ...querySnapshot.docs.map((doc) => {
-            return {
-              id: doc.id,
-              ...doc.data(),
-            } as Message;
-          }),
-        ]);
-      });
-      return () => {
-        unSub();
-      };
-    }
-  }, [chatRoom]);
-
-  useEffect(() => {
-    if (partnerid) {
-      setIsRoom(true);
-      setDocs([]);
-      setChatRoom("");
-    } else {
-      setIsRoom(false);
-    }
-
-    if (!roomExist) {
-      setChatRoom("");
-    }
-  }, [pathname]);
-
   return (
     <>
       <UserList />
@@ -148,8 +60,8 @@ const Private = () => {
             <CircularProgress />
             <p>loading...</p>
           </div>
-        ) : docs.length !== 0 ? (
-          docs.map((doc, index) => {
+        ) : chatMessages.length !== 0 ? (
+          chatMessages.map((doc, index) => {
             if (doc.createdAt !== null) {
               const targetDate = formatDate(doc);
               if (index === 0) {
@@ -160,7 +72,7 @@ const Private = () => {
                   </Fragment>
                 );
               } else {
-                const preDate = formatDate(docs[index - 1]);
+                const preDate = formatDate(chatMessages[index - 1]);
                 if (
                   preDate.month === targetDate.month &&
                   preDate.day === targetDate.day

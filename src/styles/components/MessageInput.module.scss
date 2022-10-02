@@ -11,6 +11,12 @@
   display: flex;
   justify-content: center;
   gap: 20px;
+  @media screen and (max-width: 1000px) {
+    width: calc(100% - 90px);
+  }
+  @media screen and (max-width: 600px) {
+    width: calc(100% - 70px);
+  }
 }
 
 .input {
@@ -21,6 +27,9 @@
   width: 40%;
   height: 20px;
   color: var.$white;
+  @media screen and (max-width: 1000px) {
+    height: 10px;
+  }
 }
 
 .button {

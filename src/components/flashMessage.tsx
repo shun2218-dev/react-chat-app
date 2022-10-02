@@ -11,9 +11,15 @@ const FlashMessage: FC<NavigationState> = ({ status, title, text, strong }) => {
         top: "127px",
         left: "50%",
         transform: "translateX(-50%)",
-        width: "45%",
+        width: "874px",
         boxSizing: "border-box",
         textAlign: "left",
+        "@media screen and (max-width: 940px)": {
+          width: "420px",
+        },
+        "@media screen and (max-width:600px)": {
+          width: "300px",
+        },
       }}
     >
       <AlertTitle>{title}</AlertTitle>
