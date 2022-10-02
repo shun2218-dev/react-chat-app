@@ -69,7 +69,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
     if (group && groupid) {
       const groupRef = collection(db, "groups", groupid, "members");
       const unSub = onSnapshot(groupRef, (snapshot) => {
-        if (snapshot.docs.every(isNotMember)) {
+        if (snapshot.docs.every(isNotMember) && !joinOpen) {
           setJoinOpen(true);
         } else {
           setJoinOpen(false);
