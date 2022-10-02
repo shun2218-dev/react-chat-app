@@ -1,0 +1,21 @@
+@mixin hoverColor($color) {
+  &:hover {
+    color: $color;
+    @content;
+  }
+}
+
+@mixin hoverStyle($color, $border) {
+  &:hover {
+    color: $color;
+    border: $border;
+    @content;
+  }
+}
+
+@mixin disabledStyle($color) {
+  &:disabled {
+    color: rgba($color: $color, $alpha: 0.5);
+    @content;
+  }
+}

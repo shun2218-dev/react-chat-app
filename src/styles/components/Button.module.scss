@@ -1,19 +1,18 @@
 @use "../config/variables" as var;
+@use "../config/mixin" as mix;
 
 .filled {
   border: none;
   background-color: transparent;
   &.primary {
     color: var.$blue;
-    &:hover {
-      color: darken(var.$blue, 20);
-    }
+    @include mix.hoverColor(darken(var.$blue, 20));
+    @include mix.disabledStyle(var.$blue);
   }
   &.transparent {
     color: var.$white;
-    &:hover {
-      color: var.$blue;
-    }
+    @include mix.hoverColor(var.$blue);
+    @include mix.disabledStyle(var.$white);
   }
 }
 
@@ -26,10 +25,11 @@
     background-position: 100%;
     background-size: 300%;
     transition: background 500ms ease-in-out, color 500ms 100ms ease-in-out;
-    &:hover {
-      color: var.$black;
-      // background-color: var.$white;
+    @include mix.hoverColor(var.$black) {
       background-position: 0;
+    }
+    @include mix.disabledStyle(var.$white) {
+      background-color: rgba($color: var.$blue, $alpha: 0.5);
     }
   }
 }
@@ -39,33 +39,45 @@
   &.primary {
     color: var.$blue;
     border: 1px solid var.$blue;
-    &:hover {
-      color: darken(var.$blue, 20);
-      border: 1px solid darken(var.$blue, 20);
+    @include mix.hoverStyle(
+      darken(var.$blue, 20),
+      1px solid darken(var.$blue, 20)
+    );
+    @include mix.disabledStyle(var.$blue) {
+      border: 1px solid rgba(var.$blue, 0.5);
     }
   }
   &.transparent {
     color: var.$white;
     border: 3px solid var.$white;
-    &:hover {
-      color: darken(var.$white, 40);
-      border: 3px solid darken(var.$white, 40);
+    @include mix.hoverStyle(
+      darken(var.$white, 40),
+      3px solid darken(var.$white, 40)
+    );
+    @include mix.disabledStyle(var.$white) {
+      border: 1px solid rgba(var.$white, 0.5);
     }
   }
   &.error {
     color: var.$error;
     border: 3px solid var.$error;
-    &:hover {
-      color: lighten(var.$error, 20);
-      border: 3px solid lighten(var.$error, 20);
+    @include mix.hoverStyle(
+      lighten(var.$error, 20),
+      3px solid lighten(var.$error, 20)
+    );
+    @include mix.disabledStyle(var.$error) {
+      border: 1px solid rgba(var.$error, 0.5);
     }
   }
   &.success {
     color: var.$success;
     border: 3px solid var.$success;
-    &:hover {
-      color: lighten(var.$success, 20);
-      border: 3px solid lighten(var.$success, 20);
+    @include mix.hoverStyle(
+      lighten(var.$success, 20),
+      3px solid lighten(var.$success, 20)
+    );
+    @include mix.disabledStyle(var.$success) {
+      border: 1px solid rgba(var.$success, 0.5);
     }
   }
 }
@@ -79,4 +91,15 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  @media screen and (max-width: 1000px) {
+    font-size: 0.7rem;
+  }
+}
+
+.header {
+  margin-left: 20px;
+  @media screen and (max-width: 1000px) {
+    margin-left: 5px;
+    box-sizing: border-box;
+  }
 }

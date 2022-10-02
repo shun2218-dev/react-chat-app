@@ -9,6 +9,12 @@
   padding: 25px;
   max-height: calc(100% - (107px + 83px));
   overflow-y: auto;
+  @media screen and (max-width: 1000px) {
+    width: calc(100% - 90px);
+  }
+  @media screen and (max-width: 600px) {
+    width: calc(100% - 70px);
+  }
 }
 
 .notFound {
@@ -20,4 +26,7 @@
   background-color: rgba(var.$black, 0.3);
   border-radius: 12px;
   box-shadow: 2px 2px 3px 2px var.$black;
+  @media screen and (max-width: 1000px) {
+    font-size: 0.8rem;
+  }
 }

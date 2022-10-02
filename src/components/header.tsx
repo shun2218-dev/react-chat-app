@@ -7,11 +7,13 @@ import Avatar from "./avatar";
 import SignOutIcon from "@mui/icons-material/Logout";
 import logo from "@/assets/logo.svg";
 import styles from "@/styles/components/Header.module.scss";
+import { useParams } from "react-router-dom";
 
 const Header = () => {
-  const { toStart, toHome } = usePage();
+  const { toStart, toHome, toProfile } = usePage();
   const authUser = useAuthUser();
   const { signOut, loading, error } = useSignOut();
+  const { uid } = useParams();
 
   return (
     <header
@@ -27,18 +29,24 @@ const Header = () => {
         height="67px"
         onClick={() => (authUser ? toHome(authUser.uid!) : toStart())}
         style={{ cursor: "pointer" }}
+        className={styles.logo}
       />
       {authUser && (
         <div className={styles.profile}>
           <p>{authUser.displayName}</p>
-          <Avatar header />
+          <img
+            src={authUser.photoURL!}
+            alt=""
+            className={styles.avatar}
+            onClick={() => toProfile(uid!)}
+          />
           <Button
             type="button"
             variant="outlined"
             color="primary"
             onClick={signOut}
-            margin="0 0 0 20px"
             startIcon={<SignOutIcon />}
+            header
           >
             Sign Out
           </Button>

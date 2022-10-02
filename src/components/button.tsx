@@ -3,6 +3,7 @@ import styles from "@/styles/components/Button.module.scss";
 
 type ButtonProps = {
   type: "button" | "submit" | "reset";
+  disabled?: boolean;
   width?: string;
   height?: string;
   margin?: string;
@@ -14,10 +15,12 @@ type ButtonProps = {
   fullWidth?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
+  header?: boolean;
 };
 
 const Button: FC<ButtonProps> = ({
   type,
+  disabled = false,
   width,
   height,
   margin,
@@ -29,6 +32,7 @@ const Button: FC<ButtonProps> = ({
   fullWidth = false,
   startIcon,
   endIcon,
+  header = false,
 }) => {
   const switchStyles = (variant: string) => {
     switch (variant) {
@@ -69,6 +73,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       type={type}
+      disabled={disabled}
       onClick={onClick}
       style={{
         width: `${width}`,
@@ -78,7 +83,7 @@ const Button: FC<ButtonProps> = ({
       }}
       className={`${switchStyles(variant)} ${switchBgColor(
         color
-      )} ${switchWidth(fullWidth)} ${styles.button}`}
+      )} ${switchWidth(fullWidth)} ${styles.button} ${header && styles.header}`}
     >
       {startIcon}
       {children}

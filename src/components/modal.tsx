@@ -1,21 +1,22 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, FormEvent, ReactNode } from "react";
 import styles from "@/styles/components/Modal.module.scss";
 
 type ModalProps = {
   title: string;
   children?: ReactNode;
   open: boolean;
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
 };
 
-const Modal: FC<ModalProps> = ({ title, children, open }) => {
+const Modal: FC<ModalProps> = ({ title, children, open, onSubmit }) => {
   return (
     <>
       {open && (
         <div id="overlay" className={styles.overlay}>
-          <div id="modalBody" className={styles.modalBody}>
-            <h2>{title}</h2>
-            <div>{children}</div>
-          </div>
+          <form id="modalBody" className={styles.modalBody} onSubmit={onSubmit}>
+            <h2 className={styles.title}>{title}</h2>
+            {children}
+          </form>
         </div>
       )}
     </>
