@@ -8,10 +8,13 @@
     background: #61dafb;
     position: fixed;
     z-index: 2000;
-    top: 107px;
+    top: 118px;
     right: 100%;
     width: 100%;
     height: 2px;
+    @media screen and (max-width: 600px) {
+      top: 77.59px;
+    }
   }
   & .pace-progress-inner {
     display: block;
@@ -31,7 +34,7 @@
     display: block;
     position: fixed;
     z-index: 2000;
-    top: 122px;
+    top: 133px;
     right: 15px;
     width: 14px;
     height: 14px;
@@ -44,6 +47,9 @@
     -ms-animation: pace-spinner 400ms linear infinite;
     -o-animation: pace-spinner 400ms linear infinite;
     animation: pace-spinner 400ms linear infinite;
+    @media screen and (max-width: 600px) {
+      top: 92.59px;
+    }
   }
 }
 

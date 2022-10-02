@@ -19,12 +19,14 @@ const GroupRoom = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (message) {
+      setLoading(true);
       const groupRef = collection(db, "groups", groupid!, "messages");
       await addDoc(groupRef, {
         message,
         from: uid!,
         createdAt: serverTimestamp(),
       }).then(() => setMessage(""));
+      setLoading(false);
     }
   };
 

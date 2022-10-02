@@ -6,10 +6,9 @@ import Input from "@/components/input";
 import styles from "@/styles/pages/Regist.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useSignUp } from "@/hooks/useSignUp";
-
-import RegistIcon from "@mui/icons-material/HowToReg";
-import SignUpIcon from "@mui/icons-material/PersonAdd";
-import SignInIcon from "@mui/icons-material/Login";
+import SignUpIcon from "@/Icons/signUpIcon";
+import SignInIcon from "@/Icons/signInIcon";
+import CheckInIcon from "@/Icons/checkInIcon";
 
 const Regist = () => {
   const { toLogin } = usePage();
@@ -43,7 +42,7 @@ const Regist = () => {
       <Form
         title="Sign Up"
         onSubmit={onSubmit}
-        startIcon={<RegistIcon fontSize="large" />}
+        startIcon={<SignUpIcon title />}
       >
         <Input
           label="Email"
@@ -73,7 +72,7 @@ const Regist = () => {
           fullWidth
           height="52px"
           margin="30px 0 0"
-          startIcon={<SignUpIcon />}
+          startIcon={<CheckInIcon />}
         >
           Sign Up
         </Button>

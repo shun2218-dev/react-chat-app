@@ -3,11 +3,10 @@ import { usePage } from "@/hooks/usePage";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { useSignOut } from "@/hooks/useSignOut";
 import Button from "./button";
-import Avatar from "./avatar";
-import SignOutIcon from "@mui/icons-material/Logout";
 import logo from "@/assets/logo.svg";
 import styles from "@/styles/components/Header.module.scss";
 import { useParams } from "react-router-dom";
+import SignOutIcon from "@/Icons/signOutIcon";
 
 const Header = () => {
   const { toStart, toHome, toProfile } = usePage();

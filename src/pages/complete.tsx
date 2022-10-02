@@ -7,8 +7,8 @@ import Form from "@/components/form";
 import Header from "@/components/header";
 import FlashMessage from "@/components/flashMessage";
 import styles from "@/styles/pages/Complete.module.scss";
-
-import CompleteIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckIcon from "@/Icons/checkIcon";
+import SignInIcon from "@/Icons/signInIcon";
 
 const Complete = () => {
   const { toLogin } = usePage();
@@ -21,7 +21,7 @@ const Complete = () => {
       <Form
         title="Send Email to reset your password."
         secondTitle="Please confirm your Email."
-        startIcon={<CompleteIcon fontSize="large" />}
+        startIcon={<CheckIcon title />}
       >
         <div className={styles.email}>
           <p>{location.state.usr.email}</p>
@@ -34,6 +34,7 @@ const Complete = () => {
           height="52px"
           margin="30px 0 0"
           onClick={toLogin}
+          startIcon={<SignInIcon />}
         >
           Back to Sign In
         </Button>
