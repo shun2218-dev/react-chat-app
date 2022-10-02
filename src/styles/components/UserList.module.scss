@@ -1,4 +1,5 @@
 @use "../config//variables" as var;
+@use "../config//mixin" as mix;
 
 .container {
   box-sizing: border-box;
@@ -11,6 +12,13 @@
   border: 1px solid var.$navy;
   @media screen and (max-width: 1000px) {
     max-width: 90px;
+    height: calc(100vh - 96px);
+    top: 96px;
+  }
+  @media screen and (max-width: 600px) {
+    max-width: 70px;
+    height: calc(100vh - 76px);
+    top: 76px;
   }
 }
 
@@ -37,6 +45,9 @@
   font-weight: bold;
   font-size: 1.5rem;
   margin: 30px auto;
+  @media screen and (max-width: 1000px) {
+    font-size: 0.7rem;
+  }
 }
 
 .user {
@@ -49,6 +60,17 @@
   & p {
     flex-grow: 1;
   }
+  @media screen and (max-width: 1000px) {
+    & p {
+      display: none;
+    }
+  }
+  @include mix.hoverColor(lighten(var.$white, 20)) {
+    background-color: lighten(var.$black, 20);
+    & img {
+      opacity: 0.6;
+    }
+  }
 }
 
 .image {
@@ -58,6 +80,12 @@
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
+  @media screen and (max-width: 600px) {
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .active {
@@ -81,23 +109,13 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  @media screen and (max-width: 1000px) {
+    bottom: 2%;
+  }
 }
 
 .label {
   width: 100%;
-}
-
-.modalButton {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  &.row {
-    flex-direction: row;
-    justify-content: center;
-    gap: 40px;
-  }
 }
 
 .loading {

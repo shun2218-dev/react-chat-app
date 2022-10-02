@@ -52,38 +52,40 @@ export const useChatMessage = (group: boolean = false) => {
     }, [chatRoom]);
 
     useEffect(() => {
-      setDataLoading(true);
-      const userRef = collection(db, "users", uid!, "rooms");
-      const unSubUser = onSnapshot(userRef, (snapshot) => {
-        const room = snapshot.docs.filter((doc) => doc.id === partnerid);
-        if (room.length && uid) {
-          const roomDocId = room[0].id;
-          getRoomId(uid, roomDocId).then((roomid) => {
-            setChatRoom(roomid);
-            const messageRef = query(
-              collection(db, "rooms", `${roomid}`, "messages"),
-              orderBy("createdAt", "asc")
-            );
-            getDocs(messageRef).then((snapshot) => {
-              setChatMessages([
-                ...snapshot.docs.map((doc) => {
-                  return {
-                    id: doc.id,
-                    ...doc.data(),
-                  } as Message;
-                }),
-              ]);
+      if (partnerid) {
+        setDataLoading(true);
+        const userRef = collection(db, "users", uid!, "rooms");
+        const unSubUser = onSnapshot(userRef, (snapshot) => {
+          const room = snapshot.docs.filter((doc) => doc.id === partnerid);
+          if (room.length && uid) {
+            const roomDocId = room[0].id;
+            getRoomId(uid, roomDocId).then((roomid) => {
+              setChatRoom(roomid);
+              const messageRef = query(
+                collection(db, "rooms", `${roomid}`, "messages"),
+                orderBy("createdAt", "asc")
+              );
+              getDocs(messageRef).then((snapshot) => {
+                setChatMessages([
+                  ...snapshot.docs.map((doc) => {
+                    return {
+                      id: doc.id,
+                      ...doc.data(),
+                    } as Message;
+                  }),
+                ]);
+              });
             });
-          });
-          setDataLoading(false);
-        } else {
-          console.log("not exist");
-          setDataLoading(false);
-        }
-      });
-      return () => {
-        unSubUser();
-      };
+            setDataLoading(false);
+          } else {
+            console.log("not exist");
+            setDataLoading(false);
+          }
+        });
+        return () => {
+          unSubUser();
+        };
+      }
     }, [pathname]);
 
     useEffect(() => {

@@ -5,8 +5,8 @@
   flex-direction: column;
   text-align: left;
   gap: 5px;
-  width: 100%;
-  min-width: 500px;
+  max-width: 100%;
+  width: 500px;
   & input {
     height: 52px;
     background-color: var.$white;
@@ -15,6 +15,22 @@
     border: 5px solid var.$white;
     &:focus {
       border: 5px solid var.$blue;
+    }
+  }
+  @media screen and (max-width: 1000px) {
+    width: 300px;
+    font-size: 0.8rem;
+    & input {
+      box-sizing: border-box;
+      font-size: 0.8rem;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    width: 250px;
+    font-size: 0.7rem;
+    & input {
+      box-sizing: border-box;
+      font-size: 0.7rem;
     }
   }
 }

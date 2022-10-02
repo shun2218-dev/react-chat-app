@@ -26,16 +26,16 @@ const Home = () => {
       {flashState && <FlashMessage {...messageState!} />}
       <div className={styles.cardContainer}>
         <Card
-          onClick={() => toGroup(authUser?.uid!)}
-          startIcon={<GroupIcon fontSize="large" />}
-        >
-          Group Chat
-        </Card>
-        <Card
           onClick={() => toPrivate(authUser?.uid!)}
           startIcon={<PrivateIcon fontSize="large" />}
         >
           Private Chat
+        </Card>
+        <Card
+          onClick={() => toGroup(authUser?.uid!)}
+          startIcon={<GroupIcon fontSize="large" />}
+        >
+          Group Chat
         </Card>
       </div>
     </>
