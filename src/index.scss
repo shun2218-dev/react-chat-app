@@ -60,7 +60,12 @@ ul {
 }
 
 textarea {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Caveat", cursive;
+  font-weight: bold;
+  font-size: 0.8rem;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
 }
 ::-webkit-scrollbar {
   width: 8px;

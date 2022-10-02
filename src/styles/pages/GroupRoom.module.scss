@@ -1,23 +1,22 @@
 .chatRoom {
   position: absolute;
-  top: 107px;
+  top: 118px;
   right: 0;
   box-sizing: border-box;
   width: 75%;
   padding: 25px;
-  max-height: calc(100% - (107px + 83px));
+  max-height: calc(100% - (118px + 83px));
   overflow-y: auto;
 
   @media screen and (max-width: 1000px) {
     width: calc(100% - 90px);
-    max-height: calc(100% - (96px + 73px));
-    top: 96px;
+    max-height: calc(100% - (118px + 73px));
   }
   @media screen and (max-width: 600px) {
     width: calc(100% - 70px);
     padding: 15px;
-    max-height: calc(100% - (76px + 73px));
-    top: 76px;
+    max-height: calc(100% - (80.72px + 73px));
+    top: 80.72px;
     font-size: 0.8rem;
   }
 }

@@ -44,8 +44,8 @@
     color: var.$blue;
     border: 2px solid var.$blue;
     @include mix.hoverStyle(
-      darken(var.$blue, 20),
-      2px solid darken(var.$blue, 20)
+      lighten(var.$blue, 20),
+      2px solid lighten(var.$blue, 20)
     );
     @include mix.disabledStyle(var.$blue) {
       border: 2px solid rgba(var.$blue, 0.5);
@@ -95,10 +95,10 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: bold;
-  @media screen and (max-width: 1000px) {
-    font-size: 0.5rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
   }
 }
 
