@@ -26,7 +26,7 @@ const Start = () => {
       <picture>
         <source
           media="(min-width:400px)"
-          src={logo}
+          srcSet={logo}
           className={styles.logo}
           type="image/svg+xml"
         />
