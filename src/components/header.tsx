@@ -4,7 +4,6 @@ import { useAuthUser } from "@/atoms/useAuthUser";
 import { useSignOut } from "@/hooks/useSignOut";
 import Button from "./button";
 import logo from "@/assets/logo.svg";
-import logoImage from "@/assets/logo.png";
 import styles from "@/styles/components/Header.module.scss";
 import { useParams } from "react-router-dom";
 import SignOutIcon from "@/Icons/signOutIcon";
@@ -22,25 +21,15 @@ const Header = () => {
       }`}
     >
       {/* after log in switch toHome */}
-      <picture>
-        <source
-          media="(min-width: 400px)"
-          width="200px"
-          height="67px"
-          srcSet={logo}
-          className={styles.logo}
-          type="image/svg+xml"
-          onClick={() => (authUser ? toHome(authUser.uid!) : toStart())}
-        />
-        <img
-          src={logoImage}
-          alt="logo"
-          width="200px"
-          height="67px"
-          onClick={() => (authUser ? toHome(authUser.uid!) : toStart())}
-          className={styles.logo}
-        />
-      </picture>
+      <img
+        src={logo}
+        typeof="image/svg+xml"
+        alt="logo"
+        width="200px"
+        height="67px"
+        onClick={() => (authUser ? toHome(authUser.uid!) : toStart())}
+        className={styles.logo}
+      />
       {authUser && (
         <div className={styles.profile}>
           <p>{authUser.displayName}</p>
