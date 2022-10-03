@@ -132,8 +132,8 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
         setCancelId={setCancelId}
       />
       <div className={styles.container}>
+        <p className={styles.listTitle}>{group ? "Members" : "Users"}</p>
         <ul className={`${styles.userList} ${groupid && styles.group}`}>
-          <li className={styles.listTitle}>{group ? "Members" : "Users"}</li>
           {users.length ? (
             users.map((user) => (
               <li

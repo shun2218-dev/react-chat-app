@@ -9,15 +9,19 @@ const Start = () => {
 
   const removeHomeClass = (toMove: () => void) => {
     document.body.classList.remove("home");
+    document.body.classList.remove("pace-done");
     toMove();
   };
 
   useEffect(() => {
-    const bodyClasses = document.body.classList;
-    if (!bodyClasses.contains("home")) {
-      bodyClasses.remove("pace-done");
-      bodyClasses.add("home");
-    }
+    const addHomeClass = () => {
+      const bodyClasses = document.body.classList;
+      if (!bodyClasses.contains("home")) {
+        bodyClasses.remove("pace-done");
+        bodyClasses.add("home");
+      }
+    };
+    addHomeClass();
   }, []);
 
   return (

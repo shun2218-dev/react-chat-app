@@ -6,10 +6,11 @@
   background-color: var.$navy;
   height: calc(100vh - 118px);
   width: 25%;
-  position: absolute;
+  position: fixed;
   top: 118px;
   left: 0;
   border: 1px solid var.$navy;
+  z-index: 3000;
   @media screen and (max-width: 1000px) {
     max-width: 90px;
   }
