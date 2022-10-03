@@ -1,14 +1,14 @@
-import React from "react";
+import React, { lazy } from "react";
 import { useLocation } from "react-use";
 import { usePage } from "@/hooks/usePage";
 import { useFlashMessage } from "@/hooks/useFlashMessage";
-import Button from "@/components/button";
-import Form from "@/components/form";
-
-import FlashMessage from "@/components/flashMessage";
 import styles from "@/styles/pages/Complete.module.scss";
-import CheckIcon from "@/Icons/checkIcon";
-import SignInIcon from "@/Icons/signInIcon";
+
+const Button = lazy(() => import("@/components/button"));
+const Form = lazy(() => import("@/components/form"));
+const FlashMessage = lazy(() => import("@/components/flashMessage"));
+const CheckIcon = lazy(() => import("@/Icons/checkIcon"));
+const SignInIcon = lazy(() => import("@/Icons/signInIcon"));
 
 const Complete = () => {
   const { toLogin } = usePage();

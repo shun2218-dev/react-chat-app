@@ -1,14 +1,15 @@
-import React, { FC, memo, useEffect, useState } from "react";
+import React, { FC, memo, useEffect, useState, lazy } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "@/firebase";
 import { deleteDoc, doc, DocumentData } from "firebase/firestore";
-import { CustomModal } from "@/types/CustomModal";
-import Button from "./button";
-import Modal from "./modal";
 import styles from "@/styles/components/Modal.module.scss";
 import { getUserInfo } from "@/lib/getUserInfo";
-import Avatar from "./avatar";
 import { informationMessage } from "@/lib/infomationMessage";
+import { CustomModal } from "@/types/CustomModal";
+
+const Button = lazy(() => import("./button"));
+const Modal = lazy(() => import("./modal"));
+const Avatar = lazy(() => import("./avatar"));
 
 const CancelModal: FC<CustomModal> = memo(
   ({ open, modalToggle, cancelId, setCancelId }) => {

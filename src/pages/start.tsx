@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
-import Button from "@/components/button";
+import React, { useEffect, lazy } from "react";
 import logo from "@/assets/logo.svg";
 import styles from "@/styles/pages/Start.module.scss";
 import { usePage } from "@/hooks/usePage";
+
+const Button = lazy(() => import("@/components/button"));
 
 const Start = () => {
   const { toLogin, toRegist } = usePage();

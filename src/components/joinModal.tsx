@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, lazy } from "react";
 import { useParams } from "react-router-dom";
 import { usePage } from "@/hooks/usePage";
-import Modal from "./modal";
-import Button from "./button";
+import { useAuthUser } from "@/atoms/useAuthUser";
 import styles from "@/styles/components/Modal.module.scss";
+import utilStyles from "@/styles/utils/utils.module.scss";
 import { db } from "@/firebase";
 import {
   collection,
@@ -15,10 +15,11 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { getUserInfo } from "@/lib/getUserInfo";
-import { useAuthUser } from "@/atoms/useAuthUser";
-import { CustomModal } from "@/types/CustomModal";
 import { informationMessage } from "@/lib/infomationMessage";
-import utilStyles from "@/styles/utils/utils.module.scss";
+import { CustomModal } from "@/types/CustomModal";
+
+const Modal = lazy(() => import("./modal"));
+const Button = lazy(() => import("./button"));
 
 const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   const authUser = useAuthUser();

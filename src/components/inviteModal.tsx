@@ -1,4 +1,3 @@
-import { CustomModal } from "@/types/CustomModal";
 import React, {
   ChangeEvent,
   FC,
@@ -6,16 +5,19 @@ import React, {
   memo,
   useCallback,
   useState,
+  lazy,
 } from "react";
 import { useParams } from "react-router-dom";
-import Button from "./button";
-import Modal from "./modal";
 import styles from "@/styles/components/Modal.module.scss";
 import utilStyles from "@/styles/utils/utils.module.scss";
-import { getUserInfo } from "@/lib/getUserInfo";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/firebase";
 import { informationMessage } from "@/lib/infomationMessage";
+import { getUserInfo } from "@/lib/getUserInfo";
+import { db } from "@/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { CustomModal } from "@/types/CustomModal";
+
+const Button = lazy(() => import("./button"));
+const Modal = lazy(() => import("./modal"));
 
 const InviteModal: FC<CustomModal> = memo(
   ({ open, modalToggle, inviteUsers, inviteIds, setInviteIds }) => {

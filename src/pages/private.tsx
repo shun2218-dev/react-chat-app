@@ -1,17 +1,18 @@
-import React, { FormEvent, Fragment, useState } from "react";
-import UserList from "@/components/userList";
+import React, { FormEvent, Fragment, useState, lazy } from "react";
 import { useParams } from "react-router-dom";
-import styles from "@/styles/pages/Private.module.scss";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "@/firebase";
-import ChatMessage from "@/components/chatMessage";
-import MessageDate from "@/components/messageDate";
-import isCreatedRoom from "@/lib/private/isCreatedRoom";
-import { formatDate } from "@/lib/formatDate";
-import CircularProgress from "@mui/material/CircularProgress";
-import MessageInput from "@/components/messageInput";
 import { useChatMessage } from "@/hooks/useChatMessage";
-import NotFoundIcon from "@/Icons/notFoundIcon";
+import { db } from "@/firebase";
+import { formatDate } from "@/lib/formatDate";
+import isCreatedRoom from "@/lib/private/isCreatedRoom";
+import styles from "@/styles/pages/Private.module.scss";
+import CircularProgress from "@mui/material/CircularProgress";
+
+const UserList = lazy(() => import("@/components/userList"));
+const ChatMessage = lazy(() => import("@/components/chatMessage"));
+const MessageDate = lazy(() => import("@/components/messageDate"));
+const MessageInput = lazy(() => import("@/components/messageInput"));
+const NotFoundIcon = lazy(() => import("@/Icons/notFoundIcon"));
 
 const Private = () => {
   const { uid, partnerid } = useParams();

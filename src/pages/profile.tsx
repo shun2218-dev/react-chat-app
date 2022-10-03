@@ -1,16 +1,17 @@
-import React, { FormEvent, useRef, useState } from "react";
-import Avatar from "@/components/avatar";
-import Button from "@/components/button";
-import Form from "@/components/form";
-import Input from "@/components/input";
+import React, { FormEvent, useRef, useState, lazy } from "react";
 import { usePage } from "@/hooks/usePage";
 import { auth, db, storage } from "@/firebase";
 import { updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useAuthUser, useSetAuthUser } from "@/atoms/useAuthUser";
 import { doc, updateDoc } from "firebase/firestore";
-import SettingIcon from "@/Icons/settingIcon";
-import UploadIcon from "@/Icons/uploadIcon";
+
+const Avatar = lazy(() => import("@/components/avatar"));
+const Button = lazy(() => import("@/components/button"));
+const Form = lazy(() => import("@/components/form"));
+const Input = lazy(() => import("@/components/input"));
+const SettingIcon = lazy(() => import("@/Icons/settingIcon"));
+const UploadIcon = lazy(() => import("@/Icons/uploadIcon"));
 
 const Profile = () => {
   const { toHome } = usePage();

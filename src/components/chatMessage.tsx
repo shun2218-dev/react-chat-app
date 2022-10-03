@@ -1,13 +1,14 @@
-import React, { useState, useEffect, FC } from "react";
+import React, { useState, useEffect, FC, lazy } from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@mui/material";
 import { formatTime } from "@/lib/formatTime";
-import { Message } from "@/types/Message";
-import Avatar from "./avatar";
+import { getUserInfo } from "@/lib/getUserInfo";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import styles from "@/styles/components/ChatMessage.module.scss";
-import { getUserInfo } from "@/lib/getUserInfo";
-import InfoMessage from "./infoMessage";
+import { Message } from "@/types/Message";
+
+const Avatar = lazy(() => import("./avatar"));
+const InfoMessage = lazy(() => import("./infoMessage"));
 
 type Info = {
   displayName: string;

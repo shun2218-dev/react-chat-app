@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Form from "@/components/form";
+import React, { useEffect, useState, lazy } from "react";
 import { db } from "@/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import styles from "@/styles/pages/Join.module.scss";
 import utilStyles from "@/styles/utils/utils.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useParams } from "react-router-dom";
+const Form = lazy(() => import("@/components/form"));
 
 type Groups = {
   id: string;

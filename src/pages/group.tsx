@@ -1,8 +1,9 @@
-import React from "react";
-import Card from "@/components/card";
+import React, { lazy } from "react";
 import styles from "@/styles/pages/Group.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useParams } from "react-router-dom";
+
+const Card = lazy(() => import("@/components/card"));
 
 const Group = () => {
   const { toJoin, toCreate } = usePage();

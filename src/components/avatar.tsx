@@ -4,13 +4,13 @@ import React, {
   Dispatch,
   SetStateAction,
   CSSProperties,
+  useEffect,
+  useState,
 } from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useParams } from "react-router-dom";
-import { usePage } from "@/hooks/usePage";
 import { useAuthUser } from "@/atoms/useAuthUser";
-import { useEffect } from "react";
-import { useState } from "react";
+import { usePage } from "@/hooks/usePage";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Skeleton } from "@mui/material";
 import styles from "@/styles/components/Avatar.module.scss";
 

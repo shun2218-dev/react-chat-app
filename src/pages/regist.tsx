@@ -1,14 +1,14 @@
-import React, { FormEvent, useRef } from "react";
-import Button from "@/components/button";
-import Form from "@/components/form";
-
-import Input from "@/components/input";
+import React, { FormEvent, useRef, lazy } from "react";
 import styles from "@/styles/pages/Regist.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useSignUp } from "@/hooks/useSignUp";
-import SignUpIcon from "@/Icons/signUpIcon";
-import SignInIcon from "@/Icons/signInIcon";
-import CheckInIcon from "@/Icons/checkInIcon";
+
+const Button = lazy(() => import("@/components/button"));
+const Form = lazy(() => import("@/components/form"));
+const Input = lazy(() => import("@/components/input"));
+const SignUpIcon = lazy(() => import("@/Icons/signUpIcon"));
+const SignInIcon = lazy(() => import("@/Icons/signInIcon"));
+const CheckInIcon = lazy(() => import("@/Icons/checkInIcon"));
 
 const Regist = () => {
   const { toLogin } = usePage();
