@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { usePage } from "@/hooks/usePage";
 import Card from "@/components/card";
@@ -10,16 +10,8 @@ import GroupIcon from "@/Icons/groupIcon";
 
 const Home = () => {
   const authUser = useAuthUser();
-  const { toLogin, toPrivate, toGroup, toProfile } = usePage();
+  const { toPrivate, toGroup } = usePage();
   const { messageState, flashState } = useFlashMessage(5000);
-
-  useEffect(() => {
-    if (!authUser) {
-      toLogin();
-    } else if (!authUser?.photoURL || !authUser.displayName) {
-      toProfile(authUser.uid!);
-    }
-  }, [authUser?.uid]);
 
   return (
     <>

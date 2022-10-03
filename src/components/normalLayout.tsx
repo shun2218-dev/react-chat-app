@@ -4,16 +4,14 @@ import { usePage } from "@/hooks/usePage";
 import { Outlet } from "react-router-dom";
 import Header from "./header";
 
-const Layout = () => {
+const NormalLayout = () => {
   const authUser = useAuthUser();
-  const { toLogin, toProfile } = usePage();
+  const { toHome } = usePage();
   useEffect(() => {
-    if (!authUser) {
-      toLogin();
-    } else if (!authUser?.photoURL || !authUser.displayName) {
-      toProfile(authUser.uid!);
+    if (authUser?.uid) {
+      toHome(authUser.uid);
     }
-  }, [authUser?.uid]);
+  }, []);
   return (
     <>
       <Header />
@@ -22,4 +20,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default NormalLayout;
