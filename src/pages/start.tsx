@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Button from "@/components/button";
 import logo from "@/assets/logo.svg";
+import logoImage from "@/assets/logo.png";
 import styles from "@/styles/pages/Start.module.scss";
 import { usePage } from "@/hooks/usePage";
 
@@ -22,7 +23,15 @@ const Start = () => {
 
   return (
     <div className={styles.container}>
-      <img src={logo} alt="logo" className={styles.logo} />
+      <picture>
+        <source
+          media="(min-width:400px)"
+          src={logo}
+          className={styles.logo}
+          type="image/svg+xml"
+        />
+        <img src={logoImage} alt="logo" className={styles.logo} />
+      </picture>
       <div className={styles.buttonGroup}>
         <Button
           type="button"
