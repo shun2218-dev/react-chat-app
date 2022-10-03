@@ -23,6 +23,7 @@ const Header = () => {
       {/* after log in switch toHome */}
       <img
         src={logo}
+        typeof="image/svg+xml"
         alt="logo"
         width="200px"
         height="67px"
