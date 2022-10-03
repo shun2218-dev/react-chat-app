@@ -42,6 +42,7 @@ const Private = () => {
           from: uid,
           createdAt: serverTimestamp(),
         });
+      } else {
       }
       setLoading(false);
       setMessage("");
