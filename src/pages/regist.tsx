@@ -1,7 +1,7 @@
 import React, { FormEvent, useRef } from "react";
 import Button from "@/components/button";
 import Form from "@/components/form";
-import Header from "@/components/header";
+
 import Input from "@/components/input";
 import styles from "@/styles/pages/Regist.module.scss";
 import { usePage } from "@/hooks/usePage";
@@ -38,7 +38,6 @@ const Regist = () => {
   };
   return (
     <>
-      <Header />
       <Form
         title="Sign Up"
         onSubmit={onSubmit}

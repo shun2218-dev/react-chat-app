@@ -9,7 +9,7 @@ import { useCreateGroup } from "@/hooks/useCreateGroup";
 import FlashMessage from "@/components/flashMessage";
 import { usePage } from "@/hooks/usePage";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import styles from "@/styles/pages/Create.module.scss";
+import utilStyles from "@/styles/utils/utils.module.scss";
 
 const Create = () => {
   const [desc, setDesc] = useState("");
@@ -43,7 +43,7 @@ const Create = () => {
         <img
           src={URL.createObjectURL(image)}
           alt=""
-          className={styles.avatar}
+          className={utilStyles.avatar}
         />
       );
     } else {

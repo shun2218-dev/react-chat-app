@@ -1,7 +1,7 @@
 import React, { FormEvent, useRef } from "react";
 import Button from "@/components/button";
 import Form from "@/components/form";
-import Header from "@/components/header";
+
 import Input from "@/components/input";
 import { usePage } from "@/hooks/usePage";
 import { usePasswordReset } from "@/hooks/usePasswordReset";
@@ -21,7 +21,6 @@ const Reset = () => {
   };
   return (
     <>
-      <Header />
       <Form
         title="Enter your Email address"
         secondTitle="to reset your password."

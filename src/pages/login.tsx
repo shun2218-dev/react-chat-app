@@ -1,5 +1,5 @@
 import React, { FormEvent, useRef } from "react";
-import Header from "@/components/header";
+
 import Form from "@/components/form";
 import Input from "@/components/input";
 import Button from "@/components/button";
@@ -30,7 +30,6 @@ const Login = () => {
   return (
     <>
       {flashState && <FlashMessage {...messageState!} />}
-      <Header />
       <Form title="Sign In" onSubmit={onSubmit} startIcon={<LockIcon title />}>
         <Input
           label="Email"

@@ -5,8 +5,8 @@ import React, {
   FormEvent,
   SetStateAction,
 } from "react";
-import SendIcon from "@mui/icons-material/Send";
 import styles from "@/styles/components/MessageInput.module.scss";
+import SendIcon from "@/Icons/sendIcon";
 
 type MessageInput = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
@@ -31,13 +31,7 @@ const MessageInput: FC<MessageInput> = ({
       />
       {state && (
         <button className={styles.button} disabled={loading} type="submit">
-          <SendIcon
-            sx={{
-              height: "25px",
-              color: "white",
-              opacity: `${loading ? 0.3 : 1}`,
-            }}
-          />
+          <SendIcon />
         </button>
       )}
     </form>

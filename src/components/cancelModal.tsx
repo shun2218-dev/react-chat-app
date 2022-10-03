@@ -40,7 +40,6 @@ const CancelModal: FC<CustomModal> = memo(
         getUserInfo(cancelId).then((userInfo) => {
           setUser(userInfo);
         });
-        console.log(user);
       }
     }, [cancelId]);
 

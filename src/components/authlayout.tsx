@@ -11,6 +11,7 @@ const AuthLayout = () => {
       toLogin();
     } else if (!authUser?.photoURL || !authUser.displayName) {
       toProfile(authUser.uid!);
+      document.body.classList.remove("home");
     }
   }, [authUser?.uid]);
   return (

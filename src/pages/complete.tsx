@@ -4,7 +4,7 @@ import { usePage } from "@/hooks/usePage";
 import { useFlashMessage } from "@/hooks/useFlashMessage";
 import Button from "@/components/button";
 import Form from "@/components/form";
-import Header from "@/components/header";
+
 import FlashMessage from "@/components/flashMessage";
 import styles from "@/styles/pages/Complete.module.scss";
 import CheckIcon from "@/Icons/checkIcon";
@@ -16,7 +16,6 @@ const Complete = () => {
   const { messageState, flashState } = useFlashMessage(5000);
   return (
     <>
-      <Header />
       {flashState && <FlashMessage {...messageState!} />}
       <Form
         title="Send Email to reset your password."
