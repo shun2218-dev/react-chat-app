@@ -35,8 +35,9 @@ const Router = () => {
         <Route path="group/:groupid" element={<GroupRoom />} />
         <Route path="private" element={<Private />} />
         <Route path="private/:partnerid" element={<Private />} />
+        <Route path="*/*" element={<NotFound />} />
       </Route>
-      <Route path="/*" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
