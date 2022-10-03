@@ -21,17 +21,13 @@ const MessageInput: FC<MessageInput> = ({
   state,
   loading,
 }) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setState(e.target.value);
-    console.log(e.target.value);
-  };
   return (
     <form className={styles.container} onSubmit={onSubmit}>
       <input
         type="text"
         className={styles.input}
         value={state}
-        onChange={handleChange}
+        onChange={(e) => setState(e.target.value)}
       />
       {state && (
         <button className={styles.button} disabled={loading} type="submit">
