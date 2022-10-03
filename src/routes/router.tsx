@@ -13,6 +13,7 @@ import Complete from "@/pages/complete";
 import Join from "@/pages/join";
 import Create from "@/pages/create";
 import GroupRoom from "@/pages/groupRoom";
+import NotFound from "@/pages/notFound";
 
 const Router = () => {
   return (
@@ -32,6 +33,7 @@ const Router = () => {
         <Route path="private" element={<Private />} />
         <Route path="private/:partnerid" element={<Private />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
