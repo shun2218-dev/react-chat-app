@@ -1,6 +1,7 @@
 @use "../config//variables" as var;
 
 .form {
+  margin-top: 100px;
   box-sizing: border-box;
   background-color: var.$navy;
   padding: 30px;
