@@ -15,8 +15,8 @@
   }
   @media screen and (max-width: 600px) {
     max-width: 70px;
-    height: calc(100vh - 76px);
-    top: 76px;
+    height: calc(100vh - 80.72px);
+    top: 80.72px;
   }
 }
 
@@ -28,7 +28,7 @@
   height: 100%;
   width: 100%;
   &.group {
-    height: calc(95% - 110px);
+    height: calc(95% - 140px);
   }
   &.invite {
     height: 270px;
@@ -41,10 +41,10 @@
 
 .listTitle {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 30px auto;
   @media screen and (max-width: 1000px) {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
   }
 }
 
@@ -107,4 +107,8 @@
 .loading {
   text-align: center;
   width: 100%;
+}
+
+.nobody {
+  font-size: 1.2rem;
 }

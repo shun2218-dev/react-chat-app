@@ -1,4 +1,10 @@
-import React, { Dispatch, FC, FormEvent, SetStateAction } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  FormEvent,
+  SetStateAction,
+} from "react";
 import SendIcon from "@mui/icons-material/Send";
 import styles from "@/styles/components/MessageInput.module.scss";
 
@@ -15,13 +21,17 @@ const MessageInput: FC<MessageInput> = ({
   state,
   loading,
 }) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setState(e.target.value);
+    console.log(e.target.value);
+  };
   return (
     <form className={styles.container} onSubmit={onSubmit}>
       <input
         type="text"
         className={styles.input}
         value={state}
-        onChange={(e) => setState(e.target.value)}
+        onChange={handleChange}
       />
       {state && (
         <button className={styles.button} disabled={loading} type="submit">

@@ -159,8 +159,8 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
 
           {group && (
             <>
+              <li className={styles.listTitle}>{"Invitation"}</li>
               <ul className={styles.userList}>
-                <li className={styles.listTitle}>{"Invitation"}</li>
                 {inviteLists.length ? (
                   inviteLists.map((inviteList) => (
                     <li
@@ -180,9 +180,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
                     </li>
                   ))
                 ) : (
-                  <div
-                    className={`${utilStyles.textCenter} ${utilStyles.text}`}
-                  >
+                  <div className={`${utilStyles.textCenter}  ${styles.nobody}`}>
                     Nobody invited
                   </div>
                 )}

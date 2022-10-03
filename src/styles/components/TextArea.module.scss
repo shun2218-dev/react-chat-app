@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  gap: 5px;
+  gap: 10px;
   width: 100%;
   width: 500px;
   & textarea {
@@ -16,6 +16,7 @@
     color: var.$black;
     padding: 10px 10px;
     border: 5px solid var.$white;
+    border-radius: 6px;
     &:focus {
       border: 5px solid var.$blue;
     }

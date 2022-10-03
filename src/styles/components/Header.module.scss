@@ -9,6 +9,7 @@
   width: 100%;
   box-sizing: border-box;
   background-color: var.$black;
+  min-height: 118px;
   &.notLogin {
     justify-content: flex-start;
   }
@@ -20,6 +21,7 @@
   }
   @media screen and (max-width: 600px) {
     padding: 18px 30px;
+    min-height: 80.72px;
   }
 }
 
@@ -36,6 +38,7 @@
   display: flex;
   gap: 15px;
   align-items: center;
+  cursor: pointer;
   @media screen and (max-width: 600px) {
     gap: 5px;
     & p {

@@ -53,6 +53,17 @@
   }
 }
 
+.home {
+  & .pace {
+    & .pace-progress {
+      top: 0;
+    }
+    & .pace-activity {
+      top: 15px;
+    }
+  }
+}
+
 .pace-inactive {
   display: none;
 }

@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  gap: 5px;
+  gap: 10px;
   max-width: 100%;
   width: 500px;
   & input {
@@ -19,7 +19,8 @@
     }
   }
   @media screen and (max-width: 1000px) {
-    width: 300px;
+    min-width: 300px;
+    width: 100%;
     font-size: 0.8rem;
     & input {
       box-sizing: border-box;
@@ -27,7 +28,7 @@
     }
   }
   @media screen and (max-width: 600px) {
-    width: 250px;
+    min-width: 250px;
     font-size: 0.7rem;
     & input {
       box-sizing: border-box;
