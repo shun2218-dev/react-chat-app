@@ -5,7 +5,7 @@ export const usePage = () => {
   const navigate = useNavigate();
 
   const toStart = () => {
-    navigate("/");
+    navigate("/start");
   };
 
   const toLogin = () => {

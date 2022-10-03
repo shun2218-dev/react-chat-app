@@ -32,6 +32,10 @@
     width: 150px;
     height: 40px;
   }
+  @media screen and (max-width: 600px) {
+    width: 100px;
+    height: 30px;
+  }
 }
 
 .profile {

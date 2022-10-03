@@ -15,29 +15,32 @@ import Create from "@/pages/create";
 import GroupRoom from "@/pages/groupRoom";
 import NotFound from "@/pages/notFound";
 import NormalLayout from "@/components/normalLayout";
+import Layout from "@/components/layout";
 
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<NormalLayout />}>
-        <Route path="/" element={<Start />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/regist" element={<Regist />} />
-        <Route path="/reset" element={<Reset />} />
-        <Route path="/reset/complete" element={<Complete />} />
+      <Route path="/" element={<Layout />}>
+        <Route path="/" element={<NormalLayout />}>
+          <Route path="/start" element={<Start />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/regist" element={<Regist />} />
+          <Route path="/reset" element={<Reset />} />
+          <Route path="/reset/complete" element={<Complete />} />
+        </Route>
+        <Route path="/:uid" element={<AuthLayout />}>
+          <Route path="profile" element={<Profile />} />
+          <Route path="home" element={<Home />} />
+          <Route path="group" element={<Group />} />
+          <Route path="group/join" element={<Join />} />
+          <Route path="group/create" element={<Create />} />
+          <Route path="group/:groupid" element={<GroupRoom />} />
+          <Route path="private" element={<Private />} />
+          <Route path="private/:partnerid" element={<Private />} />
+          <Route path="*/*" element={<NotFound />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="/:uid" element={<AuthLayout />}>
-        <Route path="profile" element={<Profile />} />
-        <Route path="home" element={<Home />} />
-        <Route path="group" element={<Group />} />
-        <Route path="group/join" element={<Join />} />
-        <Route path="group/create" element={<Create />} />
-        <Route path="group/:groupid" element={<GroupRoom />} />
-        <Route path="private" element={<Private />} />
-        <Route path="private/:partnerid" element={<Private />} />
-        <Route path="*/*" element={<NotFound />} />
-      </Route>
-      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
