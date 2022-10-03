@@ -35,7 +35,7 @@ const InfoMessage: FC<Info> = memo(({ status, from, to }) => {
   } else if (status === "invited") {
     return (
       <div className={styles.info}>
-        <p>{`${toName} is ${status} ${fromName}!`}</p>
+        <p>{`${toName} is ${status} by ${fromName}!`}</p>
       </div>
     );
   } else {

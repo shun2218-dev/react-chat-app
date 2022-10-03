@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@/components/button";
 import logo from "@/assets/logo.svg";
 import styles from "@/styles/pages/Start.module.scss";
@@ -6,6 +6,20 @@ import { usePage } from "@/hooks/usePage";
 
 const Start = () => {
   const { toLogin, toRegist } = usePage();
+
+  const removeHomeClass = (toMove: () => void) => {
+    document.body.classList.remove("home");
+    toMove();
+  };
+
+  useEffect(() => {
+    const bodyClasses = document.body.classList;
+    if (!bodyClasses.contains("home")) {
+      bodyClasses.remove("pace-done");
+      bodyClasses.add("home");
+    }
+  }, []);
+
   return (
     <div className={styles.container}>
       <img src={logo} alt="logo" className={styles.logo} />
@@ -15,7 +29,7 @@ const Start = () => {
           color="primary"
           variant="contained"
           rounded
-          onClick={toRegist}
+          onClick={() => removeHomeClass(toRegist)}
           height="50px"
           width="150px"
         >
@@ -25,7 +39,7 @@ const Start = () => {
           type="button"
           color="transparent"
           variant="filled"
-          onClick={toLogin}
+          onClick={() => removeHomeClass(toLogin)}
           height="30px"
           width="150px"
         >
