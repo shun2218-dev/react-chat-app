@@ -39,9 +39,7 @@ export const useCreateGroup = () => {
   // }
   const imageUpload = async (id: string, image: File) => {
     const imageRef = ref(storage, `avaters/${id}_${image.name}`);
-    await uploadBytes(imageRef, image).then(() =>
-      console.log("Uploaded a file")
-    );
+    await uploadBytes(imageRef, image);
     const url = await getDownloadURL(imageRef);
     return url;
   };

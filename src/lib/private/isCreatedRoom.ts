@@ -50,7 +50,6 @@ const isCreatedRoom = async (
     id = filtered[0].data().roomid;
     return { exist: true, roomid: id };
   } else {
-    console.log("not exist");
     return createRoom(id, uid, partnerid, message);
   }
 };

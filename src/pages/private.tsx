@@ -36,15 +36,12 @@ const Private = () => {
       setChatRoom(roomid);
       setRoomExist(exist);
       if (exist) {
-        console.log("room is exist");
         const roomRef = collection(db, "rooms", `${roomid}`, "messages");
         await addDoc(roomRef, {
           message,
           from: uid,
           createdAt: serverTimestamp(),
         });
-      } else {
-        console.log("room is created");
       }
       setLoading(false);
       setMessage("");

@@ -26,9 +26,7 @@ const Profile = () => {
     photoURL: string
   ) => {
     const userRef = doc(db, "users", uid);
-    await updateDoc(userRef, { displayName, photoURL }).then(() =>
-      console.log("Updated user info")
-    );
+    await updateDoc(userRef, { displayName, photoURL });
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -37,9 +35,7 @@ const Profile = () => {
     const { uid, email } = authUser!;
     if (image && name && uid && email) {
       const imageRef = ref(storage, `avaters/${uid}_${image.name}`);
-      await uploadBytes(imageRef, image).then(() =>
-        console.log("Uploaded a file")
-      );
+      await uploadBytes(imageRef, image);
       await getDownloadURL(imageRef).then(async (url) => {
         await updateProfile(auth.currentUser!, {
           displayName: name,
@@ -49,7 +45,6 @@ const Profile = () => {
             setAuthUser({ displayName: name, photoURL: url, email, uid });
           })
           .then(async () => await updateUserProfile(uid, name, url))
-          .then(() => console.log("Updated profile"))
           .then(() =>
             toHome(uid, {
               title: "Success",
@@ -73,7 +68,6 @@ const Profile = () => {
         .then(
           async () => await updateUserProfile(uid, name, authUser.photoURL!)
         )
-        .then(() => console.log("Updated profile"))
         .then(() =>
           toHome(uid, {
             title: "Success",
