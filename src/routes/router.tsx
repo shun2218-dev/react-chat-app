@@ -33,7 +33,7 @@ const Router = () => {
         <Route path="private" element={<Private />} />
         <Route path="private/:partnerid" element={<Private />} />
       </Route>
-      <Route path="*" element={<NotFound />} />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 };
