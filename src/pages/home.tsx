@@ -1,13 +1,13 @@
-import React, { lazy } from "react";
+import React from "react";
 import { useAuthUser } from "@/atoms/useAuthUser";
-import styles from "@/styles/pages/Home.module.scss";
 import { usePage } from "@/hooks/usePage";
+import styles from "@/styles/pages/Home.module.scss";
 import { useFlashMessage } from "@/hooks/useFlashMessage";
 
-const Card = lazy(() => import("@/components/card"));
-const FlashMessage = lazy(() => import("@/components/flashMessage"));
-const PrivateIcon = lazy(() => import("@/Icons/privateIcon"));
-const GroupIcon = lazy(() => import("@/Icons/groupIcon"));
+import Card from "@/components/card";
+import FlashMessage from "@/components/flashMessage";
+import PrivateIcon from "@/Icons/privateIcon";
+import GroupIcon from "@/Icons/groupIcon";
 
 const Home = () => {
   const authUser = useAuthUser();

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useRef, useState, lazy } from "react";
+import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFlashMessage } from "@/hooks/useFlashMessage";
 import { useCreateGroup } from "@/hooks/useCreateGroup";
@@ -6,11 +6,11 @@ import { usePage } from "@/hooks/usePage";
 import utilStyles from "@/styles/utils/utils.module.scss";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const Form = lazy(() => import("@/components/form"));
-const Input = lazy(() => import("@/components/input"));
-const TextArea = lazy(() => import("@/components/textArea"));
-const Button = lazy(() => import("@/components/button"));
-const FlashMessage = lazy(() => import("@/components/flashMessage"));
+import Form from "@/components/form";
+import Input from "@/components/input";
+import TextArea from "@/components/textArea";
+import Button from "@/components/button";
+import FlashMessage from "@/components/flashMessage";
 
 const Create = () => {
   const [desc, setDesc] = useState("");

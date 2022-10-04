@@ -1,9 +1,9 @@
-import React, { lazy } from "react";
+import React from "react";
 import { useLocation } from "react-use";
 import { usePage } from "@/hooks/usePage";
 import utilStyles from "@/styles/utils/utils.module.scss";
 
-const Button = lazy(() => import("@/components/button"));
+import Button from "@/components/button";
 
 const NotFound = () => {
   const { toLogin } = usePage();

@@ -7,9 +7,9 @@ import { getUserInfo } from "@/lib/getUserInfo";
 import { informationMessage } from "@/lib/infomationMessage";
 import { CustomModal } from "@/types/CustomModal";
 
-const Button = lazy(() => import("./button"));
-const Modal = lazy(() => import("./modal"));
-const Avatar = lazy(() => import("./avatar"));
+import Button from "./button";
+import Modal from "./modal";
+import Avatar from "./avatar";
 
 const CancelModal: FC<CustomModal> = memo(
   ({ open, modalToggle, cancelId, setCancelId }) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, memo, lazy } from "react";
+import React, { useEffect, useCallback, useState, memo } from "react";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { usePage } from "@/hooks/usePage";
 import { useParams } from "react-router-dom";
@@ -12,11 +12,11 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase";
 
-const Button = lazy(() => import("./button"));
-const JoinModal = lazy(() => import("./joinModal"));
-const ExitModal = lazy(() => import("./exitModal"));
-const InviteModal = lazy(() => import("./inviteModal"));
-const CancelModal = lazy(() => import("./cancelModal"));
+import Button from "./button";
+import JoinModal from "./joinModal";
+import ExitModal from "./exitModal";
+import InviteModal from "./inviteModal";
+import CancelModal from "./cancelModal";
 
 const UserList = memo(({ group = false }: { group?: boolean }) => {
   const authUser = useAuthUser();

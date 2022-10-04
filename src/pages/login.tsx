@@ -1,16 +1,16 @@
-import React, { FormEvent, useRef, lazy } from "react";
+import React, { FormEvent, useRef } from "react";
 
 import styles from "@/styles/pages/Login.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useSignIn } from "@/hooks/useSignIn";
 import { useFlashMessage } from "@/hooks/useFlashMessage";
 
-const Form = lazy(() => import("@/components/form"));
-const Input = lazy(() => import("@/components/input"));
-const Button = lazy(() => import("@/components/button"));
-const FlashMessage = lazy(() => import("@/components/flashMessage"));
-const SignInIcon = lazy(() => import("@/Icons/signInIcon"));
-const LockIcon = lazy(() => import("@/Icons/lockIcon"));
+import Form from "@/components/form";
+import Input from "@/components/input";
+import Button from "@/components/button";
+import FlashMessage from "@/components/flashMessage";
+import SignInIcon from "@/Icons/signInIcon";
+import LockIcon from "@/Icons/lockIcon";
 
 const Login = () => {
   const { toRegist, toReset } = usePage();

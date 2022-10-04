@@ -1,4 +1,4 @@
-import React, { FC, useCallback, lazy } from "react";
+import React, { FC, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { usePage } from "@/hooks/usePage";
 import styles from "@/styles/components/Modal.module.scss";
@@ -8,8 +8,8 @@ import { NavigationState } from "@/types/NavigationState";
 import { CustomModal } from "@/types/CustomModal";
 import { informationMessage } from "@/lib/infomationMessage";
 
-const Button = lazy(() => import("./button"));
-const Modal = lazy(() => import("./modal"));
+import Button from "./button";
+import Modal from "./modal";
 
 const ExitModal: FC<CustomModal> = ({ open, modalToggle }) => {
   const { uid, groupid } = useParams();

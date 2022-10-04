@@ -1,12 +1,12 @@
-import React, { FormEvent, useRef, lazy } from "react";
+import React, { FormEvent, useRef } from "react";
 import { usePage } from "@/hooks/usePage";
 import { usePasswordReset } from "@/hooks/usePasswordReset";
 
-const Button = lazy(() => import("@/components/button"));
-const Form = lazy(() => import("@/components/form"));
-const Input = lazy(() => import("@/components/input"));
-const MailIcon = lazy(() => import("@/Icons/mailIcon"));
-const ResetIcon = lazy(() => import("@/Icons/resetIcon"));
+import Button from "@/components/button";
+import Form from "@/components/form";
+import Input from "@/components/input";
+import MailIcon from "@/Icons/mailIcon";
+import ResetIcon from "@/Icons/resetIcon";
 
 const Reset = () => {
   const { toLogin } = usePage();

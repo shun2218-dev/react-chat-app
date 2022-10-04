@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState, lazy } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import { usePage } from "@/hooks/usePage";
 import { auth, db, storage } from "@/firebase";
 import { updateProfile } from "firebase/auth";
@@ -6,12 +6,12 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useAuthUser, useSetAuthUser } from "@/atoms/useAuthUser";
 import { doc, updateDoc } from "firebase/firestore";
 
-const Avatar = lazy(() => import("@/components/avatar"));
-const Button = lazy(() => import("@/components/button"));
-const Form = lazy(() => import("@/components/form"));
-const Input = lazy(() => import("@/components/input"));
-const SettingIcon = lazy(() => import("@/Icons/settingIcon"));
-const UploadIcon = lazy(() => import("@/Icons/uploadIcon"));
+import Avatar from "@/components/avatar";
+import Button from "@/components/button";
+import Form from "@/components/form";
+import Input from "@/components/input";
+import SettingIcon from "@/Icons/settingIcon";
+import UploadIcon from "@/Icons/uploadIcon";
 
 const Profile = () => {
   const { toHome } = usePage();
@@ -26,7 +26,9 @@ const Profile = () => {
     photoURL: string
   ) => {
     const userRef = doc(db, "users", uid);
-    await updateDoc(userRef, { displayName, photoURL });
+    await updateDoc(userRef, { displayName, photoURL }).then(() =>
+      console.log("Updated user info")
+    );
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -45,6 +47,7 @@ const Profile = () => {
             setAuthUser({ displayName: name, photoURL: url, email, uid });
           })
           .then(async () => await updateUserProfile(uid, name, url))
+          .then(() => console.log("Updated profile"))
           .then(() =>
             toHome(uid, {
               title: "Success",

@@ -1,4 +1,4 @@
-import React, { FormEvent, Fragment, useState, lazy } from "react";
+import React, { FormEvent, Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useChatMessage } from "@/hooks/useChatMessage";
@@ -8,11 +8,11 @@ import isCreatedRoom from "@/lib/private/isCreatedRoom";
 import styles from "@/styles/pages/Private.module.scss";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const UserList = lazy(() => import("@/components/userList"));
-const ChatMessage = lazy(() => import("@/components/chatMessage"));
-const MessageDate = lazy(() => import("@/components/messageDate"));
-const MessageInput = lazy(() => import("@/components/messageInput"));
-const NotFoundIcon = lazy(() => import("@/Icons/notFoundIcon"));
+import UserList from "@/components/userList";
+import ChatMessage from "@/components/chatMessage";
+import MessageDate from "@/components/messageDate";
+import MessageInput from "@/components/messageInput";
+import NotFoundIcon from "@/Icons/notFoundIcon";
 
 const Private = () => {
   const { uid, partnerid } = useParams();
@@ -42,7 +42,6 @@ const Private = () => {
           from: uid,
           createdAt: serverTimestamp(),
         });
-      } else {
       }
       setLoading(false);
       setMessage("");

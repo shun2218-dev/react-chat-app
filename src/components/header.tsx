@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { usePage } from "@/hooks/usePage";
@@ -6,8 +6,8 @@ import { useSignOut } from "@/hooks/useSignOut";
 import logo from "@/assets/logo.svg";
 import styles from "@/styles/components/Header.module.scss";
 
-const Button = lazy(() => import("./button"));
-const SignOutIcon = lazy(() => import("@/Icons/signOutIcon"));
+import Button from "./button";
+import SignOutIcon from "@/Icons/signOutIcon";
 
 const Header = () => {
   const { toStart, toHome, toProfile } = usePage();

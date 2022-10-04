@@ -1,9 +1,9 @@
-import React, { useEffect, lazy } from "react";
+import React, { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { usePage } from "@/hooks/usePage";
 
-const Header = lazy(() => import("./header"));
+import Header from "./header";
 
 const Layout = () => {
   const { pathname } = useLocation();

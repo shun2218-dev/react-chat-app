@@ -1,7 +1,7 @@
-import React, { Dispatch, FC, FormEvent, SetStateAction, lazy } from "react";
+import React, { Dispatch, FC, FormEvent, SetStateAction } from "react";
 import styles from "@/styles/components/MessageInput.module.scss";
 
-const SendIcon = lazy(() => import("@/Icons/sendIcon"));
+import SendIcon from "@/Icons/sendIcon";
 
 type MessageInput = {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;

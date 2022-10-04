@@ -5,7 +5,6 @@ import React, {
   memo,
   useCallback,
   useState,
-  lazy,
 } from "react";
 import { useParams } from "react-router-dom";
 import styles from "@/styles/components/Modal.module.scss";
@@ -16,8 +15,8 @@ import { db } from "@/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { CustomModal } from "@/types/CustomModal";
 
-const Button = lazy(() => import("./button"));
-const Modal = lazy(() => import("./modal"));
+import Button from "./button";
+import Modal from "./modal";
 
 const InviteModal: FC<CustomModal> = memo(
   ({ open, modalToggle, inviteUsers, inviteIds, setInviteIds }) => {

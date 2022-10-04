@@ -1,4 +1,4 @@
-import React, { FormEvent, Fragment, useState, lazy } from "react";
+import React, { FormEvent, Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
@@ -6,10 +6,10 @@ import { formatDate } from "@/lib/formatDate";
 import styles from "@/styles/pages/GroupRoom.module.scss";
 import { useChatMessage } from "@/hooks/useChatMessage";
 
-const MessageInput = lazy(() => import("@/components/messageInput"));
-const UserList = lazy(() => import("@/components/userList"));
-const ChatMessage = lazy(() => import("@/components/chatMessage"));
-const MessageDate = lazy(() => import("@/components/messageDate"));
+import MessageInput from "@/components/messageInput";
+import UserList from "@/components/userList";
+import ChatMessage from "@/components/chatMessage";
+import MessageDate from "@/components/messageDate";
 
 const GroupRoom = () => {
   const [loading, setLoading] = useState(false);

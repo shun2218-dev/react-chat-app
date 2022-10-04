@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, lazy } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePage } from "@/hooks/usePage";
 import { useAuthUser } from "@/atoms/useAuthUser";
@@ -18,8 +18,8 @@ import { getUserInfo } from "@/lib/getUserInfo";
 import { informationMessage } from "@/lib/infomationMessage";
 import { CustomModal } from "@/types/CustomModal";
 
-const Modal = lazy(() => import("./modal"));
-const Button = lazy(() => import("./button"));
+import Modal from "./modal";
+import Button from "./button";
 
 const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   const authUser = useAuthUser();
