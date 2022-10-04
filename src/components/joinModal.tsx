@@ -26,6 +26,7 @@ const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   const { uid, groupid } = useParams();
   const { toJoin } = usePage();
   const [groupInfo, setGroupInfo] = useState<DocumentData>({});
+  const [profileEmpty, setProfileEmpty] = useState(false);
 
   const invitationCheck = async (uid: string, groupid: string) => {
     const inviteRef = collection(db, "groups", groupid, "invitations");
@@ -53,6 +54,12 @@ const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   };
 
   useEffect(() => {
+    if (!authUser?.displayName || !authUser.photoURL) {
+      setProfileEmpty(true);
+    }
+  }, [groupInfo]);
+
+  useEffect(() => {
     if (groupid) {
       const groupRef = doc(db, "groups", groupid!);
       getDoc(groupRef).then((docSnapshot) => {
@@ -63,41 +70,48 @@ const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
     }
   }, []);
   return (
-    <Modal title="Join this group?" open={open}>
-      {groupInfo && (
-        <>
-          <img src={groupInfo.photoURL} alt="" className={utilStyles.avatar} />
-          <div>
-            <p className={styles.contentTitle}>Group name</p>
-            <div className={styles.contentBox}>{groupInfo.groupName}</div>
-          </div>
-          <div>
-            <p className={styles.contentTitle}>Description</p>
-            <div className={styles.contentBox}>{groupInfo.description}</div>
-          </div>
-        </>
-      )}
-      <div className={`${styles.modalButton} ${styles.row}`}>
-        <Button
-          type="button"
-          color="primary"
-          variant="contained"
-          onClick={() => joinGroup(groupid!, uid!)}
-          fullWidth
-        >
-          Yes
-        </Button>
-        <Button
-          type="button"
-          color="transparent"
-          variant="outlined"
-          onClick={() => toJoin(uid!)}
-          fullWidth
-        >
-          No
-        </Button>
-      </div>
-    </Modal>
+    <>
+      <Modal title="Join this group?" open={open} error>
+        {groupInfo && (
+          <>
+            <img
+              src={groupInfo.photoURL}
+              alt=""
+              className={utilStyles.avatar}
+            />
+            <div>
+              <p className={styles.contentTitle}>Group name</p>
+              <div className={styles.contentBox}>{groupInfo.groupName}</div>
+            </div>
+            <div>
+              <p className={styles.contentTitle}>Description</p>
+              <div className={styles.contentBox}>{groupInfo.description}</div>
+            </div>
+          </>
+        )}
+        <div className={`${styles.modalButton} ${styles.row}`}>
+          <Button
+            type="button"
+            color="primary"
+            variant="contained"
+            onClick={() => joinGroup(groupid!, uid!)}
+            fullWidth
+            disabled={profileEmpty}
+          >
+            Yes
+          </Button>
+          <Button
+            type="button"
+            color="transparent"
+            variant="outlined"
+            onClick={() => toJoin(uid!)}
+            fullWidth
+          >
+            No
+          </Button>
+        </div>
+      </Modal>
+    </>
   );
 };
 

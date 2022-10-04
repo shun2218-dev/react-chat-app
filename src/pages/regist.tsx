@@ -70,7 +70,7 @@ const Regist = () => {
           variant="contained"
           fullWidth
           height="52px"
-          margin="30px 0 0"
+          margin="20px 0 0"
           startIcon={<CheckInIcon />}
         >
           Sign Up

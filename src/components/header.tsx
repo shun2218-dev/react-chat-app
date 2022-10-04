@@ -5,9 +5,11 @@ import { usePage } from "@/hooks/usePage";
 import { useSignOut } from "@/hooks/useSignOut";
 import logo from "@/assets/logo.svg";
 import styles from "@/styles/components/Header.module.scss";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import Button from "./button";
 import SignOutIcon from "@/Icons/signOutIcon";
+import { AuthUser } from "@/types/AuthUser";
 
 const Header = () => {
   const { toStart, toHome, toProfile } = usePage();
@@ -15,6 +17,18 @@ const Header = () => {
   const { pathname } = useLocation();
   const { signOut, loading, error } = useSignOut();
   const { uid } = useParams();
+
+  const logoNavigate = (authUser: AuthUser) => {
+    if (authUser) {
+      if (!authUser.displayName || !authUser.photoURL) {
+        toProfile(authUser.uid!);
+      } else {
+        toHome(authUser.uid!);
+      }
+    } else {
+      toStart();
+    }
+  };
 
   return (
     <>
@@ -31,18 +45,25 @@ const Header = () => {
             alt="logo"
             width="200px"
             height="67px"
-            onClick={() => (authUser ? toHome(authUser.uid!) : toStart())}
+            onClick={() => logoNavigate(authUser!)}
             className={styles.logo}
           />
           {authUser && (
             <div className={styles.profile}>
               <p>{authUser.displayName}</p>
-              <img
-                src={authUser.photoURL!}
-                alt=""
-                className={styles.avatar}
-                onClick={() => toProfile(uid!)}
-              />
+              {authUser.photoURL ? (
+                <img
+                  src={authUser.photoURL}
+                  alt=""
+                  className={styles.avatar}
+                  onClick={() => toProfile(uid!)}
+                />
+              ) : (
+                <AccountCircleIcon
+                  sx={{ width: 60, height: 60 }}
+                  onClick={() => toProfile(uid!)}
+                />
+              )}
               <Button
                 type="button"
                 variant="outlined"

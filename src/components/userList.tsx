@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase";
 
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Button from "./button";
 import JoinModal from "./joinModal";
 import ExitModal from "./exitModal";
@@ -144,12 +145,25 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
                   !group && toPrivateRoom(authUser?.uid!, user.id);
                 }}
               >
-                <img
-                  src={user.data().photoURL}
-                  alt=""
-                  className={utilStyles.avatar}
-                />
-                <p>{user.data().displayName}</p>
+                {user.data().photoURL ? (
+                  <img
+                    src={user.data().photoURL}
+                    alt=""
+                    className={utilStyles.avatar}
+                  />
+                ) : (
+                  <AccountCircleIcon
+                    sx={{
+                      width: 60,
+                      height: 60,
+                      "@media screen and (max-width:1000px)": {
+                        width: 40,
+                        height: 40,
+                      },
+                    }}
+                  />
+                )}
+                <p>{user.data().displayName ?? "Unknown"}</p>
               </li>
             ))
           ) : (

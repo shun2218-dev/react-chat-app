@@ -23,6 +23,10 @@ const FlashMessage: FC<NavigationState> = ({ status, title, text, strong }) => {
           width: "300px",
           top: "100px",
         },
+        "@media screen and (max-width:400px)": {
+          width: "242px",
+          top: "100px",
+        },
       }}
     >
       <AlertTitle

@@ -1,4 +1,4 @@
-import React, { FormEvent, Fragment, useState } from "react";
+import React, { FormEvent, Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase";
@@ -10,24 +10,30 @@ import MessageInput from "@/components/messageInput";
 import UserList from "@/components/userList";
 import ChatMessage from "@/components/chatMessage";
 import MessageDate from "@/components/messageDate";
+import { useAuthUser } from "@/atoms/useAuthUser";
 
 const GroupRoom = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const { uid, groupid } = useParams();
   const { chatMessages } = useChatMessage(true);
+  const authUser = useAuthUser();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (message) {
-      setLoading(true);
-      const groupRef = collection(db, "groups", groupid!, "messages");
-      await addDoc(groupRef, {
-        message,
-        from: uid!,
-        createdAt: serverTimestamp(),
-      }).then(() => setMessage(""));
-      setLoading(false);
+      if (!authUser?.displayName || !authUser?.photoURL) {
+        alert("Please set up your profile to chat!");
+      } else {
+        setLoading(true);
+        const groupRef = collection(db, "groups", groupid!, "messages");
+        await addDoc(groupRef, {
+          message,
+          from: uid!,
+          createdAt: serverTimestamp(),
+        }).then(() => setMessage(""));
+        setLoading(false);
+      }
     }
   };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { usePage } from "@/hooks/usePage";
 import styles from "@/styles/pages/Home.module.scss";
@@ -8,11 +8,19 @@ import Card from "@/components/card";
 import FlashMessage from "@/components/flashMessage";
 import PrivateIcon from "@/Icons/privateIcon";
 import GroupIcon from "@/Icons/groupIcon";
+import { useParams } from "react-router-dom";
 
 const Home = () => {
   const authUser = useAuthUser();
-  const { toPrivate, toGroup } = usePage();
+  const { toPrivate, toGroup, toProfile } = usePage();
+  const { uid } = useParams();
   const { messageState, flashState } = useFlashMessage(5000);
+
+  useEffect(() => {
+    if (!authUser?.displayName || !authUser.photoURL) {
+      toProfile(uid!);
+    }
+  }, []);
 
   return (
     <>

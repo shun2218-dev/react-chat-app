@@ -92,11 +92,8 @@ const Profile = () => {
         onSubmit={onSubmit}
         startIcon={<SettingIcon title />}
       >
-        {authUser?.photoURL ? (
-          <Avatar size={80} state={image} setState={setImage} header={false} />
-        ) : (
-          <Avatar size={80} state={image} setState={setImage} header={false} />
-        )}
+        <Avatar size={60} state={image} setState={setImage} header={false} />
+
         {authUser?.displayName ? (
           <Input
             label="Name"
@@ -114,7 +111,7 @@ const Profile = () => {
           variant="contained"
           fullWidth
           height="52px"
-          margin="30px 0 0"
+          margin="20px 0 20px"
           startIcon={<UploadIcon />}
         >
           Update profile
