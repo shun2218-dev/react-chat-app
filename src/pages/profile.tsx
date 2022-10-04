@@ -26,9 +26,7 @@ const Profile = () => {
     photoURL: string
   ) => {
     const userRef = doc(db, "users", uid);
-    await updateDoc(userRef, { displayName, photoURL }).then(() =>
-      console.log("Updated user info")
-    );
+    await updateDoc(userRef, { displayName, photoURL });
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -47,7 +45,6 @@ const Profile = () => {
             setAuthUser({ displayName: name, photoURL: url, email, uid });
           })
           .then(async () => await updateUserProfile(uid, name, url))
-          .then(() => console.log("Updated profile"))
           .then(() =>
             toHome(uid, {
               title: "Success",
