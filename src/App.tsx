@@ -8,7 +8,7 @@ import Header from "./components/header";
 function App() {
   return (
     <RecoilRoot>
-      <Suspense fallback={<div>...loading</div>}>
+      <Suspense fallback={<div>loading...</div>}>
         <BrowserRouter>
           <Header />
           <Router />

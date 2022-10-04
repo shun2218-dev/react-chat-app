@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
 const Start = lazy(() => import("@/pages/start"));
@@ -20,27 +20,29 @@ import AuthLayout from "@/components/authlayout";
 
 const Router = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="start" element={<Start />} />
-        <Route path="login" element={<Login />} />
-        <Route path="regist" element={<Regist />} />
-        <Route path="reset" element={<Reset />} />
-        <Route path="reset/complete" element={<Complete />} />
-        <Route path="/:uid" element={<AuthLayout />}>
-          <Route path="profile" element={<Profile />} />
-          <Route path="home" element={<Home />} />
-          <Route path="group" element={<Group />} />
-          <Route path="group/join" element={<Join />} />
-          <Route path="group/create" element={<Create />} />
-          <Route path="group/:groupid" element={<GroupRoom />} />
-          <Route path="private" element={<Private />} />
-          <Route path="private/:partnerid" element={<Private />} />
-          <Route path="*/*" element={<NotFound />} />
+    <Suspense fallback={<div>loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="start" element={<Start />} />
+          <Route path="login" element={<Login />} />
+          <Route path="regist" element={<Regist />} />
+          <Route path="reset" element={<Reset />} />
+          <Route path="reset/complete" element={<Complete />} />
+          <Route path="/:uid" element={<AuthLayout />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="home" element={<Home />} />
+            <Route path="group" element={<Group />} />
+            <Route path="group/join" element={<Join />} />
+            <Route path="group/create" element={<Create />} />
+            <Route path="group/:groupid" element={<GroupRoom />} />
+            <Route path="private" element={<Private />} />
+            <Route path="private/:partnerid" element={<Private />} />
+            <Route path="*/*" element={<NotFound />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 };
 

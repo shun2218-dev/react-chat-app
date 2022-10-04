@@ -15,10 +15,12 @@ const CancelModal: FC<CustomModal> = memo(
   ({ open, modalToggle, cancelId, setCancelId }) => {
     const { uid, groupid } = useParams();
     const [user, setUser] = useState<DocumentData>();
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = async () => {
       if (cancelId && setCancelId) {
         const inviteRef = doc(db, "groups", groupid!, "invitations", cancelId);
+        setLoading(true);
         await deleteDoc(inviteRef)
           .then(onClose)
           .then(
@@ -32,6 +34,7 @@ const CancelModal: FC<CustomModal> = memo(
       if (setCancelId) {
         modalToggle("cancel");
         setCancelId("");
+        setLoading(false);
         setUser(undefined);
       }
     };
@@ -58,6 +61,7 @@ const CancelModal: FC<CustomModal> = memo(
             color="primary"
             variant="contained"
             onClick={onSubmit}
+            disabled={loading}
           >
             Yes
           </Button>
@@ -66,6 +70,7 @@ const CancelModal: FC<CustomModal> = memo(
             color="transparent"
             variant="outlined"
             onClick={onClose}
+            disabled={loading}
           >
             No
           </Button>

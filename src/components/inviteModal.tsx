@@ -26,9 +26,10 @@ const InviteModal: FC<CustomModal> = memo(
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+
       if (inviteIds!.length !== 0) {
-        setLoading(true);
         inviteIds!.forEach(async (invite) => {
+          setLoading(true);
           const inviteRef = doc(db, "groups", groupid!, "invitations", invite!);
           await getUserInfo(invite!).then(async (user) => {
             await setDoc(inviteRef, user).then(onClose);
@@ -39,7 +40,6 @@ const InviteModal: FC<CustomModal> = memo(
           await informationMessage(uid!, groupid!, "invited", targetIds);
         });
       }
-      setLoading(false);
     };
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +66,7 @@ const InviteModal: FC<CustomModal> = memo(
         modalToggle("invite");
         setInviteIds([]);
         setTargetIds([]);
+        setLoading(false);
       }
     }, [open]);
 
@@ -119,6 +120,7 @@ const InviteModal: FC<CustomModal> = memo(
             variant="filled"
             fullWidth
             onClick={onClose}
+            disabled={loading}
           >
             Cancel
           </Button>
