@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useAuthUser } from "@/atoms/useAuthUser";
 import { usePage } from "@/hooks/usePage";
 
-import Header from "./header";
-
 const Layout = () => {
-  const { pathname } = useLocation();
   const authUser = useAuthUser();
   const { toHome, toLogin, toProfile } = usePage();
   useEffect(() => {
@@ -24,7 +21,6 @@ const Layout = () => {
 
   return (
     <>
-      {pathname !== "/start" && <Header />}
       <Outlet />
     </>
   );
