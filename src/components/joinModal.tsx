@@ -56,6 +56,8 @@ const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   useEffect(() => {
     if (!authUser?.displayName || !authUser.photoURL) {
       setProfileEmpty(true);
+    } else {
+      setProfileEmpty(false);
     }
   }, [groupInfo]);
 
@@ -71,7 +73,7 @@ const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   }, []);
   return (
     <>
-      <Modal title="Join this group?" open={open} error>
+      <Modal title="Join this group?" open={open} error={profileEmpty}>
         {groupInfo && (
           <>
             <img
