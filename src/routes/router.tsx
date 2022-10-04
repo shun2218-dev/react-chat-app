@@ -1,23 +1,22 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Start from "@/pages/start";
-import Login from "@/pages/login";
-import Regist from "@/pages/regist";
-import Reset from "@/pages/reset";
-import Home from "@/pages/home";
-import Private from "@/pages/private";
-import Group from "@/pages/group";
-import Profile from "@/pages/profile";
-import Complete from "@/pages/complete";
-import Join from "@/pages/join";
-import Create from "@/pages/create";
-import GroupRoom from "@/pages/groupRoom";
-import NotFound from "@/pages/notFound";
+const Start = lazy(() => import("@/pages/start"));
+const Login = lazy(() => import("@/pages/login"));
+const Regist = lazy(() => import("@/pages/regist"));
+const Reset = lazy(() => import("@/pages/reset"));
+const Home = lazy(() => import("@/pages/home"));
+const Private = lazy(() => import("@/pages/private"));
+const Group = lazy(() => import("@/pages/group"));
+const Profile = lazy(() => import("@/pages/profile"));
+const Complete = lazy(() => import("@/pages/complete"));
+const Join = lazy(() => import("@/pages/join"));
+const Create = lazy(() => import("@/pages/create"));
+const GroupRoom = lazy(() => import("@/pages/groupRoom"));
+const NotFound = lazy(() => import("@/pages/notFound"));
 
 import Layout from "@/components/layout";
 import AuthLayout from "@/components/authlayout";
-import Header from "@/components/header";
 
 const Router = () => {
   return (
