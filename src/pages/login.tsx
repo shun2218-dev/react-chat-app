@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef } from "react";
+import React, { FormEvent, useEffect, useRef } from "react";
 
 import styles from "@/styles/pages/Login.module.scss";
 import { usePage } from "@/hooks/usePage";
@@ -11,9 +11,11 @@ import Button from "@/components/button";
 import FlashMessage from "@/components/flashMessage";
 import SignInIcon from "@/Icons/signInIcon";
 import LockIcon from "@/Icons/lockIcon";
+import { useAuthUser } from "@/atoms/useAuthUser";
 
 const Login = () => {
-  const { toRegist, toReset } = usePage();
+  const authUser = useAuthUser();
+  const { toRegist, toReset, toHome, toLogin, toProfile } = usePage();
   const { signIn, loading, error } = useSignIn();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -27,6 +29,12 @@ const Login = () => {
       signIn(email, password).finally(reset);
     }
   };
+
+  useEffect(() => {
+    if (authUser?.uid) {
+      toHome(authUser.uid);
+    }
+  }, [authUser?.uid]);
 
   return (
     <>
@@ -54,6 +62,7 @@ const Login = () => {
           height="52px"
           margin="20px 0 0"
           startIcon={<SignInIcon />}
+          disabled={loading}
         >
           Sign In
         </Button>

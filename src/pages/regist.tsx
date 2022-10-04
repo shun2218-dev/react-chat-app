@@ -72,6 +72,7 @@ const Regist = () => {
           height="52px"
           margin="20px 0 0"
           startIcon={<CheckInIcon />}
+          disabled={loading}
         >
           Sign Up
         </Button>

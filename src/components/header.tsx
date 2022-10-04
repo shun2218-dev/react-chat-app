@@ -60,7 +60,14 @@ const Header = () => {
                 />
               ) : (
                 <AccountCircleIcon
-                  sx={{ width: 60, height: 60 }}
+                  sx={{
+                    width: 60,
+                    height: 60,
+                    "@media screen and (max-width:600px)": {
+                      width: 40,
+                      height: 40,
+                    },
+                  }}
                   onClick={() => toProfile(uid!)}
                 />
               )}
@@ -71,6 +78,7 @@ const Header = () => {
                 onClick={signOut}
                 startIcon={<SignOutIcon />}
                 header
+                disabled={loading}
               >
                 Sign Out
               </Button>

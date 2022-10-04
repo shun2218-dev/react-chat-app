@@ -14,7 +14,7 @@ const Home = () => {
   const authUser = useAuthUser();
   const { toPrivate, toGroup, toProfile } = usePage();
   const { uid } = useParams();
-  const { messageState, flashState } = useFlashMessage(5000);
+  const { messageState, flashState } = useFlashMessage(10000);
 
   useEffect(() => {
     if (!authUser?.displayName || !authUser.photoURL) {
