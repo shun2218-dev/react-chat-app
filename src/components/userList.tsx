@@ -133,47 +133,49 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
       />
       <div className={styles.container}>
         <p className={styles.listTitle}>{group ? "Members" : "Users"}</p>
-        <ul className={`${styles.userList} ${groupid && styles.group}`}>
-          {users.length ? (
-            users.map((user) => (
-              <li
-                key={user.id}
-                className={`${styles.user} ${
-                  partnerid === user.id ? styles.active : styles.passive
-                } ${group && styles.active}`}
-                onClick={() => {
-                  !group && toPrivateRoom(authUser?.uid!, user.id);
-                }}
-              >
-                {user.data().photoURL ? (
-                  <img
-                    src={user.data().photoURL}
-                    alt=""
-                    className={utilStyles.avatar}
-                  />
-                ) : (
-                  <AccountCircleIcon
-                    sx={{
-                      width: 60,
-                      height: 60,
-                      "@media screen and (max-width:1000px)": {
-                        width: 40,
-                        height: 40,
-                      },
-                    }}
-                  />
-                )}
-                <p>{user.data().displayName ?? "Unknown"}</p>
-              </li>
-            ))
-          ) : (
-            <div className={styles.loading}>loading...</div>
-          )}
+        <ul className={styles.memberList}>
+          <ul className={`${styles.userList} ${groupid && styles.group}`}>
+            {users.length ? (
+              users.map((user) => (
+                <li
+                  key={user.id}
+                  className={`${styles.user} ${
+                    partnerid === user.id ? styles.active : styles.passive
+                  } ${group && styles.active}`}
+                  onClick={() => {
+                    !group && toPrivateRoom(authUser?.uid!, user.id);
+                  }}
+                >
+                  {user.data().photoURL ? (
+                    <img
+                      src={user.data().photoURL}
+                      alt=""
+                      className={utilStyles.avatar}
+                    />
+                  ) : (
+                    <AccountCircleIcon
+                      sx={{
+                        width: 60,
+                        height: 60,
+                        "@media screen and (max-width:1000px)": {
+                          width: 40,
+                          height: 40,
+                        },
+                      }}
+                    />
+                  )}
+                  <p>{user.data().displayName ?? "Unknown"}</p>
+                </li>
+              ))
+            ) : (
+              <div className={styles.loading}>loading...</div>
+            )}
+          </ul>
 
           {group && (
             <>
               <li className={styles.listTitle}>{"Invitation"}</li>
-              <ul className={styles.userList}>
+              <ul className={`${styles.userList} ${styles.invite}`}>
                 {inviteLists.length ? (
                   inviteLists.map((inviteList) => (
                     <li

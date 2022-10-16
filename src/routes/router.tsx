@@ -22,8 +22,8 @@ const Router = () => {
   return (
     <Suspense fallback={<div>loading...</div>}>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="start" element={<Start />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Start />} />
           <Route path="login" element={<Login />} />
           <Route path="regist" element={<Regist />} />
           <Route path="reset" element={<Reset />} />
@@ -37,7 +37,6 @@ const Router = () => {
             <Route path="group/:groupid" element={<GroupRoom />} />
             <Route path="private" element={<Private />} />
             <Route path="private/:partnerid" element={<Private />} />
-            <Route path="*/*" element={<NotFound />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Route>

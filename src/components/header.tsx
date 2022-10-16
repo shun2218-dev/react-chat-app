@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <>
-      {pathname !== "/start" && (
+      {pathname !== "/" && (
         <header
           className={`${styles.header} ${
             authUser ? styles.login : styles.notLogin

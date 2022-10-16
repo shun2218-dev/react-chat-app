@@ -51,7 +51,7 @@ const Join = () => {
                 alt={groupName}
                 className={utilStyles.avatar}
               />
-              <p>{groupName}</p>
+              <p className={styles.name}>{groupName}</p>
             </li>
           ))
         ) : loading ? (

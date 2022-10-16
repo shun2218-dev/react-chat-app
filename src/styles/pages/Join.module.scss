@@ -38,3 +38,13 @@
     padding: 5px 15px;
   }
 }
+
+.name {
+  font-size: 1rem;
+  @media screen and (max-width: 1000px) {
+    font-size: 0.8rem;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 0.6rem;
+  }
+}

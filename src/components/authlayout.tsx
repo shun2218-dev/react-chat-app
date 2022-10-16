@@ -16,7 +16,6 @@ const AuthLayout = () => {
           text: "Please set up your profile to start chatting.",
         } as NavigationState;
         toProfile(authUser?.uid, flashMessage);
-        document.body.classList.remove("home");
       }
     } else {
       toLogin();
