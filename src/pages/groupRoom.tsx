@@ -45,11 +45,12 @@ const GroupRoom = () => {
           chatMessages.map((doc, index) => {
             if (doc.createdAt !== null) {
               const targetDate = formatDate(doc);
+              const isLastMessage = chatMessages.length - 1 === index;
               if (index === 0) {
                 return (
                   <Fragment key={doc.id}>
                     <MessageDate {...targetDate} />
-                    <ChatMessage {...doc} />
+                    <ChatMessage {...doc} isLastMessage={isLastMessage} />
                   </Fragment>
                 );
               } else {
@@ -58,12 +59,18 @@ const GroupRoom = () => {
                   preDate.month === targetDate.month &&
                   preDate.day === targetDate.day
                 ) {
-                  return <ChatMessage key={doc.id} {...doc} />;
+                  return (
+                    <ChatMessage
+                      key={doc.id}
+                      {...doc}
+                      isLastMessage={isLastMessage}
+                    />
+                  );
                 } else {
                   return (
                     <Fragment key={doc.id}>
                       <MessageDate {...targetDate} />
-                      <ChatMessage {...doc} />
+                      <ChatMessage {...doc} isLastMessage={isLastMessage} />
                     </Fragment>
                   );
                 }

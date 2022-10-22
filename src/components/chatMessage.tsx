@@ -9,6 +9,7 @@ import { Message } from "@/types/Message";
 
 import Avatar from "./avatar";
 import InfoMessage from "./infoMessage";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 type Info = {
   displayName: string;
@@ -16,12 +17,27 @@ type Info = {
 };
 
 const ChatMessage: FC<Message> = memo(
-  ({ from, to, createdAt, id, message, info, status, displayName }) => {
+  ({
+    from,
+    to,
+    createdAt,
+    id,
+    message,
+    info,
+    status,
+    displayName,
+    isLastMessage,
+  }) => {
     const { uid, partnerid, groupid } = useParams();
     const [userInfo, setUserInfo] = useState<Info>({
       displayName: "",
       photoURL: "",
     });
+    const { chatRef, smoothScroll } = useSmoothScroll(isLastMessage);
+
+    useEffect(() => {
+      smoothScroll(chatRef);
+    }, []);
     // const [partnerName, setPartnerName] = useState("");
     // const [partnerPhoto, setPartnerPhoto] = useState("");
 
@@ -81,9 +97,14 @@ const ChatMessage: FC<Message> = memo(
     return (
       <>
         {info ? (
-          <InfoMessage status={status!} to={to!} from={from} />
+          <InfoMessage
+            status={status!}
+            to={to!}
+            from={from}
+            isLastMessage={isLastMessage}
+          />
         ) : from === uid ? (
-          <ul className={`${styles.message} ${styles.own}`}>
+          <ul className={`${styles.message} ${styles.own}`} ref={chatRef}>
             <li className={styles.text}>
               <p className={styles.bubble}>{message}</p>
               {createdAt !== null && (
@@ -92,7 +113,7 @@ const ChatMessage: FC<Message> = memo(
             </li>
           </ul>
         ) : (
-          <ul className={`${styles.message} ${styles.partner}`}>
+          <ul className={`${styles.message} ${styles.partner}`} ref={chatRef}>
             <li className={styles.profile}>
               {userInfo.photoURL ? (
                 <Avatar size={40} storageRef={userInfo.photoURL} chat />

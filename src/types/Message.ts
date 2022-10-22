@@ -9,4 +9,5 @@ export type Message = {
   status?: "joined" | "existed" | "invited" | "canceled";
   displayName?: string;
   to?: string;
+  isLastMessage: boolean;
 };
