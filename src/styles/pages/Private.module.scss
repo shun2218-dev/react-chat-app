@@ -7,10 +7,11 @@
   box-sizing: border-box;
   width: 75%;
   padding: 25px;
-  max-height: calc(100% - (118px + 83px));
+  max-height: calc(100% - (118px + 92px));
   overflow-y: auto;
   @media screen and (max-width: 1000px) {
     width: calc(100% - 90px);
+    max-height: calc(100% - (118px + 82px));
   }
   @media screen and (max-width: 600px) {
     width: calc(100% - 70px);
