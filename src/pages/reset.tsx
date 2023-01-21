@@ -22,7 +22,7 @@ const Reset = () => {
   return (
     <>
       <Form
-        title="Enter your Email address"
+        title="Enter your Email"
         secondTitle="to reset your password."
         onSubmit={onSubmit}
         startIcon={<MailIcon title />}

@@ -21,7 +21,15 @@
   min-width: 24px;
   color: var.$white;
   @include mix.disabledStyle(var.$white);
-  @media screen and (max-width: 600) {
+  @media screen and (max-width: 600px) {
     max-width: 22px;
+  }
+}
+
+.arrowTopRight {
+  width: 16px;
+  min-width: 10px;
+  @media screen and (max-width: 600px) {
+    width: 10px;
   }
 }

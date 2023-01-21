@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import logo from "@/assets/logo.svg";
+import nextLogo from "@/assets/logo_next.svg";
 import styles from "@/styles/pages/Start.module.scss";
 import { usePage } from "@/hooks/usePage";
 import Button from "@/components/button";
+import ArrowTopRight from "@/Icons/arrowTopRight";
 
 const Start = () => {
   const { toLogin, toRegist } = usePage();
@@ -50,6 +52,23 @@ const Start = () => {
           Sign In &gt;
         </Button>
       </div>
+      <Button
+        type="button"
+        color="transparent"
+        variant="filled"
+        height="60px"
+        width="250px"
+        fullWidth
+        endIcon={<ArrowTopRight />}
+      >
+        <a
+          href={"https://next-chat-app-shun2218-dev.vercel.app"}
+          target="_blank"
+          rel="noopener"
+        >
+          <img src={nextLogo} alt="Next Chat App" className={styles.nextLogo} />
+        </a>
+      </Button>
     </div>
   );
 };
