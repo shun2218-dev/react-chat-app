@@ -16,7 +16,7 @@ const Create = () => {
   const [desc, setDesc] = useState('')
   const nameRef = useRef<HTMLInputElement>(null)
   const {uid} = useParams()
-  const createGroup = useCreateGroup()
+  const {createGroup, loading} = useCreateGroup()
   const {messageState, flashState} = useFlashMessage(3000)
   const {toHome} = usePage()
   const [image, setImage] = useState<File | null>(null)
@@ -89,6 +89,7 @@ const Create = () => {
           variant='contained'
           fullwidth
           margin='20px 0 0'
+          disabled={loading}
         >
           Next
         </Button>
@@ -96,7 +97,7 @@ const Create = () => {
           type='button'
           color='transparent'
           variant='filled'
-          onClick={() => uid !== null && toHome(uid)}
+          onClick={() => !!uid && toHome(uid)}
         >
           Cancel
         </Button>

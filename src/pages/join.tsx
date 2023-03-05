@@ -46,7 +46,7 @@ const Join = () => {
               className={styles.group}
               key={id}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              onClick={() => uid !== null && toGroupRoom(uid, id)}
+              onClick={() => !!uid && toGroupRoom(uid, id)}
             >
               <img
                 src={photoURL}
