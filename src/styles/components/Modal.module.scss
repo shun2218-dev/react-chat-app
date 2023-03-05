@@ -1,3 +1,4 @@
+/* stylelint-disable color-function-notation */
 /* stylelint-disable scss/no-global-function-names */
 @use '../config/variables' as var;
 @use '../config/mixin' as mix;
@@ -12,7 +13,7 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(var.$gray 0.4);
+  background-color: rgba(var.$gray, 0.4);
 }
 
 .modalbody {
@@ -120,6 +121,6 @@
 
 .contentbox {
   padding: 20px;
-  background-color: rgb(lighten(var.$black, 20) 0.3);
+  background-color: rgba(lighten(var.$black, 20), 0.3);
   border-radius: 6px;
 }
