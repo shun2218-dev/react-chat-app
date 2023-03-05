@@ -40,10 +40,12 @@ const Regist = () => {
   }
 
   useEffect(() => {
-    if (authUser?.uid) {
-      toHome(authUser.uid)
+    if (authUser !== null) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+      toHome(authUser?.uid!)
     }
-  }, [authUser?.uid])
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+  }, [authUser?.uid!])
   return (
     <>
       <Form

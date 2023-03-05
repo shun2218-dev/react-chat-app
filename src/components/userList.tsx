@@ -58,7 +58,8 @@ const UserListMemo = ({group = false}: {group?: boolean}) => {
   )
 
   const isNotMember = useCallback(
-    (doc: QueryDocumentSnapshot<DocumentData>) => doc.id !== authUser?.uid,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+    (doc: QueryDocumentSnapshot<DocumentData>) => doc.id !== authUser?.uid!,
     [users]
   )
 
@@ -84,7 +85,8 @@ const UserListMemo = ({group = false}: {group?: boolean}) => {
       }
     } else {
       const unSub = onSnapshot(userRef, snapshot => {
-        setUsers([...snapshot.docs.filter(doc => doc.id !== authUser?.uid)])
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+        setUsers([...snapshot.docs.filter(doc => doc.id !== authUser?.uid!)])
         setIds([...snapshot.docs.map(doc => doc.id)])
       })
       return () => {
@@ -145,7 +147,8 @@ const UserListMemo = ({group = false}: {group?: boolean}) => {
                     partnerid === user.id ? styles.active : styles.passive
                   } ${group && styles.active}`}
                   onClick={() => {
-                    !group && toPrivateRoom(authUser?.uid, user.id)
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+                    !group && toPrivateRoom(authUser?.uid!, user.id)
                   }}
                 >
                   {user.data().photoURL ? (

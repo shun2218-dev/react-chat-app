@@ -25,7 +25,7 @@ const ExitModal: FC<CustomModal> = ({open, modalToggle}) => {
       text: 'Exit group.'
     } as NavigationState
     await deleteDoc(doc(db, 'groups', groupid, 'members', uid))
-      .then(() => uid !== null && toHome(uid, flashMessage))
+      .then(() => !!uid && toHome(uid, flashMessage))
       .then(async () => {
         await informationMessage(uid, groupid, 'existed').then(() =>
           setLoading(false)
@@ -41,9 +41,7 @@ const ExitModal: FC<CustomModal> = ({open, modalToggle}) => {
           type='button'
           color='primary'
           variant='contained'
-          onClick={() =>
-            groupid !== null && uid !== null && exitGroup(groupid, uid)
-          }
+          onClick={() => !!groupid && !!uid && exitGroup(groupid, uid)}
           fullwidth
           disabled={loading}
         >

@@ -93,7 +93,7 @@ const Avatar: FC<Avatar> = ({
             alt=''
             style={imageStyle}
             className={`${styles.avatar} ${profile && styles.profile}`}
-            onClick={() => header && uid !== null && toProfile(uid)}
+            onClick={() => header && !!uid && toProfile(uid)}
           />
         ) : (
           <AccountCircleIcon sx={{width: size, height: size}} />

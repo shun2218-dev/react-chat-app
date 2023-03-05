@@ -11,12 +11,10 @@ const Group = () => {
   return (
     <>
       <div className={styles.cardcontainer}>
-        <Card onClick={() => uid !== null && toJoin(uid)}>
+        <Card onClick={() => !!uid && toJoin(uid)}>
           Join a already exists group
         </Card>
-        <Card onClick={() => uid !== null && toCreate(uid)}>
-          Create a new group
-        </Card>
+        <Card onClick={() => !!uid && toCreate(uid)}>Create a new group</Card>
       </div>
     </>
   )
