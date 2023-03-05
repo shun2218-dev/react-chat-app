@@ -1,6 +1,6 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import React from 'react'
-import {useLocation, useParams} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 
 import logo from '@/assets/logo.svg'
 import {useAuthUser} from '@/atoms/useAuthUser'
@@ -17,7 +17,6 @@ const Header = () => {
   const authUser = useAuthUser()
   const {pathname} = useLocation()
   const {signOut, loading} = useSignOut()
-  const {uid} = useParams()
 
   const logoNavigate = (authUser: AuthUser) => {
     if (authUser) {
@@ -47,7 +46,9 @@ const Header = () => {
             alt='logo'
             width='200px'
             height='67px'
-            onClick={() => authUser !== null && logoNavigate(authUser)}
+            onClick={() => {
+              logoNavigate(authUser)
+            }}
             className={styles.logo}
           />
           {authUser && (
@@ -58,7 +59,7 @@ const Header = () => {
                   src={authUser.photoURL}
                   alt=''
                   className={styles.avatar}
-                  onClick={() => !!uid && toProfile(uid)}
+                  onClick={() => toProfile(authUser.uid)}
                 />
               ) : (
                 <AccountCircleIcon
@@ -70,7 +71,7 @@ const Header = () => {
                       height: 40
                     }
                   }}
-                  onClick={() => !!uid && toProfile(uid)}
+                  onClick={() => toProfile(authUser.uid)}
                 />
               )}
               <Button
