@@ -29,7 +29,8 @@ export function useSignUp() {
         const {
           user: {uid, email}
         } = res
-        addUserList(uid, {uid, email})
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        addUserList(uid, {uid, email: email!})
         return res
       })
       .then(res => toProfile(res.user.uid))

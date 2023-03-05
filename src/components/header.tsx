@@ -58,7 +58,7 @@ const Header = () => {
                   src={authUser.photoURL}
                   alt=''
                   className={styles.avatar}
-                  onClick={() => uid !== null && toProfile(uid)}
+                  onClick={() => !!uid && toProfile(uid)}
                 />
               ) : (
                 <AccountCircleIcon
@@ -70,7 +70,7 @@ const Header = () => {
                       height: 40
                     }
                   }}
-                  onClick={() => uid !== null && toProfile(uid)}
+                  onClick={() => !!uid && toProfile(uid)}
                 />
               )}
               <Button
