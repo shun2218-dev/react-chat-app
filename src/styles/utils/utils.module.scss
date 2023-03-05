@@ -1,7 +1,7 @@
-@use "../config//variables" as var;
-@use "../config/mixin" as mix;
+@use '../config//variables' as var;
+@use '../config/mixin' as mix;
 
-.textCenter {
+.textcenter {
   width: 100%;
   text-align: center;
 }
@@ -14,16 +14,16 @@
 }
 
 .avatar {
-  @include mix.avatarImage();
+  @include mix.avatar-image;
 }
 
-.flexCenter {
+.flexcenter {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
-.errorText {
+.errortext {
   color: var.$error;
 }

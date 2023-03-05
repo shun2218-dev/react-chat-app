@@ -1,9 +1,9 @@
 .container {
   display: flex;
   flex-direction: column;
+  gap: 40px;
   align-items: center;
   justify-content: center;
-  gap: 40px;
   @media screen and (max-width: 1000px) {
     gap: 30px;
   }
@@ -12,11 +12,11 @@
   }
 }
 
-.buttonGroup {
+.buttongroup {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 30px;
+  align-items: center;
   @media screen and (max-width: 1000px) {
     gap: 10px;
   }
@@ -31,7 +31,8 @@
     width: 250px;
   }
 }
-.nextLogo {
+
+.nextlogo {
   width: 150px;
   @media screen and (max-width: 1000px) {
     width: 120px;

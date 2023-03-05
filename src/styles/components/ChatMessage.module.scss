@@ -1,45 +1,59 @@
-@use "../config//variables" as var;
+@use '../config//variables' as var;
+
 .message {
-  margin: 20px 0;
   display: flex;
   flex-direction: column;
   max-width: 50%;
+  margin: 20px 0;
   @media screen and (max-width: 800px) {
     max-width: 100%;
   }
 }
 
 .bubble {
-  padding: 15px;
-  border-radius: 12px;
   position: relative;
+  padding: 15px;
   font-size: 0.85rem;
+  border-radius: 12px;
   @media screen and (max-width: 600px) {
     font-size: 0.68rem;
   }
 }
 
+.text {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  @media screen and (max-width: 600px) {
+    gap: 8px;
+  }
+}
+
 .own {
-  text-align: right;
   margin-left: auto;
+  text-align: right;
+
   &.message {
     justify-content: flex-end;
   }
+
   & .bubble {
-    background-color: var.$blue;
     text-align: left;
+    background-color: var.$blue;
+
     &::before {
-      content: "";
       position: absolute;
       top: 5px;
       right: -4px;
       width: 0;
       height: 0;
+      content: '';
       border: solid 10px;
-      transform: rotate(20deg);
       border-color: var.$blue var.$blue transparent transparent;
+      transform: rotate(20deg);
     }
   }
+
   & .text {
     display: flex;
     flex-direction: row-reverse;
@@ -48,34 +62,28 @@
 
 .partner {
   text-align: left;
+
   & .bubble {
-    background-color: var.$white;
-    color: var.$black;
     margin-top: 0;
     margin-left: 60px;
+    color: var.$black;
+    background-color: var.$white;
+
     &::before {
-      content: "";
       position: absolute;
       top: 4px;
       left: -3px;
       width: 0;
       height: 0;
+      content: '';
       border: solid 10px;
-      transform: rotate(-13deg);
       border-color: var.$white transparent transparent var.$white;
+      transform: rotate(-13deg);
     }
   }
+
   & .text {
     display: flex;
-  }
-}
-
-.text {
-  display: flex;
-  align-items: flex-end;
-  gap: 15px;
-  @media screen and (max-width: 600px) {
-    gap: 8px;
   }
 }
 
@@ -83,6 +91,7 @@
   display: flex;
   gap: 20px;
   align-items: center;
+
   & p {
     margin: 0;
     font-size: 0.85rem;

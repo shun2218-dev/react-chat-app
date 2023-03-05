@@ -1,11 +1,11 @@
-@mixin hoverColor($color) {
+@mixin hover-color($color) {
   &:hover {
     color: $color;
     @content;
   }
 }
 
-@mixin hoverStyle($color, $border) {
+@mixin hover-style($color, $border) {
   &:hover {
     color: $color;
     border: $border;
@@ -13,24 +13,24 @@
   }
 }
 
-@mixin disabledStyle($color) {
+@mixin disabled-style($color) {
   &:disabled {
-    color: rgba($color: darken($color, 20), $alpha: 0.5);
+    color: rgba($color: color.adjust($color, 20), $alpha: 50%);
     @content;
   }
 }
 
-@mixin avatarImage() {
-  min-width: 60px;
-  min-height: 60px;
+@mixin avatar-image() {
   width: 60px;
+  min-width: 60px;
   height: 60px;
-  object-fit: cover;
+  min-height: 60px;
   border-radius: 50%;
+  object-fit: cover;
   @media screen and (max-width: 1000px) {
-    min-width: 40px;
-    min-height: 40px;
     width: 40px;
+    min-width: 40px;
     height: 40px;
+    min-height: 40px;
   }
 }

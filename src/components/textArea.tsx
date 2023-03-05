@@ -1,16 +1,17 @@
-import React, { ChangeEvent, FC } from "react";
-import styles from "@/styles/components/TextArea.module.scss";
+import React, {ChangeEvent, FC} from 'react'
+
+import styles from '@/styles/components/TextArea.module.scss'
 
 type TextArea = {
-  label: string;
-  value: string;
-  rows?: number;
-  cols?: number;
-  placeholder: string;
-  required?: boolean;
-  defaultValue?: string;
-  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-};
+  label: string
+  value: string
+  rows?: number
+  cols?: number
+  placeholder: string
+  required?: boolean
+  defaultValue?: string
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void
+}
 
 const TextArea: FC<TextArea> = ({
   label,
@@ -20,7 +21,7 @@ const TextArea: FC<TextArea> = ({
   required,
   defaultValue,
   value,
-  onChange,
+  onChange
 }) => {
   return (
     <label className={styles.input}>
@@ -35,7 +36,7 @@ const TextArea: FC<TextArea> = ({
         onChange={onChange}
       />
     </label>
-  );
-};
+  )
+}
 
-export default TextArea;
+export default TextArea

@@ -1,9 +1,12 @@
-import React, { Suspense } from "react";
-import "./App.scss";
-import { BrowserRouter } from "react-router-dom";
-import Router from "@/routes/router";
-import { RecoilRoot } from "recoil";
-import Header from "./components/header";
+import './App.scss'
+
+import React, {Suspense} from 'react'
+import {BrowserRouter} from 'react-router-dom'
+import {RecoilRoot} from 'recoil'
+
+import Router from '@/routes/router'
+
+import Header from './components/header'
 
 function App() {
   return (
@@ -15,7 +18,7 @@ function App() {
         </BrowserRouter>
       </Suspense>
     </RecoilRoot>
-  );
+  )
 }
 
-export default App;
+export default App

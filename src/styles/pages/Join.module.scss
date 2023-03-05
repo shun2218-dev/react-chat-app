@@ -1,13 +1,13 @@
-@use "../config/variables" as var;
-@use "../config/mixin" as mix;
+@use '../config/variables' as var;
+@use '../config/mixin' as mix;
 
-.groupList {
-  max-height: 80%;
-  height: 330px;
-  overflow-y: auto;
-  width: 600px;
+.grouplist {
   box-sizing: border-box;
+  width: 600px;
+  height: 330px;
+  max-height: 80%;
   margin-bottom: 20px;
+  overflow-y: auto;
   @media screen and (max-width: 1000px) {
     width: 360px;
   }
@@ -20,19 +20,20 @@
 }
 
 .group {
-  cursor: pointer;
-  padding: 20px 80px;
-  box-shadow: inset -3px -3px 3px var.$black, inset 1px 1px 3px var.$black;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 20px 80px;
+  cursor: pointer;
   border-radius: 6px;
+  box-shadow: inset -3px -3px 3px var.$black, inset 1px 1px 3px var.$black;
+
   & p {
     flex-grow: 1;
     margin: 0.5rem 0;
   }
-  @include mix.hoverColor(lighten(var.$white, 20)) {
-    background-color: lighten(var.$black, 20);
+  @include mix.hover-color(color.adjust(var.$white, 20)) {
+    background-color: color.adjust(var.$black, 20);
   }
   @media screen and (max-width: 600px) {
     padding: 5px 15px;

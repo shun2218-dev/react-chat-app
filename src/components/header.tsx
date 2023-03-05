@@ -1,51 +1,53 @@
-import React from "react";
-import { useLocation, useParams } from "react-router-dom";
-import { useAuthUser } from "@/atoms/useAuthUser";
-import { usePage } from "@/hooks/usePage";
-import { useSignOut } from "@/hooks/useSignOut";
-import logo from "@/assets/logo.svg";
-import styles from "@/styles/components/Header.module.scss";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import React from 'react'
+import {useLocation, useParams} from 'react-router-dom'
 
-import Button from "./button";
-import SignOutIcon from "@/Icons/signOutIcon";
-import { AuthUser } from "@/types/AuthUser";
+import logo from '@/assets/logo.svg'
+import {useAuthUser} from '@/atoms/useAuthUser'
+import {usePage} from '@/hooks/usePage'
+import {useSignOut} from '@/hooks/useSignOut'
+import SignOutIcon from '@/Icons/signOutIcon'
+import styles from '@/styles/components/Header.module.scss'
+import {AuthUser} from '@/types/AuthUser'
+
+import Button from './button'
 
 const Header = () => {
-  const { toStart, toHome, toProfile } = usePage();
-  const authUser = useAuthUser();
-  const { pathname } = useLocation();
-  const { signOut, loading, error } = useSignOut();
-  const { uid } = useParams();
+  const {toStart, toHome, toProfile} = usePage()
+  const authUser = useAuthUser()
+  const {pathname} = useLocation()
+  const {signOut, loading} = useSignOut()
+  const {uid} = useParams()
 
   const logoNavigate = (authUser: AuthUser) => {
     if (authUser) {
       if (!authUser.displayName || !authUser.photoURL) {
-        toProfile(authUser.uid!);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        toProfile(authUser.uid!)
       } else {
-        toHome(authUser.uid!);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        toHome(authUser.uid!)
       }
     } else {
-      toStart();
+      toStart()
     }
-  };
+  }
 
   return (
     <>
-      {pathname !== "/" && (
+      {pathname !== '/' && (
         <header
           className={`${styles.header} ${
-            authUser ? styles.login : styles.notLogin
+            authUser ? styles.login : styles.notlogin
           }`}
         >
           {/* after log in switch toHome */}
           <img
             src={logo}
-            typeof="image/svg+xml"
-            alt="logo"
-            width="200px"
-            height="67px"
-            onClick={() => logoNavigate(authUser!)}
+            alt='logo'
+            width='200px'
+            height='67px'
+            onClick={() => authUser !== null && logoNavigate(authUser)}
             className={styles.logo}
           />
           {authUser && (
@@ -54,27 +56,27 @@ const Header = () => {
               {authUser.photoURL ? (
                 <img
                   src={authUser.photoURL}
-                  alt=""
+                  alt=''
                   className={styles.avatar}
-                  onClick={() => toProfile(uid!)}
+                  onClick={() => uid !== null && toProfile(uid)}
                 />
               ) : (
                 <AccountCircleIcon
                   sx={{
                     width: 60,
                     height: 60,
-                    "@media screen and (max-width:600px)": {
+                    '@media screen and (max-width:600px)': {
                       width: 40,
-                      height: 40,
-                    },
+                      height: 40
+                    }
                   }}
-                  onClick={() => toProfile(uid!)}
+                  onClick={() => uid !== null && toProfile(uid)}
                 />
               )}
               <Button
-                type="button"
-                variant="outlined"
-                color="primary"
+                type='button'
+                variant='outlined'
+                color='primary'
                 onClick={signOut}
                 startIcon={<SignOutIcon />}
                 header
@@ -87,7 +89,7 @@ const Header = () => {
         </header>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

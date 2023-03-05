@@ -1,3 +1,3 @@
 export const isIncludes = (arr: string[], target: string) => {
-  return arr.includes(target);
-};
+  return arr.includes(target)
+}
