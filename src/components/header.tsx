@@ -18,7 +18,7 @@ const Header = () => {
   const {pathname} = useLocation()
   const {signOut, loading} = useSignOut()
 
-  const logoNavigate = (authUser: AuthUser) => {
+  const logoNavigate = (authUser: AuthUser | null) => {
     if (authUser) {
       if (!authUser.displayName || !authUser.photoURL) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
