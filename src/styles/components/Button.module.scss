@@ -1,3 +1,4 @@
+/* stylelint-disable color-function-notation */
 @use '../config/variables' as var;
 @use '../config/mixin' as mix;
 
@@ -53,7 +54,7 @@
       2px solid lighten(var.$blue, 20)
     );
     @include mix.disabled-style(var.$blue) {
-      border: 2px solid rgb(var.$blue 0.5);
+      border: 2px solid rgba(var.$blue, 0.5);
     }
   }
 
@@ -65,7 +66,7 @@
       2px solid lighten(var.$white, 40)
     );
     @include mix.disabled-style(var.$white) {
-      border: 1px solid rgb(var.$white 0.5);
+      border: 1px solid rgba(var.$white, 0.5);
     }
   }
 
@@ -77,7 +78,7 @@
       2px solid lighten(var.$error, 20)
     );
     @include mix.disabled-style(var.$error) {
-      border: 1px solid rgb(var.$error 0.5);
+      border: 1px solid rgba(var.$error, 0.5);
     }
   }
 
@@ -89,7 +90,7 @@
       2px solid lighten(var.$success, 20)
     );
     @include mix.disabled-style(var.$success) {
-      border: 1px solid rgb(var.$success 0.5);
+      border: 1px solid rgba(var.$success, 0.5);
     }
   }
 }
