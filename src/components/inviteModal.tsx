@@ -84,7 +84,7 @@ const InviteModalMemo: FC<CustomModal> = ({
 
   return (
     <Modal title='Select the member to invite' open={open} onSubmit={onSubmit}>
-      <ul className={`${styles.userList} ${styles.invite}`}>
+      <ul className={`${styles.userlist} ${styles.invite}`}>
         {inviteUsers?.length ? (
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           inviteUsers!.map(user => (
@@ -113,12 +113,12 @@ const InviteModalMemo: FC<CustomModal> = ({
           <div>...loading</div>
         )}
       </ul>
-      <div className={`${styles.modalButton}`}>
+      <div className={`${styles.modalbutton}`}>
         <Button
           type='submit'
           color='primary'
           variant='contained'
-          fullWidth
+          fullwidth
           disabled={loading}
         >
           Invite New Members
@@ -127,7 +127,7 @@ const InviteModalMemo: FC<CustomModal> = ({
           type='button'
           color='transparent'
           variant='filled'
-          fullWidth
+          fullwidth
           onClick={onClose}
           disabled={loading}
         >

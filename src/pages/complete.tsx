@@ -32,7 +32,7 @@ const Complete = () => {
           type='button'
           color='primary'
           variant='contained'
-          fullWidth
+          fullwidth
           height='52px'
           margin='30px 0 0'
           onClick={toLogin}

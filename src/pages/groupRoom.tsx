@@ -42,7 +42,7 @@ const GroupRoom = () => {
   return (
     <>
       <UserList group />
-      <div className={styles.chatRoom}>
+      <div className={styles.chatroom}>
         {chatMessages.length ? (
           chatMessages.map((doc, index) => {
             if (doc.createdAt !== null) {

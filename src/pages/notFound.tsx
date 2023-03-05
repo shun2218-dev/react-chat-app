@@ -9,11 +9,11 @@ const NotFound = () => {
   const {toLogin} = usePage()
   const {pathname} = useLocation()
   return (
-    <div className={utilStyles.flexCenter}>
+    <div className={utilStyles.flexcenter}>
       <h1>404 Not Found</h1>
       <p>
         Invalid Pathname:
-        <span className={utilStyles.errorText}>{pathname}</span>
+        <span className={utilStyles.errortext}>{pathname}</span>
       </p>
       <div>
         <Button type='button' color='primary' onClick={toLogin}>

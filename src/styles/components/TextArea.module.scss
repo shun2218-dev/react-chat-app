@@ -1,22 +1,23 @@
-@use "../config/variables" as var;
+@use '../config/variables' as var;
 
 .input {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  text-align: left;
   gap: 10px;
   width: 100%;
   width: 500px;
+  text-align: left;
+
   & textarea {
-    padding: 10px;
-    resize: none;
     height: 104px;
-    background-color: var.$white;
+    padding: 10px;
     color: var.$black;
-    padding: 10px 10px;
+    resize: none;
+    background-color: var.$white;
     border: 5px solid var.$white;
     border-radius: 6px;
+
     &:focus {
       border: 5px solid var.$blue;
     }
@@ -24,6 +25,7 @@
   @media screen and (max-width: 1000px) {
     width: 330px;
     font-size: 0.8rem;
+
     & textarea {
       box-sizing: border-box;
       font-size: 0.8rem;
@@ -32,6 +34,7 @@
   @media screen and (max-width: 600px) {
     width: 250px;
     font-size: 0.7rem;
+
     & textarea {
       box-sizing: border-box;
       font-size: 0.7rem;

@@ -76,7 +76,7 @@ const Regist = () => {
           type='submit'
           color='primary'
           variant='contained'
-          fullWidth
+          fullwidth
           height='52px'
           margin='20px 0 0'
           startIcon={<CheckInIcon />}
@@ -84,7 +84,7 @@ const Regist = () => {
         >
           Sign Up
         </Button>
-        <div className={styles.buttonGroup}>
+        <div className={styles.buttongroup}>
           <Button
             type='button'
             color='transparent'

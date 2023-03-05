@@ -134,9 +134,9 @@ const UserListMemo = ({group = false}: {group?: boolean}) => {
         setCancelId={setCancelId}
       />
       <div className={styles.container}>
-        <p className={styles.listTitle}>{group ? 'Members' : 'Users'}</p>
-        <ul className={styles.memberList}>
-          <ul className={`${styles.userList} ${groupid && styles.group}`}>
+        <p className={styles.listtitle}>{group ? 'Members' : 'Users'}</p>
+        <ul className={styles.memberlist}>
+          <ul className={`${styles.userlist} ${groupid && styles.group}`}>
             {users.length ? (
               users.map(user => (
                 <li
@@ -176,8 +176,8 @@ const UserListMemo = ({group = false}: {group?: boolean}) => {
 
           {group && (
             <>
-              <li className={styles.listTitle}>{'Invitation'}</li>
-              <ul className={`${styles.userList} ${styles.invite}`}>
+              <li className={styles.listtitle}>{'Invitation'}</li>
+              <ul className={`${styles.userlist} ${styles.invite}`}>
                 {inviteLists.length ? (
                   inviteLists.map(inviteList => (
                     <li
@@ -197,17 +197,17 @@ const UserListMemo = ({group = false}: {group?: boolean}) => {
                     </li>
                   ))
                 ) : (
-                  <div className={`${utilStyles.textCenter}  ${styles.nobody}`}>
+                  <div className={`${utilStyles.textcenter}  ${styles.nobody}`}>
                     Nobody invited
                   </div>
                 )}
               </ul>
-              <div className={styles.buttonGroup}>
+              <div className={styles.buttongroup}>
                 <Button
                   type='button'
                   color='success'
                   variant='outlined'
-                  fullWidth
+                  fullwidth
                   onClick={() => modalToggle('invite')}
                 >
                   Invite
@@ -216,7 +216,7 @@ const UserListMemo = ({group = false}: {group?: boolean}) => {
                   type='button'
                   color='error'
                   variant='outlined'
-                  fullWidth
+                  fullwidth
                   onClick={() => modalToggle('exit')}
                 >
                   Exit

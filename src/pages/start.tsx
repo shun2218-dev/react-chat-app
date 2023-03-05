@@ -30,7 +30,7 @@ const Start = () => {
   return (
     <div className={styles.container}>
       <img src={logo} alt='logo' className={styles.logo} />
-      <div className={styles.buttonGroup}>
+      <div className={styles.buttongroup}>
         <Button
           type='button'
           color='primary'
@@ -59,7 +59,7 @@ const Start = () => {
         variant='filled'
         height='60px'
         width='250px'
-        fullWidth
+        fullwidth
         endIcon={<ArrowTopRight />}
       >
         <a

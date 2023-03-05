@@ -40,7 +40,7 @@ const FlashMessage: FC<NavigationState> = ({status, title, text, strong}) => {
       >
         {title}
       </AlertTitle>
-      <p className={styles.flashText}>{text}</p>
+      <p className={styles.flashtext}>{text}</p>
       {strong && <strong>{strong}</strong>}
     </Alert>
   )

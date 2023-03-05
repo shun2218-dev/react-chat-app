@@ -51,7 +51,7 @@ const Private = () => {
   return (
     <>
       <UserList />
-      <div className={styles.chatRoom}>
+      <div className={styles.chatroom}>
         {dataLoading ? (
           <div className={styles.load}>
             <CircularProgress />
@@ -96,7 +96,7 @@ const Private = () => {
         ) : (
           chatRoom === '' &&
           roomExist && (
-            <div className={styles.notFound}>
+            <div className={styles.notfound}>
               <NotFoundIcon />
               <p>
                 No history found. <br />

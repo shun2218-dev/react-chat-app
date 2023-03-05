@@ -22,9 +22,9 @@ const Modal: FC<ModalProps> = ({
     <>
       {open && (
         <div id='overlay' className={styles.overlay}>
-          <form id='modalBody' className={styles.modalBody} onSubmit={onSubmit}>
+          <form id='modalBody' className={styles.modalbody} onSubmit={onSubmit}>
             {error && (
-              <div className={utilStyles.errorText}>
+              <div className={utilStyles.errortext}>
                 <p>
                   Your profile is not yet set up.
                   <br />

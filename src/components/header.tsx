@@ -38,7 +38,7 @@ const Header = () => {
       {pathname !== '/' && (
         <header
           className={`${styles.header} ${
-            authUser ? styles.login : styles.notLogin
+            authUser ? styles.login : styles.notlogin
           }`}
         >
           {/* after log in switch toHome */}

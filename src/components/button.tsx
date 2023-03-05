@@ -13,7 +13,7 @@ type ButtonProps = {
   color: 'primary' | 'transparent' | 'error' | 'success'
   variant?: 'filled' | 'outlined' | 'contained'
   rounded?: boolean
-  fullWidth?: boolean
+  fullwidth?: boolean
   startIcon?: ReactNode
   endIcon?: ReactNode
   header?: boolean
@@ -30,7 +30,7 @@ const Button: FC<ButtonProps> = ({
   color = 'transparent',
   variant = 'filled',
   rounded = false,
-  fullWidth = false,
+  fullwidth = false,
   startIcon,
   endIcon,
   header = false
@@ -63,9 +63,9 @@ const Button: FC<ButtonProps> = ({
     }
   }
 
-  const switchWidth = (fullWidth: boolean) => {
-    if (fullWidth) {
-      return styles.fullWidth
+  const switchWidth = (fullwidth: boolean) => {
+    if (fullwidth) {
+      return styles.fullwidth
     } else {
       return styles.cutomWidth
     }
@@ -84,7 +84,7 @@ const Button: FC<ButtonProps> = ({
       }}
       className={`${switchStyles(variant)} ${switchBgColor(
         color
-      )} ${switchWidth(fullWidth)} ${styles.button} ${header && styles.header}`}
+      )} ${switchWidth(fullwidth)} ${styles.button} ${header && styles.header}`}
     >
       {startIcon}
       {children}

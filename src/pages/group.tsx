@@ -10,7 +10,7 @@ const Group = () => {
   const {uid} = useParams()
   return (
     <>
-      <div className={styles.cardContainer}>
+      <div className={styles.cardcontainer}>
         <Card onClick={() => uid !== null && toJoin(uid)}>
           Join a already exists group
         </Card>

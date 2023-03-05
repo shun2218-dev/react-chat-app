@@ -129,7 +129,7 @@ const Profile = () => {
           type='submit'
           color='primary'
           variant='contained'
-          fullWidth
+          fullwidth
           height='52px'
           margin='20px 0 20px'
           startIcon={<UploadIcon />}

@@ -87,7 +87,7 @@ const Create = () => {
           type='submit'
           color='primary'
           variant='contained'
-          fullWidth
+          fullwidth
           margin='20px 0 0'
         >
           Next

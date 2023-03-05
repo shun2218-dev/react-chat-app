@@ -85,16 +85,16 @@ const JoinModal: FC<CustomModal> = ({open, modalToggle}) => {
               className={utilStyles.avatar}
             />
             <div>
-              <p className={styles.contentTitle}>Group name</p>
-              <div className={styles.contentBox}>{groupInfo.groupName}</div>
+              <p className={styles.contenttitle}>Group name</p>
+              <div className={styles.contentbox}>{groupInfo.groupName}</div>
             </div>
             <div>
-              <p className={styles.contentTitle}>Description</p>
-              <div className={styles.contentBox}>{groupInfo.description}</div>
+              <p className={styles.contenttitle}>Description</p>
+              <div className={styles.contentbox}>{groupInfo.description}</div>
             </div>
           </>
         )}
-        <div className={`${styles.modalButton} ${styles.row}`}>
+        <div className={`${styles.modalbutton} ${styles.row}`}>
           <Button
             type='button'
             color='primary'
@@ -102,7 +102,7 @@ const JoinModal: FC<CustomModal> = ({open, modalToggle}) => {
             onClick={() =>
               groupid !== null && uid !== null && joinGroup(groupid, uid)
             }
-            fullWidth
+            fullwidth
             disabled={profileEmpty}
           >
             Yes
@@ -112,7 +112,7 @@ const JoinModal: FC<CustomModal> = ({open, modalToggle}) => {
             color='transparent'
             variant='outlined'
             onClick={() => uid !== null && toJoin(uid)}
-            fullWidth
+            fullwidth
           >
             No
           </Button>

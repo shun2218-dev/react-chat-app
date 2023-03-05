@@ -62,7 +62,7 @@ const CancelModalMemo: FC<CustomModal> = ({
           <p>{user.displayName}</p>
         </div>
       )}
-      <div className={`${styles.modalButton} ${styles.row}`}>
+      <div className={`${styles.modalbutton} ${styles.row}`}>
         <Button
           type='button'
           color='primary'

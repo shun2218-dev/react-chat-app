@@ -39,7 +39,7 @@ const Join = () => {
 
   return (
     <Form title='Group List'>
-      <ul className={styles.groupList}>
+      <ul className={styles.grouplist}>
         {groups.length ? (
           groups.map(({id, groupName, photoURL}) => (
             <li

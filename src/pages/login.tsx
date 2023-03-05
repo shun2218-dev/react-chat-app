@@ -60,7 +60,7 @@ const Login = () => {
           type='submit'
           color='primary'
           variant='contained'
-          fullWidth
+          fullwidth
           height='52px'
           margin='20px 0 0'
           startIcon={<SignInIcon />}
@@ -68,7 +68,7 @@ const Login = () => {
         >
           Sign In
         </Button>
-        <div className={styles.buttonGroup}>
+        <div className={styles.buttongroup}>
           <Button type='button' color='transparent' onClick={toReset}>
             Forgot Password
           </Button>

@@ -36,7 +36,7 @@ const ExitModal: FC<CustomModal> = ({open, modalToggle}) => {
 
   return (
     <Modal title='Exit this group?' open={open}>
-      <div className={`${styles.modalButton} ${styles.row}`}>
+      <div className={`${styles.modalbutton} ${styles.row}`}>
         <Button
           type='button'
           color='primary'
@@ -44,7 +44,7 @@ const ExitModal: FC<CustomModal> = ({open, modalToggle}) => {
           onClick={() =>
             groupid !== null && uid !== null && exitGroup(groupid, uid)
           }
-          fullWidth
+          fullwidth
           disabled={loading}
         >
           Yes
@@ -54,7 +54,7 @@ const ExitModal: FC<CustomModal> = ({open, modalToggle}) => {
           color='transparent'
           variant='outlined'
           onClick={() => modalToggle('exit')}
-          fullWidth
+          fullwidth
           disabled={loading}
         >
           No

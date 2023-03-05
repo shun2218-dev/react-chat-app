@@ -29,7 +29,7 @@ const Home = () => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         flashState && <FlashMessage {...messageState!} />
       }
-      <div className={styles.cardContainer}>
+      <div className={styles.cardcontainer}>
         <Card
           onClick={() => toPrivate(authUser?.uid)}
           startIcon={<PrivateIcon title />}

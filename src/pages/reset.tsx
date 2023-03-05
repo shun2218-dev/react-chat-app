@@ -37,7 +37,7 @@ const Reset = () => {
           type='submit'
           color='primary'
           variant='contained'
-          fullWidth
+          fullwidth
           height='52px'
           margin='30px 0 0'
           startIcon={<ResetIcon />}

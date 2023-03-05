@@ -6,7 +6,7 @@ const ArrowTopRight = ({title = false}: {title?: boolean}) => {
   return (
     <svg
       className={`${styles.icon} ${title && styles.title} ${
-        styles.arrowTopRight
+        styles.arrowtopright
       }`}
       xmlns='http://www.w3.org/2000/svg'
       fill='none'
