@@ -7,7 +7,7 @@
 
   &.primary {
     color: var.$blue;
-    @include mix.hover-color(darken(var.$blue, 20));
+    @include mix.hover-color(lighten(var.$blue, 20));
     @include mix.disabled-style(var.$blue);
   }
 
@@ -61,8 +61,8 @@
     color: var.$white;
     border: 2px solid var.$white;
     @include mix.hover-style(
-      darken(var.$white, 40),
-      2px solid darken(var.$white, 40)
+      lighten(var.$white, 40),
+      2px solid lighten(var.$white, 40)
     );
     @include mix.disabled-style(var.$white) {
       border: 1px solid rgb(var.$white 0.5);
