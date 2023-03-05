@@ -1,22 +1,22 @@
-import React, { FormEvent, Fragment, useState } from "react";
-import { useParams } from "react-router-dom";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { useChatMessage } from "@/hooks/useChatMessage";
-import { db } from "@/firebase";
-import { formatDate } from "@/lib/formatDate";
-import isCreatedRoom from "@/lib/private/isCreatedRoom";
-import styles from "@/styles/pages/Private.module.scss";
-import CircularProgress from "@mui/material/CircularProgress";
+import CircularProgress from '@mui/material/CircularProgress'
+import {addDoc, collection, serverTimestamp} from 'firebase/firestore'
+import React, {FormEvent, Fragment, useState} from 'react'
+import {useParams} from 'react-router-dom'
 
-import UserList from "@/components/userList";
-import ChatMessage from "@/components/chatMessage";
-import MessageDate from "@/components/messageDate";
-import MessageInput from "@/components/messageInput";
-import NotFoundIcon from "@/Icons/notFoundIcon";
+import ChatMessage from '@/components/chatMessage'
+import MessageDate from '@/components/messageDate'
+import MessageInput from '@/components/messageInput'
+import UserList from '@/components/userList'
+import {db} from '@/firebase'
+import {useChatMessage} from '@/hooks/useChatMessage'
+import NotFoundIcon from '@/Icons/notFoundIcon'
+import {formatDate} from '@/lib/formatDate'
+import isCreatedRoom from '@/lib/private/isCreatedRoom'
+import styles from '@/styles/pages/Private.module.scss'
 
 const Private = () => {
-  const { uid, partnerid } = useParams();
-  const [message, setMessage] = useState("");
+  const {uid, partnerid} = useParams()
+  const [message, setMessage] = useState('')
   const {
     chatMessages,
     chatRoom,
@@ -25,33 +25,33 @@ const Private = () => {
     setLoading,
     dataLoading,
     setRoomExist,
-    roomExist,
-  } = useChatMessage();
+    roomExist
+  } = useChatMessage()
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     if (uid && partnerid) {
-      setLoading(true);
-      const { exist, roomid } = await isCreatedRoom(uid, partnerid, message);
-      setChatRoom(roomid);
-      setRoomExist(exist);
+      setLoading(true)
+      const {exist, roomid} = await isCreatedRoom(uid, partnerid, message)
+      setChatRoom(roomid)
+      setRoomExist(exist)
       if (exist) {
-        const roomRef = collection(db, "rooms", `${roomid}`, "messages");
+        const roomRef = collection(db, 'rooms', `${roomid}`, 'messages')
         await addDoc(roomRef, {
           message,
           from: uid,
-          createdAt: serverTimestamp(),
-        });
+          createdAt: serverTimestamp()
+        })
       }
-      setLoading(false);
-      setMessage("");
+      setLoading(false)
+      setMessage('')
     }
-  };
+  }
 
   return (
     <>
       <UserList />
-      <div className={styles.chatRoom}>
+      <div className={styles.chatroom}>
         {dataLoading ? (
           <div className={styles.load}>
             <CircularProgress />
@@ -60,17 +60,17 @@ const Private = () => {
         ) : chatMessages.length !== 0 ? (
           chatMessages.map((doc, index) => {
             if (doc.createdAt !== null) {
-              const targetDate = formatDate(doc);
-              const isLastMessage = chatMessages.length - 1 === index;
+              const targetDate = formatDate(doc)
+              const isLastMessage = chatMessages.length - 1 === index
               if (index === 0) {
                 return (
                   <Fragment key={doc.id}>
                     <MessageDate {...targetDate} />
                     <ChatMessage {...doc} isLastMessage={isLastMessage} />
                   </Fragment>
-                );
+                )
               } else {
-                const preDate = formatDate(chatMessages[index - 1]);
+                const preDate = formatDate(chatMessages[index - 1])
                 if (
                   preDate.month === targetDate.month &&
                   preDate.day === targetDate.day
@@ -81,22 +81,22 @@ const Private = () => {
                       {...doc}
                       isLastMessage={isLastMessage}
                     />
-                  );
+                  )
                 } else {
                   return (
                     <Fragment key={doc.id}>
                       <MessageDate {...targetDate} />
                       <ChatMessage {...doc} isLastMessage={isLastMessage} />
                     </Fragment>
-                  );
+                  )
                 }
               }
             }
           })
         ) : (
-          chatRoom === "" &&
+          chatRoom === '' &&
           roomExist && (
-            <div className={styles.notFound}>
+            <div className={styles.notfound}>
               <NotFoundIcon />
               <p>
                 No history found. <br />
@@ -115,7 +115,7 @@ const Private = () => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default Private;
+export default Private

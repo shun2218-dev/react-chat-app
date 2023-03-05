@@ -1,5 +1,3 @@
-import { db } from "@/firebase";
-import { Message } from "@/types/Message";
 import {
   collection,
   doc,
@@ -7,116 +5,116 @@ import {
   getDocs,
   onSnapshot,
   orderBy,
-  query,
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+  query
+} from 'firebase/firestore'
+import {useEffect, useState} from 'react'
+import {useLocation, useParams} from 'react-router-dom'
 
-export const useChatMessage = (group: boolean = false) => {
-  const [chatMessages, setChatMessages] = useState<Message[]>([]);
-  const [chatRoom, setChatRoom] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [dataLoading, setDataLoading] = useState(false);
-  const [isRoom, setIsRoom] = useState(false);
-  const [roomExist, setRoomExist] = useState(true);
-  const messageOptions = [orderBy("createdAt", "asc")];
-  const { uid, partnerid, groupid } = useParams();
-  const { pathname } = useLocation();
+import {db} from '@/firebase'
+import {Message} from '@/types/Message'
+
+export const useChatMessage = (group = false) => {
+  const [chatMessages, setChatMessages] = useState<Message[]>([])
+  const [chatRoom, setChatRoom] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [dataLoading, setDataLoading] = useState(false)
+  const [roomExist, setRoomExist] = useState(true)
+  const messageOptions = [orderBy('createdAt', 'asc')]
+  const {uid, partnerid, groupid} = useParams()
+  const {pathname} = useLocation()
 
   if (!group) {
     const getRoomId = async (uid: string, roomDocId: string) => {
-      let roomid: string = "";
-      const roomRef = doc(db, "users", `${uid}`, "rooms", `${roomDocId}`);
-      await getDoc(roomRef).then((res) => {
-        roomid = res.data()!.roomid;
-      });
-      return roomid;
-    };
+      let roomid = ''
+      const roomRef = doc(db, 'users', `${uid}`, 'rooms', `${roomDocId}`)
+      await getDoc(roomRef).then(res => {
+        roomid = res.data()?.roomid
+      })
+      return roomid
+    }
     useEffect(() => {
       if (chatRoom) {
         const q = query(
-          collection(db, "rooms", chatRoom, "messages"),
+          collection(db, 'rooms', chatRoom, 'messages'),
           ...messageOptions
-        );
-        const unSub = onSnapshot(q, (snapshot) => {
+        )
+        const unSub = onSnapshot(q, snapshot => {
           setChatMessages([
-            ...snapshot.docs.map((doc) => {
-              return { id: doc.id, ...doc.data() } as Message;
-            }),
-          ]);
-        });
+            ...snapshot.docs.map(doc => {
+              return {id: doc.id, ...doc.data()} as Message
+            })
+          ])
+        })
         return () => {
-          unSub();
-        };
+          unSub()
+        }
       }
-    }, [chatRoom]);
+    }, [chatRoom])
 
     useEffect(() => {
-      if (partnerid) {
-        setDataLoading(true);
-        const userRef = collection(db, "users", uid!, "rooms");
-        const unSubUser = onSnapshot(userRef, (snapshot) => {
-          const room = snapshot.docs.filter((doc) => doc.id === partnerid);
+      if (!!partnerid && !!uid) {
+        setDataLoading(true)
+        const userRef = collection(db, 'users', uid, 'rooms')
+        const unSubUser = onSnapshot(userRef, snapshot => {
+          const room = snapshot.docs.filter(doc => doc.id === partnerid)
           if (room.length && uid) {
-            const roomDocId = room[0].id;
-            getRoomId(uid, roomDocId).then((roomid) => {
-              setChatRoom(roomid);
+            const roomDocId = room[0].id
+            getRoomId(uid, roomDocId).then(roomid => {
+              setChatRoom(roomid)
               const messageRef = query(
-                collection(db, "rooms", `${roomid}`, "messages"),
-                orderBy("createdAt", "asc")
-              );
-              getDocs(messageRef).then((snapshot) => {
+                collection(db, 'rooms', `${roomid}`, 'messages'),
+                orderBy('createdAt', 'asc')
+              )
+              getDocs(messageRef).then(snapshot => {
                 setChatMessages([
-                  ...snapshot.docs.map((doc) => {
+                  ...snapshot.docs.map(doc => {
                     return {
                       id: doc.id,
-                      ...doc.data(),
-                    } as Message;
-                  }),
-                ]);
-              });
-            });
-            setDataLoading(false);
+                      ...doc.data()
+                    } as Message
+                  })
+                ])
+              })
+            })
+            setDataLoading(false)
           } else {
-            setDataLoading(false);
+            setDataLoading(false)
           }
-        });
+        })
         return () => {
-          unSubUser();
-        };
+          unSubUser()
+        }
       }
-    }, [pathname]);
+    }, [pathname])
 
     useEffect(() => {
       if (partnerid) {
-        setIsRoom(true);
-        setChatMessages([]);
-        setChatRoom("");
-      } else {
-        setIsRoom(false);
+        setChatMessages([])
+        setChatRoom('')
       }
 
       if (!roomExist) {
-        setChatRoom("");
+        setChatRoom('')
       }
-    }, [pathname]);
+    }, [pathname])
   } else {
     const q = query(
-      collection(db, "groups", groupid!, "messages"),
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      collection(db, 'groups', groupid!, 'messages'),
       ...messageOptions
-    );
+    )
     useEffect(() => {
-      const unSub = onSnapshot(q, (snapshot) => {
+      const unSub = onSnapshot(q, snapshot => {
         setChatMessages([
-          ...snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() } as Message;
-          }),
-        ]);
-      });
+          ...snapshot.docs.map(doc => {
+            return {id: doc.id, ...doc.data()} as Message
+          })
+        ])
+      })
       return () => {
-        unSub();
-      };
-    }, []);
+        unSub()
+      }
+    }, [])
   }
   return {
     chatMessages,
@@ -127,6 +125,6 @@ export const useChatMessage = (group: boolean = false) => {
     dataLoading,
     setDataLoading,
     setRoomExist,
-    roomExist,
-  };
-};
+    roomExist
+  }
+}

@@ -1,24 +1,27 @@
-@use "../config/variables" as var;
-@use "../config/mixin" as mix;
+@use '../config/variables' as var;
+@use '../config/mixin' as mix;
 
 .filled {
-  border: none;
   background-color: transparent;
+  border: none;
+
   &.primary {
     color: var.$blue;
-    @include mix.hoverColor(darken(var.$blue, 20));
-    @include mix.disabledStyle(var.$blue);
+    @include mix.hover-color(darken(var.$blue, 20));
+    @include mix.disabled-style(var.$blue);
   }
+
   &.transparent {
     color: var.$white;
-    @include mix.hoverColor(var.$blue);
-    @include mix.disabledStyle(var.$white);
+    @include mix.hover-color(var.$blue);
+    @include mix.disabled-style(var.$white);
   }
 }
 
 .contained {
-  border: none;
   box-sizing: border-box;
+  border: none;
+
   &.primary {
     color: var.$white;
     background-color: var.$blue;
@@ -26,11 +29,11 @@
     background-position: 100%;
     background-size: 300%;
     transition: background 500ms ease-in-out, color 500ms 100ms ease-in-out;
-    @include mix.hoverColor(var.$black) {
+    @include mix.hover-color(var.$black) {
       background-position: 0;
     }
-    @include mix.disabledStyle(var.$white) {
-      background-color: rgba($color: var.$white, $alpha: 0.5);
+    @include mix.disabled-style(var.$white) {
+      background-color: rgba($color: var.$white, $alpha: 50%);
       background-image: none;
     }
   }
@@ -41,73 +44,77 @@
 
 .outlined {
   background-color: transparent;
+
   &.primary {
     color: var.$blue;
     border: 2px solid var.$blue;
-    @include mix.hoverStyle(
+    @include mix.hover-style(
       lighten(var.$blue, 20),
       2px solid lighten(var.$blue, 20)
     );
-    @include mix.disabledStyle(var.$blue) {
-      border: 2px solid rgba(var.$blue, 0.5);
+    @include mix.disabled-style(var.$blue) {
+      border: 2px solid rgb(var.$blue 0.5);
     }
   }
+
   &.transparent {
     color: var.$white;
     border: 2px solid var.$white;
-    @include mix.hoverStyle(
+    @include mix.hover-style(
       darken(var.$white, 40),
       2px solid darken(var.$white, 40)
     );
-    @include mix.disabledStyle(var.$white) {
-      border: 1px solid rgba(var.$white, 0.5);
+    @include mix.disabled-style(var.$white) {
+      border: 1px solid rgb(var.$white 0.5);
     }
   }
+
   &.error {
     color: var.$error;
     border: 2px solid var.$error;
-    @include mix.hoverStyle(
+    @include mix.hover-style(
       lighten(var.$error, 20),
       2px solid lighten(var.$error, 20)
     );
-    @include mix.disabledStyle(var.$error) {
-      border: 1px solid rgba(var.$error, 0.5);
+    @include mix.disabled-style(var.$error) {
+      border: 1px solid rgb(var.$error 0.5);
     }
   }
+
   &.success {
     color: var.$success;
     border: 2px solid var.$success;
-    @include mix.hoverStyle(
+    @include mix.hover-style(
       lighten(var.$success, 20),
       2px solid lighten(var.$success, 20)
     );
-    @include mix.disabledStyle(var.$success) {
-      border: 1px solid rgba(var.$success, 0.5);
+    @include mix.disabled-style(var.$success) {
+      border: 1px solid rgb(var.$success 0.5);
     }
   }
 }
 
-.fullWidth {
+.fullwidth {
   width: 100%;
 }
 
 .button {
   display: flex;
+  gap: 10px;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   font-size: 0.75rem;
   font-weight: bold;
   @media screen and (max-width: 600px) {
-    font-size: 0.6rem;
     gap: 5px;
+    font-size: 0.6rem;
   }
 }
 
 .header {
   margin-left: 20px;
   @media screen and (max-width: 1000px) {
-    margin-left: 5px;
     box-sizing: border-box;
+    margin-left: 5px;
   }
 }

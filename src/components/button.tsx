@@ -1,22 +1,23 @@
-import React, { FC, ReactNode } from "react";
-import styles from "@/styles/components/Button.module.scss";
+import React, {FC, ReactNode} from 'react'
+
+import styles from '@/styles/components/Button.module.scss'
 
 type ButtonProps = {
-  type: "button" | "submit" | "reset";
-  disabled?: boolean;
-  width?: string;
-  height?: string;
-  margin?: string;
-  children: string | ReactNode;
-  onClick?: () => void;
-  color: "primary" | "transparent" | "error" | "success";
-  variant?: "filled" | "outlined" | "contained";
-  rounded?: boolean;
-  fullWidth?: boolean;
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
-  header?: boolean;
-};
+  type: 'button' | 'submit' | 'reset'
+  disabled?: boolean
+  width?: string
+  height?: string
+  margin?: string
+  children: string | ReactNode
+  onClick?: () => void
+  color: 'primary' | 'transparent' | 'error' | 'success'
+  variant?: 'filled' | 'outlined' | 'contained'
+  rounded?: boolean
+  fullwidth?: boolean
+  startIcon?: ReactNode
+  endIcon?: ReactNode
+  header?: boolean
+}
 
 const Button: FC<ButtonProps> = ({
   type,
@@ -26,49 +27,49 @@ const Button: FC<ButtonProps> = ({
   margin,
   children,
   onClick,
-  color = "transparent",
-  variant = "filled",
+  color = 'transparent',
+  variant = 'filled',
   rounded = false,
-  fullWidth = false,
+  fullwidth = false,
   startIcon,
   endIcon,
-  header = false,
+  header = false
 }) => {
   const switchStyles = (variant: string) => {
     switch (variant) {
-      case "filled":
-        return styles.filled;
-      case "contained":
-        return styles.contained;
-      case "outlined":
-        return styles.outlined;
+      case 'filled':
+        return styles.filled
+      case 'contained':
+        return styles.contained
+      case 'outlined':
+        return styles.outlined
       default:
-        return styles.filled;
+        return styles.filled
     }
-  };
+  }
 
   const switchBgColor = (color: string) => {
     switch (color) {
-      case "primary":
-        return styles.primary;
-      case "transparent":
-        return styles.transparent;
-      case "error":
-        return styles.error;
-      case "success":
-        return styles.success;
+      case 'primary':
+        return styles.primary
+      case 'transparent':
+        return styles.transparent
+      case 'error':
+        return styles.error
+      case 'success':
+        return styles.success
       default:
-        return styles.transparent;
+        return styles.transparent
     }
-  };
+  }
 
-  const switchWidth = (fullWidth: boolean) => {
-    if (fullWidth) {
-      return styles.fullWidth;
+  const switchWidth = (fullwidth: boolean) => {
+    if (fullwidth) {
+      return styles.fullwidth
     } else {
-      return styles.cutomWidth;
+      return styles.cutomWidth
     }
-  };
+  }
 
   return (
     <button
@@ -79,17 +80,17 @@ const Button: FC<ButtonProps> = ({
         width: `${width}`,
         height: `${height}`,
         margin: `${margin}`,
-        borderRadius: `${rounded ? "24px" : "6px"}`,
+        borderRadius: `${rounded ? '24px' : '6px'}`
       }}
       className={`${switchStyles(variant)} ${switchBgColor(
         color
-      )} ${switchWidth(fullWidth)} ${styles.button} ${header && styles.header}`}
+      )} ${switchWidth(fullwidth)} ${styles.button} ${header && styles.header}`}
     >
       {startIcon}
       {children}
       {endIcon}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

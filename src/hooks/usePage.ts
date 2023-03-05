@@ -1,76 +1,77 @@
-import { NavigationState } from "@/types/NavigationState";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from 'react-router-dom'
+
+import {NavigationState} from '@/types/NavigationState'
 
 export const usePage = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const toStart = () => {
-    navigate("/");
-  };
+    navigate('/')
+  }
 
   const toLogin = () => {
-    navigate("/login");
-  };
+    navigate('/login')
+  }
 
   const toRegist = () => {
-    navigate("/regist");
-  };
+    navigate('/regist')
+  }
 
   const toReset = () => {
-    navigate("/reset");
-  };
+    navigate('/reset')
+  }
 
   const toComplete = (state: NavigationState) => {
-    navigate("/reset/complete", { state });
-  };
+    navigate('/reset/complete', {state})
+  }
 
-  const toProfile = (uid: String, state?: NavigationState) => {
+  const toProfile = (uid: string, state?: NavigationState) => {
     if (state) {
-      navigate(`/${uid}/profile`, { state });
+      navigate(`/${uid}/profile`, {state})
     } else {
-      navigate(`/${uid}/profile`);
+      navigate(`/${uid}/profile`)
     }
-  };
+  }
 
-  const toHome = (uid: String, state?: NavigationState) => {
+  const toHome = (uid: string, state?: NavigationState) => {
     if (state) {
-      navigate(`/${uid}/home`, { state });
+      navigate(`/${uid}/home`, {state})
     } else {
-      navigate(`/${uid}/home`);
+      navigate(`/${uid}/home`)
     }
-  };
+  }
 
-  const toPrivate = (uid: String) => {
-    navigate(`/${uid}/private`);
-  };
+  const toPrivate = (uid: string) => {
+    navigate(`/${uid}/private`)
+  }
 
-  const toPrivateRoom = (uid: String, partnerid: string) => {
-    navigate(`/${uid}/private/${partnerid}`);
-  };
+  const toPrivateRoom = (uid: string, partnerid: string) => {
+    navigate(`/${uid}/private/${partnerid}`)
+  }
 
-  const toGroup = (uid: String) => {
-    navigate(`/${uid}/group`);
-  };
+  const toGroup = (uid: string) => {
+    navigate(`/${uid}/group`)
+  }
 
   const toGroupRoom = (
-    uid: String,
+    uid: string,
     groupid: string,
     state?: NavigationState
   ) => {
-    navigate(`/${uid}/group/${groupid}`, { state });
-  };
+    navigate(`/${uid}/group/${groupid}`, {state})
+  }
 
-  const toJoin = (uid: String) => {
-    navigate(`/${uid}/group/join`);
-  };
+  const toJoin = (uid: string) => {
+    navigate(`/${uid}/group/join`)
+  }
 
-  const toCreate = (uid: String) => {
-    navigate(`/${uid}/group/create`);
-  };
+  const toCreate = (uid: string) => {
+    navigate(`/${uid}/group/create`)
+  }
 
   const toRedirect = (state: NavigationState) => {
-    navigate(".", { replace: true, state });
-  };
+    navigate('.', {replace: true, state})
+  }
 
   return {
     toStart,
@@ -86,6 +87,6 @@ export const usePage = () => {
     toGroupRoom,
     toJoin,
     toCreate,
-    toRedirect,
-  };
-};
+    toRedirect
+  }
+}
