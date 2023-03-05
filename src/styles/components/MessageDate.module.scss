@@ -1,4 +1,5 @@
-@use "../config/variables" as var;
+/* stylelint-disable color-function-notation */
+@use '../config/variables' as var;
 
 .date {
   box-sizing: border-box;
@@ -8,7 +9,7 @@
   margin: 0 auto;
   font-size: 0.68rem;
   text-align: center;
-  background-color: rgb(var.$navy 0.5);
+  background-color: rgba(var.$navy, 0.5);
   border-radius: 24px;
   @media screen and (max-width: 600px) {
     font-size: 0.6rem;
