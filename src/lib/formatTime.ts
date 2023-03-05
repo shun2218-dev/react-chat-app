@@ -1,10 +1,10 @@
-import { Timestamp } from "firebase/firestore";
+import {Timestamp} from 'firebase/firestore'
 
 export const formatTime = (createdAt: Timestamp) => {
-  const [hour, minute] = createdAt.toDate().toLocaleTimeString().split(":");
+  const [hour, minute] = createdAt.toDate().toLocaleTimeString().split(':')
   if (Number(hour) < 10) {
-    return `0${hour}:${minute}`;
+    return `0${hour}:${minute}`
   } else {
-    return `${hour}:${minute}`;
+    return `${hour}:${minute}`
   }
-};
+}

@@ -1,20 +1,21 @@
-import React, { FC, FormEvent, ReactNode } from "react";
-import styles from "@/styles/components/Form.module.scss";
+import React, {FC, FormEvent, ReactNode} from 'react'
+
+import styles from '@/styles/components/Form.module.scss'
 
 type Form = {
-  children: ReactNode;
-  title: string;
-  secondTitle?: string;
-  onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
-  startIcon?: ReactNode;
-};
+  children: ReactNode
+  title: string
+  secondTitle?: string
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => void
+  startIcon?: ReactNode
+}
 
 const Form: FC<Form> = ({
   children,
   title,
   secondTitle,
   onSubmit,
-  startIcon,
+  startIcon
 }) => {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
@@ -30,7 +31,7 @@ const Form: FC<Form> = ({
       </h2>
       {children}
     </form>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form

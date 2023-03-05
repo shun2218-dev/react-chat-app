@@ -1,17 +1,20 @@
-import { db, storage } from "@/firebase";
-import { getUserInfo } from "@/lib/getUserInfo";
-import { NavigationState } from "@/types/NavigationState";
-import { updateProfile } from "firebase/auth";
-import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { usePage } from "./usePage";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+// import {updateProfile} from 'firebase/auth'
+import {addDoc, collection, doc, setDoc, updateDoc} from 'firebase/firestore'
+import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
+import {useState} from 'react'
+import {useParams} from 'react-router-dom'
+
+import {db, storage} from '@/firebase'
+import {getUserInfo} from '@/lib/getUserInfo'
+import {NavigationState} from '@/types/NavigationState'
+
+import {usePage} from './usePage'
 
 export const useCreateGroup = () => {
-  const [loading, setLoading] = useState(false);
-  const { toGroupRoom, toRedirect } = usePage();
-  const { uid } = useParams();
+  const [loading, setLoading] = useState(false)
+  const {toGroupRoom, toRedirect} = usePage()
+  const {uid} = useParams()
 
   // if (image && name && uid && email) {
   //   const imageRef = ref(storage, `avaters/${uid}_${image.name}`);
@@ -38,50 +41,51 @@ export const useCreateGroup = () => {
   //   });
   // }
   const imageUpload = async (id: string, image: File) => {
-    const imageRef = ref(storage, `avaters/${id}_${image.name}`);
-    await uploadBytes(imageRef, image);
-    const url = await getDownloadURL(imageRef);
-    return url;
-  };
+    const imageRef = ref(storage, `avaters/${id}_${image.name}`)
+    await uploadBytes(imageRef, image)
+    const url = await getDownloadURL(imageRef)
+    return url
+  }
 
   const createGroup = async (data: object, image: File) => {
-    setLoading(true);
-    const groupRef = collection(db, "groups");
+    setLoading(true)
+    const groupRef = collection(db, 'groups')
     await addDoc(groupRef, data)
-      .then(async ({ id }) => {
-        const membersRef = doc(db, "groups", id, "members", uid!);
-        await getUserInfo(uid!).then(async (member) => {
-          await setDoc(membersRef, member);
-        });
-        return id;
+      .then(async ({id}) => {
+        const membersRef = doc(db, 'groups', id, 'members', uid!)
+        await getUserInfo(uid!).then(async member => {
+          await setDoc(membersRef, member)
+        })
+        return id
       })
-      .then(async (id) => {
-        await imageUpload(id, image).then(async (url) => {
-          const roomRef = doc(db, "groups", id);
-          await updateDoc(roomRef, { photoURL: url });
-        });
-        return id;
+      .then(async id => {
+        await imageUpload(id, image).then(async url => {
+          const roomRef = doc(db, 'groups', id)
+          await updateDoc(roomRef, {photoURL: url})
+        })
+        return id
       })
-      .then((id) => {
+      .then(id => {
         const navState = {
-          title: "Success",
-          status: "success",
-          text: "Create group succeeded.",
-        } as NavigationState;
-        toGroupRoom(uid!, id, navState);
-        return id;
+          title: 'Success',
+          status: 'success',
+          text: 'Create group succeeded.'
+        } as NavigationState
+        toGroupRoom(uid!, id, navState)
+        return id
       })
-      .catch((e) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .catch(e => {
         const navState = {
-          title: "Error",
-          status: "error",
-          text: "Create group failed.",
-        } as NavigationState;
-        toRedirect(navState);
+          title: 'Error',
+          status: 'error',
+          text: 'Create group failed.'
+        } as NavigationState
+        toRedirect(navState)
       })
       .finally(() => {
-        setLoading(true);
-      });
-  };
-  return createGroup;
-};
+        setLoading(true)
+      })
+  }
+  return {createGroup, loading}
+}

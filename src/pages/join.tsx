@@ -1,50 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { db } from "@/firebase";
-import { collection, onSnapshot } from "firebase/firestore";
-import styles from "@/styles/pages/Join.module.scss";
-import utilStyles from "@/styles/utils/utils.module.scss";
-import { usePage } from "@/hooks/usePage";
-import { useParams } from "react-router-dom";
-import Form from "@/components/form";
+import {collection, onSnapshot} from 'firebase/firestore'
+import React, {useEffect, useState} from 'react'
+import {useParams} from 'react-router-dom'
+
+import Form from '@/components/form'
+import {db} from '@/firebase'
+import {usePage} from '@/hooks/usePage'
+import styles from '@/styles/pages/Join.module.scss'
+import utilStyles from '@/styles/utils/utils.module.scss'
 
 type Groups = {
-  id: string;
-  groupName: string;
-  owner: string;
-  photoURL: string;
-};
+  id: string
+  groupName: string
+  owner: string
+  photoURL: string
+}
 
 const Join = () => {
-  const [groups, setGroups] = useState<Groups[]>([]);
-  const [loading, setLoading] = useState<Boolean>(false);
-  const { toGroupRoom } = usePage();
-  const { uid } = useParams();
+  const [groups, setGroups] = useState<Groups[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const {toGroupRoom} = usePage()
+  const {uid} = useParams()
 
   useEffect(() => {
-    setLoading(true);
-    const ref = collection(db, "groups");
-    const unSub = onSnapshot(ref, (snapshot) => {
+    setLoading(true)
+    const ref = collection(db, 'groups')
+    const unSub = onSnapshot(ref, snapshot => {
       setGroups(
-        snapshot.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() } as Groups;
+        snapshot.docs.map(doc => {
+          return {id: doc.id, ...doc.data()} as Groups
         })
-      );
-      setLoading(false);
-    });
+      )
+      setLoading(false)
+    })
     return () => {
-      unSub();
-    };
-  }, []);
+      unSub()
+    }
+  }, [])
 
   return (
-    <Form title="Group List">
+    <Form title='Group List'>
       <ul className={styles.groupList}>
         {groups.length ? (
-          groups.map(({ id, groupName, photoURL }) => (
+          groups.map(({id, groupName, photoURL}) => (
             <li
               className={styles.group}
               key={id}
-              onClick={() => toGroupRoom(uid!, id)}
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              onClick={() => uid !== null && toGroupRoom(uid, id)}
             >
               <img
                 src={photoURL}
@@ -61,7 +63,7 @@ const Join = () => {
         )}
       </ul>
     </Form>
-  );
-};
+  )
+}
 
-export default Join;
+export default Join

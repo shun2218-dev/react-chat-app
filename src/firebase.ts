@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import {initializeApp} from 'firebase/app'
+import {getAuth} from 'firebase/auth'
+import {getFirestore} from 'firebase/firestore'
+import {getStorage} from 'firebase/storage'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -14,11 +14,11 @@ const firebaseConfig = {
   database: import.meta.env.VITE_APP_DATABASE,
   storageBucket: import.meta.env.VITE_APP_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_APP_MESSAGE_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
-};
+  appId: import.meta.env.VITE_APP_ID
+}
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+const app = initializeApp(firebaseConfig)
+export const auth = getAuth(app)
+export const db = getFirestore(app)
+export const storage = getStorage(app)

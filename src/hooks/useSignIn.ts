@@ -1,49 +1,51 @@
-import { useState } from "react";
 import {
   browserSessionPersistence,
   setPersistence,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { auth } from "@/firebase";
-import { usePage } from "./usePage";
+  signInWithEmailAndPassword
+} from 'firebase/auth'
+import {useState} from 'react'
+
+import {auth} from '@/firebase'
+
+import {usePage} from './usePage'
 
 export function useSignIn() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error>();
-  const { toHome, toRedirect } = usePage();
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<Error>()
+  const {toHome, toRedirect} = usePage()
 
   // eslint-disable-next-line max-len
   const signIn = async (email: string, password: string) => {
-    setLoading(true);
+    setLoading(true)
     return await setPersistence(auth, browserSessionPersistence).then(
       async () => {
         return await signInWithEmailAndPassword(auth, email, password)
-          .then((res) => {
+          .then(res => {
             toHome(res.user.uid, {
-              title: "Success",
-              status: "success",
-              text: "Login succeeded.",
-            });
+              title: 'Success',
+              status: 'success',
+              text: 'Login succeeded.'
+            })
           })
-          .catch((e) => {
-            setError(e instanceof Error ? e : Error("unecpected error!"));
+          .catch(e => {
+            setError(e instanceof Error ? e : Error('unecpected error!'))
             toRedirect({
-              title: "Error",
-              status: "error",
-              text: "Login failed.",
-              strong: error?.message,
-            });
+              title: 'Error',
+              status: 'error',
+              text: 'Login failed.',
+              strong: error?.message
+            })
           })
           .finally(() => {
-            setLoading(false);
-          });
+            setLoading(false)
+          })
       }
-    );
-  };
+    )
+  }
 
   return {
     signIn,
     loading,
-    error,
-  };
+    error
+  }
 }
