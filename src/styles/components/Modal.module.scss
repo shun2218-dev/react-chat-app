@@ -1,3 +1,4 @@
+/* stylelint-disable scss/no-global-function-names */
 @use '../config/variables' as var;
 @use '../config/mixin' as mix;
 
@@ -95,8 +96,8 @@
   @media screen and (max-width: 600px) {
     gap: 30px;
   }
-  @include mix.hover-color(color.adjust(var.$white, 20)) {
-    background-color: color.adjust(var.$black, 20);
+  @include mix.hover-color(lighten(var.$white, 20)) {
+    background-color: lighten(var.$black, 20);
 
     & img {
       opacity: 0.6;
@@ -119,6 +120,6 @@
 
 .contentbox {
   padding: 20px;
-  background-color: rgb(color.adjust(var.$black, 20) 0.3);
+  background-color: rgb(lighten(var.$black, 20) 0.3);
   border-radius: 6px;
 }
