@@ -1,6 +1,7 @@
 @use "../config//variables" as var;
 
 .form {
+  margin-top: 100px;
   box-sizing: border-box;
   background-color: var.$navy;
   padding: 30px;
@@ -10,6 +11,12 @@
   gap: 20px;
   max-width: 100%;
   border-radius: 6px;
+  @media screen and (max-width: 600px) {
+    padding: 20px;
+  }
+  @media screen and (max-width: 400px) {
+    padding: 15px;
+  }
 }
 
 .title {
@@ -22,5 +29,8 @@
   @media screen and (max-width: 1000px) {
     font-size: 1.2rem;
     max-width: 250px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
   }
 }

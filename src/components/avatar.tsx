@@ -4,13 +4,13 @@ import React, {
   Dispatch,
   SetStateAction,
   CSSProperties,
+  useEffect,
+  useState,
 } from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useParams } from "react-router-dom";
-import { usePage } from "@/hooks/usePage";
 import { useAuthUser } from "@/atoms/useAuthUser";
-import { useEffect } from "react";
-import { useState } from "react";
+import { usePage } from "@/hooks/usePage";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Skeleton } from "@mui/material";
 import styles from "@/styles/components/Avatar.module.scss";
 
@@ -21,6 +21,7 @@ type Avatar = {
   header?: boolean;
   chat?: boolean;
   storageRef?: string;
+  profile?: boolean;
 };
 
 const Avatar: FC<Avatar> = ({
@@ -30,6 +31,7 @@ const Avatar: FC<Avatar> = ({
   header = false,
   chat = false,
   storageRef,
+  profile = false,
 }) => {
   const { uid } = useParams();
   const { toProfile } = usePage();
@@ -72,7 +74,7 @@ const Avatar: FC<Avatar> = ({
               src={storageRef}
               alt=""
               style={imageStyle}
-              className={styles.avatar}
+              className={`${styles.avatar} ${profile && styles.profile}`}
             />
           ) : (
             <Skeleton variant="circular" width={size} height={size} />
@@ -82,14 +84,14 @@ const Avatar: FC<Avatar> = ({
             src={URL.createObjectURL(state)}
             alt=""
             style={imageStyle}
-            className={styles.avatar}
+            className={`${styles.avatar} ${profile && styles.profile}`}
           />
         ) : url !== null ? (
           <img
             src={url}
             alt=""
             style={imageStyle}
-            className={styles.avatar}
+            className={`${styles.avatar} ${profile && styles.profile}`}
             onClick={() => header && toProfile(uid!)}
           />
         ) : (

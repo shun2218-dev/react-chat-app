@@ -1,15 +1,16 @@
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useFlashMessage } from "@/hooks/useFlashMessage";
+import { useCreateGroup } from "@/hooks/useCreateGroup";
+import { usePage } from "@/hooks/usePage";
+import utilStyles from "@/styles/utils/utils.module.scss";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 import Form from "@/components/form";
 import Input from "@/components/input";
 import TextArea from "@/components/textArea";
 import Button from "@/components/button";
-import { useParams } from "react-router-dom";
-import { useFlashMessage } from "@/hooks/useFlashMessage";
-import { useCreateGroup } from "@/hooks/useCreateGroup";
 import FlashMessage from "@/components/flashMessage";
-import { usePage } from "@/hooks/usePage";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import styles from "@/styles/pages/Create.module.scss";
 
 const Create = () => {
   const [desc, setDesc] = useState("");
@@ -43,7 +44,7 @@ const Create = () => {
         <img
           src={URL.createObjectURL(image)}
           alt=""
-          className={styles.avatar}
+          className={utilStyles.avatar}
         />
       );
     } else {

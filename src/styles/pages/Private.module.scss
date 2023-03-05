@@ -7,10 +7,11 @@
   box-sizing: border-box;
   width: 75%;
   padding: 25px;
-  max-height: calc(100% - (107px + 83px));
+  max-height: calc(100% - (118px + 92px));
   overflow-y: auto;
   @media screen and (max-width: 1000px) {
     width: calc(100% - 90px);
+    max-height: calc(100% - (118px + 82px));
   }
   @media screen and (max-width: 600px) {
     width: calc(100% - 70px);
@@ -30,5 +31,8 @@
   white-space: pre-wrap;
   @media screen and (max-width: 1000px) {
     font-size: 0.8rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
   }
 }

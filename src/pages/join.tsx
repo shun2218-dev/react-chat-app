@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Form from "@/components/form";
 import { db } from "@/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import styles from "@/styles/pages/Join.module.scss";
 import utilStyles from "@/styles/utils/utils.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useParams } from "react-router-dom";
+import Form from "@/components/form";
 
 type Groups = {
   id: string;
@@ -51,7 +51,7 @@ const Join = () => {
                 alt={groupName}
                 className={utilStyles.avatar}
               />
-              <p>{groupName}</p>
+              <p className={styles.name}>{groupName}</p>
             </li>
           ))
         ) : loading ? (

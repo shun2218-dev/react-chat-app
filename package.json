@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "tsc && vite build && firebase deploy",
+    "test-ct": "playwright test -c playwright-ct.config.ts",
+    "test": "playwright test && playwright show-report",
+    "snapshot-test": "playwright test --update-snapshots && playwright show-report",
+    "test-codegen": "playwright codegen https://chat-app-4a684.web.app/"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -24,10 +29,13 @@
     "sass": "^1.55.0"
   },
   "devDependencies": {
+    "@playwright/experimental-ct-react": "^1.27.1",
+    "@playwright/test": "^1.27.1",
     "@types/express": "^4.17.14",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.1",
+    "playwright-cli": "^0.180.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.7"
   }

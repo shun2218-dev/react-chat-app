@@ -10,6 +10,7 @@
   background-color: var.$navy;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 20px;
   @media screen and (max-width: 1000px) {
     width: calc(100% - 90px);
@@ -27,16 +28,21 @@
   width: 40%;
   height: 20px;
   color: var.$white;
+  padding-bottom: 10px;
   @media screen and (max-width: 1000px) {
     height: 10px;
   }
 }
 
 .button {
+  box-sizing: border-box;
   background-color: transparent;
   height: 15px;
   width: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 600px) {
+    width: 14px;
+  }
 }

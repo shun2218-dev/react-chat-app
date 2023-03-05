@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePage } from "@/hooks/usePage";
-import Modal from "./modal";
-import Button from "./button";
+import { useAuthUser } from "@/atoms/useAuthUser";
 import styles from "@/styles/components/Modal.module.scss";
+import utilStyles from "@/styles/utils/utils.module.scss";
 import { db } from "@/firebase";
 import {
   collection,
@@ -15,16 +15,18 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { getUserInfo } from "@/lib/getUserInfo";
-import { useAuthUser } from "@/atoms/useAuthUser";
-import { CustomModal } from "@/types/CustomModal";
 import { informationMessage } from "@/lib/infomationMessage";
-import utilStyles from "@/styles/utils/utils.module.scss";
+import { CustomModal } from "@/types/CustomModal";
+
+import Modal from "./modal";
+import Button from "./button";
 
 const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   const authUser = useAuthUser();
   const { uid, groupid } = useParams();
   const { toJoin } = usePage();
   const [groupInfo, setGroupInfo] = useState<DocumentData>({});
+  const [profileEmpty, setProfileEmpty] = useState(false);
 
   const invitationCheck = async (uid: string, groupid: string) => {
     const inviteRef = collection(db, "groups", groupid, "invitations");
@@ -52,6 +54,14 @@ const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
   };
 
   useEffect(() => {
+    if (!authUser?.displayName || !authUser.photoURL) {
+      setProfileEmpty(true);
+    } else {
+      setProfileEmpty(false);
+    }
+  }, [groupInfo]);
+
+  useEffect(() => {
     if (groupid) {
       const groupRef = doc(db, "groups", groupid!);
       getDoc(groupRef).then((docSnapshot) => {
@@ -62,41 +72,48 @@ const JoinModal: FC<CustomModal> = ({ open, modalToggle }) => {
     }
   }, []);
   return (
-    <Modal title="Join this group?" open={open}>
-      {groupInfo && (
-        <>
-          <img src={groupInfo.photoURL} alt="" className={utilStyles.avatar} />
-          <div>
-            <p className={styles.contentTitle}>Group name</p>
-            <div className={styles.contentBox}>{groupInfo.groupName}</div>
-          </div>
-          <div>
-            <p className={styles.contentTitle}>Description</p>
-            <div className={styles.contentBox}>{groupInfo.description}</div>
-          </div>
-        </>
-      )}
-      <div className={`${styles.modalButton} ${styles.row}`}>
-        <Button
-          type="button"
-          color="primary"
-          variant="contained"
-          onClick={() => joinGroup(groupid!, uid!)}
-          fullWidth
-        >
-          Yes
-        </Button>
-        <Button
-          type="button"
-          color="transparent"
-          variant="outlined"
-          onClick={() => toJoin(uid!)}
-          fullWidth
-        >
-          No
-        </Button>
-      </div>
-    </Modal>
+    <>
+      <Modal title="Join this group?" open={open} error={profileEmpty}>
+        {groupInfo && (
+          <>
+            <img
+              src={groupInfo.photoURL}
+              alt=""
+              className={utilStyles.avatar}
+            />
+            <div>
+              <p className={styles.contentTitle}>Group name</p>
+              <div className={styles.contentBox}>{groupInfo.groupName}</div>
+            </div>
+            <div>
+              <p className={styles.contentTitle}>Description</p>
+              <div className={styles.contentBox}>{groupInfo.description}</div>
+            </div>
+          </>
+        )}
+        <div className={`${styles.modalButton} ${styles.row}`}>
+          <Button
+            type="button"
+            color="primary"
+            variant="contained"
+            onClick={() => joinGroup(groupid!, uid!)}
+            fullWidth
+            disabled={profileEmpty}
+          >
+            Yes
+          </Button>
+          <Button
+            type="button"
+            color="transparent"
+            variant="outlined"
+            onClick={() => toJoin(uid!)}
+            fullWidth
+          >
+            No
+          </Button>
+        </div>
+      </Modal>
+    </>
   );
 };
 

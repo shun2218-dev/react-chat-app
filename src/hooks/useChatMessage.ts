@@ -78,7 +78,6 @@ export const useChatMessage = (group: boolean = false) => {
             });
             setDataLoading(false);
           } else {
-            console.log("not exist");
             setDataLoading(false);
           }
         });

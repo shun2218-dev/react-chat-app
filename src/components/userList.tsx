@@ -1,7 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState, memo } from "react";
+import { useAuthUser } from "@/atoms/useAuthUser";
+import { usePage } from "@/hooks/usePage";
+import { useParams } from "react-router-dom";
 import styles from "@/styles/components/UserList.module.scss";
 import utilStyles from "@/styles/utils/utils.module.scss";
-import { useEffect } from "react";
 import {
   collection,
   DocumentData,
@@ -9,10 +11,8 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "@/firebase";
-import { useAuthUser } from "@/atoms/useAuthUser";
-import { usePage } from "@/hooks/usePage";
-import { useParams } from "react-router-dom";
-import { memo } from "react";
+
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Button from "./button";
 import JoinModal from "./joinModal";
 import ExitModal from "./exitModal";
@@ -132,35 +132,50 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
         setCancelId={setCancelId}
       />
       <div className={styles.container}>
-        <ul className={`${styles.userList} ${groupid && styles.group}`}>
-          <li className={styles.listTitle}>{group ? "Members" : "Users"}</li>
-          {users.length ? (
-            users.map((user) => (
-              <li
-                key={user.id}
-                className={`${styles.user} ${
-                  partnerid === user.id ? styles.active : styles.passive
-                } ${group && styles.active}`}
-                onClick={() => {
-                  !group && toPrivateRoom(authUser?.uid!, user.id);
-                }}
-              >
-                <img
-                  src={user.data().photoURL}
-                  alt=""
-                  className={utilStyles.avatar}
-                />
-                <p>{user.data().displayName}</p>
-              </li>
-            ))
-          ) : (
-            <div className={styles.loading}>...loading</div>
-          )}
+        <p className={styles.listTitle}>{group ? "Members" : "Users"}</p>
+        <ul className={styles.memberList}>
+          <ul className={`${styles.userList} ${groupid && styles.group}`}>
+            {users.length ? (
+              users.map((user) => (
+                <li
+                  key={user.id}
+                  className={`${styles.user} ${
+                    partnerid === user.id ? styles.active : styles.passive
+                  } ${group && styles.active}`}
+                  onClick={() => {
+                    !group && toPrivateRoom(authUser?.uid!, user.id);
+                  }}
+                >
+                  {user.data().photoURL ? (
+                    <img
+                      src={user.data().photoURL}
+                      alt=""
+                      className={utilStyles.avatar}
+                    />
+                  ) : (
+                    <AccountCircleIcon
+                      sx={{
+                        width: 60,
+                        height: 60,
+                        "@media screen and (max-width:1000px)": {
+                          width: 40,
+                          height: 40,
+                        },
+                      }}
+                    />
+                  )}
+                  <p>{user.data().displayName ?? "Unknown"}</p>
+                </li>
+              ))
+            ) : (
+              <div className={styles.loading}>loading...</div>
+            )}
+          </ul>
 
           {group && (
             <>
-              <ul className={styles.userList}>
-                <li className={styles.listTitle}>{"Invitation"}</li>
+              <li className={styles.listTitle}>{"Invitation"}</li>
+              <ul className={`${styles.userList} ${styles.invite}`}>
                 {inviteLists.length ? (
                   inviteLists.map((inviteList) => (
                     <li
@@ -180,9 +195,7 @@ const UserList = memo(({ group = false }: { group?: boolean }) => {
                     </li>
                   ))
                 ) : (
-                  <div
-                    className={`${utilStyles.textCenter} ${utilStyles.text}`}
-                  >
+                  <div className={`${utilStyles.textCenter}  ${styles.nobody}`}>
                     Nobody invited
                   </div>
                 )}

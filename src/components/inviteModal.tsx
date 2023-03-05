@@ -1,4 +1,3 @@
-import { CustomModal } from "@/types/CustomModal";
 import React, {
   ChangeEvent,
   FC,
@@ -8,14 +7,16 @@ import React, {
   useState,
 } from "react";
 import { useParams } from "react-router-dom";
-import Button from "./button";
-import Modal from "./modal";
 import styles from "@/styles/components/Modal.module.scss";
 import utilStyles from "@/styles/utils/utils.module.scss";
-import { getUserInfo } from "@/lib/getUserInfo";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/firebase";
 import { informationMessage } from "@/lib/infomationMessage";
+import { getUserInfo } from "@/lib/getUserInfo";
+import { db } from "@/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { CustomModal } from "@/types/CustomModal";
+
+import Button from "./button";
+import Modal from "./modal";
 
 const InviteModal: FC<CustomModal> = memo(
   ({ open, modalToggle, inviteUsers, inviteIds, setInviteIds }) => {
@@ -25,9 +26,10 @@ const InviteModal: FC<CustomModal> = memo(
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+
       if (inviteIds!.length !== 0) {
-        setLoading(true);
         inviteIds!.forEach(async (invite) => {
+          setLoading(true);
           const inviteRef = doc(db, "groups", groupid!, "invitations", invite!);
           await getUserInfo(invite!).then(async (user) => {
             await setDoc(inviteRef, user).then(onClose);
@@ -38,7 +40,6 @@ const InviteModal: FC<CustomModal> = memo(
           await informationMessage(uid!, groupid!, "invited", targetIds);
         });
       }
-      setLoading(false);
     };
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +66,7 @@ const InviteModal: FC<CustomModal> = memo(
         modalToggle("invite");
         setInviteIds([]);
         setTargetIds([]);
+        setLoading(false);
       }
     }, [open]);
 
@@ -118,6 +120,7 @@ const InviteModal: FC<CustomModal> = memo(
             variant="filled"
             fullWidth
             onClick={onClose}
+            disabled={loading}
           >
             Cancel
           </Button>

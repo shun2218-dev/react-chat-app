@@ -1,10 +1,10 @@
 import React, { FormEvent, useRef } from "react";
-import Button from "@/components/button";
-import Form from "@/components/form";
-import Header from "@/components/header";
-import Input from "@/components/input";
 import { usePage } from "@/hooks/usePage";
 import { usePasswordReset } from "@/hooks/usePasswordReset";
+
+import Button from "@/components/button";
+import Form from "@/components/form";
+import Input from "@/components/input";
 import MailIcon from "@/Icons/mailIcon";
 import ResetIcon from "@/Icons/resetIcon";
 
@@ -21,9 +21,8 @@ const Reset = () => {
   };
   return (
     <>
-      <Header />
       <Form
-        title="Enter your Email address"
+        title="Enter your Email"
         secondTitle="to reset your password."
         onSubmit={onSubmit}
         startIcon={<MailIcon title />}

@@ -1,20 +1,23 @@
-import React, { FC, useCallback } from "react";
-import { CustomModal } from "@/types/CustomModal";
-import Modal from "./modal";
-import styles from "@/styles/components/Modal.module.scss";
+import React, { FC, useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
-import Button from "./button";
-import { NavigationState } from "@/types/NavigationState";
+import { usePage } from "@/hooks/usePage";
+import styles from "@/styles/components/Modal.module.scss";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase";
-import { usePage } from "@/hooks/usePage";
+import { NavigationState } from "@/types/NavigationState";
+import { CustomModal } from "@/types/CustomModal";
 import { informationMessage } from "@/lib/infomationMessage";
+
+import Button from "./button";
+import Modal from "./modal";
 
 const ExitModal: FC<CustomModal> = ({ open, modalToggle }) => {
   const { uid, groupid } = useParams();
   const { toHome } = usePage();
+  const [loading, setLoading] = useState(false);
 
   const exitGroup = useCallback(async (groupid: string, uid: string) => {
+    setLoading(true);
     const flashMessage = {
       title: "Success",
       status: "success",
@@ -23,8 +26,11 @@ const ExitModal: FC<CustomModal> = ({ open, modalToggle }) => {
     await deleteDoc(doc(db, "groups", groupid, "members", uid))
       .then(() => toHome(uid!, flashMessage))
       .then(async () => {
-        await informationMessage(uid, groupid, "existed");
-      });
+        await informationMessage(uid, groupid, "existed").then(() =>
+          setLoading(false)
+        );
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -36,6 +42,7 @@ const ExitModal: FC<CustomModal> = ({ open, modalToggle }) => {
           variant="contained"
           onClick={() => exitGroup(groupid!, uid!)}
           fullWidth
+          disabled={loading}
         >
           Yes
         </Button>
@@ -45,6 +52,7 @@ const ExitModal: FC<CustomModal> = ({ open, modalToggle }) => {
           variant="outlined"
           onClick={() => modalToggle("exit")}
           fullWidth
+          disabled={loading}
         >
           No
         </Button>

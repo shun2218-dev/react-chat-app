@@ -2,14 +2,20 @@
 @use "../config/mixin" as mix;
 
 .groupList {
-  height: 400px;
+  max-height: 80%;
+  height: 330px;
   overflow-y: auto;
   width: 600px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
   @media screen and (max-width: 1000px) {
     width: 360px;
   }
   @media screen and (max-width: 600px) {
     width: 310px;
+  }
+  @media screen and (max-width: 400px) {
+    width: 280px;
   }
 }
 
@@ -27,5 +33,18 @@
   }
   @include mix.hoverColor(lighten(var.$white, 20)) {
     background-color: lighten(var.$black, 20);
+  }
+  @media screen and (max-width: 600px) {
+    padding: 5px 15px;
+  }
+}
+
+.name {
+  font-size: 1rem;
+  @media screen and (max-width: 1000px) {
+    font-size: 0.8rem;
+  }
+  @media screen and (max-width: 400px) {
+    font-size: 0.6rem;
   }
 }

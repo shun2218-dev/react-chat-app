@@ -31,3 +31,12 @@
     width: 250px;
   }
 }
+.nextLogo {
+  width: 150px;
+  @media screen and (max-width: 1000px) {
+    width: 120px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 80px;
+  }
+}

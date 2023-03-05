@@ -24,8 +24,12 @@ export const usePage = () => {
     navigate("/reset/complete", { state });
   };
 
-  const toProfile = (uid: String) => {
-    navigate(`/${uid}/profile`);
+  const toProfile = (uid: String, state?: NavigationState) => {
+    if (state) {
+      navigate(`/${uid}/profile`, { state });
+    } else {
+      navigate(`/${uid}/profile`);
+    }
   };
 
   const toHome = (uid: String, state?: NavigationState) => {

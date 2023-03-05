@@ -1,23 +1,26 @@
-import React, { FC, memo, useEffect, useState } from "react";
+import React, { FC, memo, useEffect, useState, lazy } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "@/firebase";
 import { deleteDoc, doc, DocumentData } from "firebase/firestore";
-import { CustomModal } from "@/types/CustomModal";
-import Button from "./button";
-import Modal from "./modal";
 import styles from "@/styles/components/Modal.module.scss";
 import { getUserInfo } from "@/lib/getUserInfo";
-import Avatar from "./avatar";
 import { informationMessage } from "@/lib/infomationMessage";
+import { CustomModal } from "@/types/CustomModal";
+
+import Button from "./button";
+import Modal from "./modal";
+import Avatar from "./avatar";
 
 const CancelModal: FC<CustomModal> = memo(
   ({ open, modalToggle, cancelId, setCancelId }) => {
     const { uid, groupid } = useParams();
     const [user, setUser] = useState<DocumentData>();
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = async () => {
       if (cancelId && setCancelId) {
         const inviteRef = doc(db, "groups", groupid!, "invitations", cancelId);
+        setLoading(true);
         await deleteDoc(inviteRef)
           .then(onClose)
           .then(
@@ -31,6 +34,7 @@ const CancelModal: FC<CustomModal> = memo(
       if (setCancelId) {
         modalToggle("cancel");
         setCancelId("");
+        setLoading(false);
         setUser(undefined);
       }
     };
@@ -40,7 +44,6 @@ const CancelModal: FC<CustomModal> = memo(
         getUserInfo(cancelId).then((userInfo) => {
           setUser(userInfo);
         });
-        console.log(user);
       }
     }, [cancelId]);
 
@@ -58,6 +61,7 @@ const CancelModal: FC<CustomModal> = memo(
             color="primary"
             variant="contained"
             onClick={onSubmit}
+            disabled={loading}
           >
             Yes
           </Button>
@@ -66,6 +70,7 @@ const CancelModal: FC<CustomModal> = memo(
             color="transparent"
             variant="outlined"
             onClick={onClose}
+            disabled={loading}
           >
             No
           </Button>

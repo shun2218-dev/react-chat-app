@@ -19,7 +19,6 @@ export function useSignUp() {
     setLoading(true);
     return await createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        console.log("signed up!");
         const {
           user: { uid, email },
         } = res;

@@ -1,6 +1,5 @@
-import React, { RefObject } from "react";
+import React, { RefObject, forwardRef } from "react";
 import styles from "@/styles/components/Input.module.scss";
-import { forwardRef } from "react";
 
 type Input = {
   type?: "text" | "email" | "password";

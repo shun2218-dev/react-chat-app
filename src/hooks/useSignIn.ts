@@ -19,7 +19,6 @@ export function useSignIn() {
       async () => {
         return await signInWithEmailAndPassword(auth, email, password)
           .then((res) => {
-            console.log("signed in!");
             toHome(res.user.uid, {
               title: "Success",
               status: "success",

@@ -1,16 +1,17 @@
 import React, { FormEvent, Fragment, useState } from "react";
-import UserList from "@/components/userList";
 import { useParams } from "react-router-dom";
-import styles from "@/styles/pages/Private.module.scss";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { useChatMessage } from "@/hooks/useChatMessage";
 import { db } from "@/firebase";
+import { formatDate } from "@/lib/formatDate";
+import isCreatedRoom from "@/lib/private/isCreatedRoom";
+import styles from "@/styles/pages/Private.module.scss";
+import CircularProgress from "@mui/material/CircularProgress";
+
+import UserList from "@/components/userList";
 import ChatMessage from "@/components/chatMessage";
 import MessageDate from "@/components/messageDate";
-import isCreatedRoom from "@/lib/private/isCreatedRoom";
-import { formatDate } from "@/lib/formatDate";
-import CircularProgress from "@mui/material/CircularProgress";
 import MessageInput from "@/components/messageInput";
-import { useChatMessage } from "@/hooks/useChatMessage";
 import NotFoundIcon from "@/Icons/notFoundIcon";
 
 const Private = () => {
@@ -35,15 +36,12 @@ const Private = () => {
       setChatRoom(roomid);
       setRoomExist(exist);
       if (exist) {
-        console.log("room is exist");
         const roomRef = collection(db, "rooms", `${roomid}`, "messages");
         await addDoc(roomRef, {
           message,
           from: uid,
           createdAt: serverTimestamp(),
         });
-      } else {
-        console.log("room is created");
       }
       setLoading(false);
       setMessage("");
@@ -63,11 +61,12 @@ const Private = () => {
           chatMessages.map((doc, index) => {
             if (doc.createdAt !== null) {
               const targetDate = formatDate(doc);
+              const isLastMessage = chatMessages.length - 1 === index;
               if (index === 0) {
                 return (
                   <Fragment key={doc.id}>
                     <MessageDate {...targetDate} />
-                    <ChatMessage {...doc} />
+                    <ChatMessage {...doc} isLastMessage={isLastMessage} />
                   </Fragment>
                 );
               } else {
@@ -76,12 +75,18 @@ const Private = () => {
                   preDate.month === targetDate.month &&
                   preDate.day === targetDate.day
                 ) {
-                  return <ChatMessage key={doc.id} {...doc} />;
+                  return (
+                    <ChatMessage
+                      key={doc.id}
+                      {...doc}
+                      isLastMessage={isLastMessage}
+                    />
+                  );
                 } else {
                   return (
                     <Fragment key={doc.id}>
                       <MessageDate {...targetDate} />
-                      <ChatMessage {...doc} />
+                      <ChatMessage {...doc} isLastMessage={isLastMessage} />
                     </Fragment>
                   );
                 }

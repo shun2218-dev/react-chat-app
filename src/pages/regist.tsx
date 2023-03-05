@@ -1,21 +1,23 @@
-import React, { FormEvent, useRef } from "react";
-import Button from "@/components/button";
-import Form from "@/components/form";
-import Header from "@/components/header";
-import Input from "@/components/input";
+import React, { FormEvent, useEffect, useRef } from "react";
 import styles from "@/styles/pages/Regist.module.scss";
 import { usePage } from "@/hooks/usePage";
 import { useSignUp } from "@/hooks/useSignUp";
+
+import Button from "@/components/button";
+import Form from "@/components/form";
+import Input from "@/components/input";
 import SignUpIcon from "@/Icons/signUpIcon";
 import SignInIcon from "@/Icons/signInIcon";
 import CheckInIcon from "@/Icons/checkInIcon";
+import { useAuthUser } from "@/atoms/useAuthUser";
 
 const Regist = () => {
-  const { toLogin } = usePage();
+  const { toLogin, toHome } = usePage();
   const { signUp, loading, error } = useSignUp();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfirmationRef = useRef<HTMLInputElement>(null);
+  const authUser = useAuthUser();
 
   const passwordValidate = (password: string, passwordConfirmation: string) => {
     if (password === passwordConfirmation) {
@@ -36,9 +38,14 @@ const Regist = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (authUser?.uid) {
+      toHome(authUser.uid);
+    }
+  }, [authUser?.uid]);
   return (
     <>
-      <Header />
       <Form
         title="Sign Up"
         onSubmit={onSubmit}
@@ -71,8 +78,9 @@ const Regist = () => {
           variant="contained"
           fullWidth
           height="52px"
-          margin="30px 0 0"
+          margin="20px 0 0"
           startIcon={<CheckInIcon />}
+          disabled={loading}
         >
           Sign Up
         </Button>

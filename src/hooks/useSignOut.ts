@@ -9,9 +9,7 @@ export function useSignOut() {
   const signOut = async () => {
     setLoading(true);
     return await _signOut(auth)
-      .then(() => {
-        console.log("signed out!");
-      })
+      .then(() => {})
       .catch((e) => {
         setError(e instanceof Error ? e : Error("unecpected error!"));
       })
