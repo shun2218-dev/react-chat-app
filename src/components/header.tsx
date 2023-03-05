@@ -18,7 +18,7 @@ const Header = () => {
   const {pathname} = useLocation()
   const {signOut, loading} = useSignOut()
 
-  const logoNavigate = (authUser: AuthUser) => {
+  const logoNavigate = (authUser: AuthUser | null) => {
     if (authUser) {
       if (!authUser.displayName || !authUser.photoURL) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -59,7 +59,8 @@ const Header = () => {
                   src={authUser.photoURL}
                   alt=''
                   className={styles.avatar}
-                  onClick={() => toProfile(authUser.uid)}
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  onClick={() => toProfile(authUser.uid!)}
                 />
               ) : (
                 <AccountCircleIcon
@@ -71,7 +72,8 @@ const Header = () => {
                       height: 40
                     }
                   }}
-                  onClick={() => toProfile(authUser.uid)}
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  onClick={() => toProfile(authUser.uid!)}
                 />
               )}
               <Button
