@@ -1,3 +1,5 @@
+/* stylelint-disable color-function-notation */
+/* stylelint-disable scss/no-global-function-names */
 @use '../config/variables' as var;
 @use '../config/mixin' as mix;
 
@@ -11,7 +13,7 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(var.$gray 0.4);
+  background-color: rgba(var.$gray, 0.4);
 }
 
 .modalbody {
@@ -95,8 +97,8 @@
   @media screen and (max-width: 600px) {
     gap: 30px;
   }
-  @include mix.hover-color(color.adjust(var.$white, 20)) {
-    background-color: color.adjust(var.$black, 20);
+  @include mix.hover-color(lighten(var.$white, 20)) {
+    background-color: lighten(var.$black, 20);
 
     & img {
       opacity: 0.6;
@@ -119,6 +121,6 @@
 
 .contentbox {
   padding: 20px;
-  background-color: rgb(color.adjust(var.$black, 20) 0.3);
+  background-color: rgba(lighten(var.$black, 20), 0.3);
   border-radius: 6px;
 }

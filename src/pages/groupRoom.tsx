@@ -52,7 +52,11 @@ const GroupRoom = () => {
                 return (
                   <Fragment key={doc.id}>
                     <MessageDate {...targetDate} />
-                    <ChatMessage {...doc} isLastMessage={isLastMessage} />
+                    <ChatMessage
+                      {...doc}
+                      isLastMessage={isLastMessage}
+                      testId={'group-messages'}
+                    />
                   </Fragment>
                 )
               } else {
@@ -66,13 +70,18 @@ const GroupRoom = () => {
                       key={doc.id}
                       {...doc}
                       isLastMessage={isLastMessage}
+                      testId={'group-messages'}
                     />
                   )
                 } else {
                   return (
                     <Fragment key={doc.id}>
                       <MessageDate {...targetDate} />
-                      <ChatMessage {...doc} isLastMessage={isLastMessage} />
+                      <ChatMessage
+                        {...doc}
+                        isLastMessage={isLastMessage}
+                        testId={'group-messages'}
+                      />
                     </Fragment>
                   )
                 }

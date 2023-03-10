@@ -99,9 +99,7 @@ const JoinModal: FC<CustomModal> = ({open, modalToggle}) => {
             type='button'
             color='primary'
             variant='contained'
-            onClick={() =>
-              groupid !== null && uid !== null && joinGroup(groupid, uid)
-            }
+            onClick={() => !!groupid && !!uid && joinGroup(groupid, uid)}
             fullwidth
             disabled={profileEmpty}
           >
@@ -111,7 +109,7 @@ const JoinModal: FC<CustomModal> = ({open, modalToggle}) => {
             type='button'
             color='transparent'
             variant='outlined'
-            onClick={() => uid !== null && toJoin(uid)}
+            onClick={() => !!uid && toJoin(uid)}
             fullwidth
           >
             No

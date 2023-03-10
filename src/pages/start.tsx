@@ -67,7 +67,7 @@ const Start = () => {
           target='_blank'
           rel='noopener noreferrer'
         >
-          <img src={nextLogo} alt='Next Chat App' className={styles.nextLogo} />
+          <img src={nextLogo} alt='Next Chat App' className={styles.nextlogo} />
         </a>
       </Button>
     </div>

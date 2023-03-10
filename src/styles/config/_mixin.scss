@@ -1,3 +1,4 @@
+/* stylelint-disable scss/no-global-function-names */
 @mixin hover-color($color) {
   &:hover {
     color: $color;
@@ -15,7 +16,7 @@
 
 @mixin disabled-style($color) {
   &:disabled {
-    color: rgba($color: color.adjust($color, 20), $alpha: 50%);
+    color: rgba($color: lighten($color, 20), $alpha: 50%);
     @content;
   }
 }

@@ -31,13 +31,15 @@ const Home = () => {
       }
       <div className={styles.cardcontainer}>
         <Card
-          onClick={() => toPrivate(authUser?.uid)}
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+          onClick={() => toPrivate(authUser?.uid!)}
           startIcon={<PrivateIcon title />}
         >
           Private Chat
         </Card>
         <Card
-          onClick={() => toGroup(authUser?.uid)}
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+          onClick={() => toGroup(authUser?.uid!)}
           startIcon={<GroupIcon title />}
         >
           Group Chat
