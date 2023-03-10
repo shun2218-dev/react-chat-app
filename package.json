@@ -15,7 +15,6 @@
     "format": "prettier --write src/**/*.{ts,tsx}",
     "lint": "npm run lint:script && npm run lint:style",
     "lint:script": "npx eslint --fix src",
-    "lint:style": "npx stylelint --fix src**/*.scss",
     "fix": "npm run format && npm run lint"
   },
   "dependencies": {
@@ -50,12 +49,6 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "playwright-cli": "^0.180.0",
     "prettier": "^2.8.4",
-    "stylelint": "^15.2.0",
-    "stylelint-config-prettier": "^9.0.5",
-    "stylelint-config-recess-order": "^4.0.0",
-    "stylelint-config-standard": "^30.0.1",
-    "stylelint-config-standard-scss": "^7.0.1",
-    "stylelint-scss": "^4.4.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.7"
   }
