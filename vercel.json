@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "gs://chat-app-4a684.appspot.com/",
+      "source": " https://firebasestorage.googleapis.com/*",
 
       "headers": [
         {"key": "Access-Control-Allow-Credentials", "value": "true"},
