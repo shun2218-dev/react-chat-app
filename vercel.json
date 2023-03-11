@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": " https://firebasestorage.googleapis.com/*",
+      "source": " https://firebasestorage.googleapis.com/v0/b/456483435242/o",
 
       "headers": [
         {"key": "Access-Control-Allow-Credentials", "value": "true"},
