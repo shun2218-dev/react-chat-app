@@ -13,7 +13,7 @@ export default defineConfig({
   base: './',
   server: {
     cors: {
-      origin: 'https://firebasestorage.googleapis.com'
+      origin: ['https://react-chat-app-shun2218-dev.vercel.app/']
     }
   }
 })
