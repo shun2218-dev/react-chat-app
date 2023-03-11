@@ -66,7 +66,11 @@ const Private = () => {
                 return (
                   <Fragment key={doc.id}>
                     <MessageDate {...targetDate} />
-                    <ChatMessage {...doc} isLastMessage={isLastMessage} />
+                    <ChatMessage
+                      {...doc}
+                      isLastMessage={isLastMessage}
+                      testId={'private-messages'}
+                    />
                   </Fragment>
                 )
               } else {
@@ -80,13 +84,18 @@ const Private = () => {
                       key={doc.id}
                       {...doc}
                       isLastMessage={isLastMessage}
+                      testId={'private-messages'}
                     />
                   )
                 } else {
                   return (
                     <Fragment key={doc.id}>
                       <MessageDate {...targetDate} />
-                      <ChatMessage {...doc} isLastMessage={isLastMessage} />
+                      <ChatMessage
+                        {...doc}
+                        isLastMessage={isLastMessage}
+                        testId={'private-messages'}
+                      />
                     </Fragment>
                   )
                 }

@@ -1,6 +1,6 @@
 import {expect, test} from '@playwright/test'
 
-test('test for routing before sign in', async ({page}) => {
+test('Test for routing before sign in', async ({page}) => {
   await page.goto('https://chat-app-4a684.web.app/')
   await page.waitForTimeout(1500)
   await page.screenshot({path: 'tests/images/routing/screenshot-start.png'})

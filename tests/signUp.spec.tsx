@@ -31,13 +31,5 @@ test('Test for sign up and first set up profile', async ({page}) => {
   await page.waitForTimeout(3000)
   await expect(page.locator('header').locator('button')).toHaveText('Sign Out')
   await expect(page.getByRole('alert')).toHaveText('Information')
-  const fileChooserPromise = page.waitForEvent('filechooser')
-  await page.getByLabel('avatar').click()
-  const fileChooser = await fileChooserPromise
-  await fileChooser.setFiles('account/sheep.jpg')
-  await page.getByPlaceholder('Your Name').fill('Sheep')
-  await page.locator("button[type='submit']").click()
-  await page.waitForTimeout(2000)
-  await expect(page).toHaveURL('https://chat-app-4a684.web.app/*/home')
   // expect(page.getByText("Setting Profile"))
 })

@@ -24,7 +24,8 @@ const ChatMessageMemo: FC<Message> = ({
   message,
   info,
   status,
-  isLastMessage
+  isLastMessage,
+  testId
 }) => {
   const {uid} = useParams()
   const [userInfo, setUserInfo] = useState<Info>({
@@ -104,7 +105,11 @@ const ChatMessageMemo: FC<Message> = ({
           isLastMessage={isLastMessage}
         />
       ) : from === uid ? (
-        <ul className={`${styles.message} ${styles.own}`} ref={chatRef}>
+        <ul
+          className={`${styles.message} ${styles.own}`}
+          ref={chatRef}
+          data-testid={testId}
+        >
           <li className={styles.text}>
             <p className={styles.bubble}>{message}</p>
             {createdAt !== null && (
@@ -113,7 +118,11 @@ const ChatMessageMemo: FC<Message> = ({
           </li>
         </ul>
       ) : (
-        <ul className={`${styles.message} ${styles.partner}`} ref={chatRef}>
+        <ul
+          className={`${styles.message} ${styles.partner}`}
+          ref={chatRef}
+          data-testid={testId}
+        >
           <li className={styles.profile}>
             {userInfo.photoURL ? (
               <Avatar size={40} storageRef={userInfo.photoURL} chat />
