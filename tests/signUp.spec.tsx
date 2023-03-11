@@ -6,19 +6,19 @@ test('Test for sign up and first set up profile', async ({page}) => {
   await page.screenshot({path: 'tests/images/signUp/screenshot-regist.png'})
 
   await page.getByPlaceholder('Your Email').click()
-  await page.getByPlaceholder('Your Email').fill('userR@gmail.com')
+  await page.getByPlaceholder('Your Email').fill('sheep@gmail.com')
   await page.screenshot({
     path: 'tests/images/signUp/screenshot-afterInputEmail.png'
   })
 
   await page.getByRole('textbox', {name: 'Password'}).click()
-  await page.getByRole('textbox', {name: 'Password'}).fill('rrrrrr')
+  await page.getByRole('textbox', {name: 'Password'}).fill('sheepByPlaywright')
   await page.screenshot({
     path: 'tests/images/signUp/screenshot-afterInputPassword.png'
   })
 
   await page.getByPlaceholder('Password Confirmation').click()
-  await page.getByPlaceholder('Password Confirmation').fill('rrrrrr')
+  await page.getByPlaceholder('Password Confirmation').fill('sheepByPlaywright')
   await page.screenshot({
     path: 'tests/images/signUp/screenshot-afterInputConfirmation.png'
   })
